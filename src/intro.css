@@ -1,0 +1,88 @@
+/* Futuristic Intro Styles - imported separately to avoid touching large index.css */
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #071028 0%, #030216 45%, #000007 100%);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #cfe9ff;
+}
+
+.intro-neon-title {
+    font-size: clamp(2.8rem, 12vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -4px;
+    color: #bff6ff;
+    text-transform: uppercase;
+    text-shadow: 0 6px 30px rgba(166,240,255,0.08), 0 0 60px rgba(138,43,226,0.09), 0 0 8px rgba(166,240,255,0.6) inset;
+    z-index: 10001;
+    margin: 0 0 8px 0;
+}
+
+.intro-subtitle {
+    color: rgba(190,240,255,0.9);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    z-index: 10001;
+}
+
+.intro-grid, .intro-particles, .intro-scanline { pointer-events: none; position: absolute; inset: 0; z-index: 9999; }
+
+.intro-grid {
+    background-image: linear-gradient(transparent 85%, rgba(255,255,255,0.02) 100%), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 100% 40px, 40px 100%;
+    opacity: 0.65;
+    mix-blend-mode: overlay;
+}
+
+.intro-particles {
+    background-image: radial-gradient(rgba(166,240,255,0.04) 1px, transparent 1px), radial-gradient(rgba(138,43,226,0.02) 1px, transparent 1px);
+    background-size: 120px 120px, 60px 60px;
+    opacity: 0.25;
+}
+
+.intro-scanline {
+    left: -20%;
+    top: -30%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(180deg, transparent 0%, rgba(166,240,255,0.06) 50%, transparent 100%);
+    transform: skewX(-25deg);
+    animation: introScan 6s linear infinite;
+    z-index: 10000;
+}
+
+@keyframes introScan {
+    0% { transform: translateX(-120%) skewX(-25deg); opacity: 0; }
+    10% { opacity: 0.12; }
+    50% { transform: translateX(120%) skewX(-25deg); opacity: 0.5; }
+    100% { transform: translateX(260%) skewX(-25deg); opacity: 0; }
+}
+
+.btn-enter {
+    padding: 18px 56px;
+    border-radius: 999px;
+    border: 1px solid rgba(166,240,255,0.12);
+    background: linear-gradient(90deg, rgba(30,60,90,0.2), rgba(60,10,90,0.15));
+    color: #bff6ff;
+    font-weight: 900;
+    letter-spacing: 2px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 40px rgba(138,43,226,0.12);
+    z-index: 10001;
+}
+
+.btn-enter:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 90px rgba(138,43,226,0.22); }
+
+@media (max-width: 768px) {
+    .intro-neon-title { font-size: 3rem; }
+    .intro-subtitle { font-size: 0.95rem; }
+    .btn-enter { padding: 12px 36px; }
+}
+
+/* Hide the intro overlay when .intro-hidden is applied to body by JS */
+.intro-hidden .intro-overlay { display: none !important; }
