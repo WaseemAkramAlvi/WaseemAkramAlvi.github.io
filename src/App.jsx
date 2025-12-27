@@ -54,7 +54,7 @@ function App() {
       setTimeout(() => {
         setShowMainContent(true);
       }, 100);
-    }, 1600);
+    }, 900);
   };
 
   return (
