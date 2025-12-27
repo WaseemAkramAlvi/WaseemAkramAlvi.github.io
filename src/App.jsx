@@ -17,6 +17,9 @@ import Certifications from './components/sections/Certifications';
 import Projects from './components/sections/Projects';
 import Contact from './components/sections/Contact';
 
+// Particles
+import ParticlesBackground from './components/ParticlesBackground';
+
 import './index.css';
 
 function App() {
@@ -57,6 +60,7 @@ function App() {
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : ''}`}>
       <CustomCursor />
+      <ParticlesBackground />
       <AnimatePresence mode="wait">
 
         {!isLoaded && (
