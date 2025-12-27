@@ -1082,293 +1082,227 @@ body.dark-mode .cert-item span {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px) saturate(120%);
-    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 2200;
-    padding: 30px;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.cert-modal.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 .modal-content-wrapper {
-    width: min(1100px, 96%);
-    border-radius: 18px;
-    overflow: hidden;
+    width: min(900px, 95vw);
+    border-radius: 24px;
     position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cert-modal.show .modal-content-wrapper {
+    transform: scale(1);
 }
 
 .cert-modal .lightning-card {
     width: 100%;
-    max-width: 1100px;
-    border-radius: 18px;
-    position: relative;
+    background: #fff;
+    border-radius: 24px;
     overflow: hidden;
-    /* subtle diagonal pale-purple background to match sample */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 242, 255, 0.85) 45%, rgba(244, 233, 255, 0.75) 100%);
-    box-shadow: 0 30px 60px rgba(20, 20, 30, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
 }
 
-/* small rounded progress pill top-left like sample */
+/* Purple Pill Top-Left */
 .cert-modal .lightning-card::before {
     content: '';
     position: absolute;
-    left: 22px;
-    top: 18px;
-    width: 140px;
-    height: 12px;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #a37bff, #8a2be2);
-    box-shadow: 0 6px 14px rgba(138, 43, 226, 0.12);
-    z-index: 6;
-}
-
-/* subtle conic pivot highlight to mimic sample diagonal light */
-.cert-modal .lightning-card::before,
-.cert-modal .lightning-card::after {
-    transition: opacity 0.25s ease;
-}
-
-.cert-modal .lightning-card::after {
-    /* keep existing purple accent bar */
-}
-
-/* add diagonal pivot highlight */
-.cert-modal .lightning-card .diagonal-highlight {
-    content: '';
-    position: absolute;
-    right: -20%;
-    bottom: -30%;
-    width: 80%;
-    height: 80%;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, rgba(250, 240, 255, 0.35) 20%, rgba(138, 43, 226, 0.25) 40%, rgba(138, 43, 226, 0.45) 60%, rgba(138, 43, 226, 0.7) 100%);
-    transform: rotate(-25deg);
-    pointer-events: none;
-    z-index: 2;
-    mix-blend-mode: normal;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 6px;
+    background: #a855f7;
+    border-radius: 0 0 6px 0;
+    z-index: 10;
 }
 
 .cert-modal .card-content {
     display: flex;
-    flex-direction: row;
-    gap: 40px;
-    align-items: stretch;
-    padding: 40px 40px 56px 40px;
-    position: relative;
+    padding: 0;
+    min-height: 450px;
 }
 
+/* Left Side: Logo */
 .cert-badge-large {
-    width: 36%;
+    width: 40%;
+    background: linear-gradient(135deg, #fdfbfd 0%, #f4f4f5 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    padding: 10px 20px;
-}
-
-/* center logo above header area */
-.cert-badge-large {
+    position: relative;
+    border-right: 1px dashed rgba(168, 85, 247, 0.2);
+    /* Reset absolute from previous CSS */
+    top: auto;
+    left: auto;
+    transform: none;
     order: 0;
 }
 
 .cert-badge-large img,
-.cert-badge-large svg {
-    display: block;
-    margin: 10px auto 0 auto;
-}
-
-.cert-modal .card-content {
-    padding-top: 90px;
-}
-
-.cert-badge-large {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 18px;
-    width: auto;
-}
-
-.cert-details {
-    margin-top: 10px;
-    padding-left: 40px;
-}
-
-/* horizontal rule under title */
-.cert-details hr {
-    border: none;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.06);
-    margin: 8px 0 18px 0;
-}
-
-.cert-badge-large img,
 .cert-badge-large svg,
-.cert-badge-large .fa-icon {
+.cert-badge-large i {
     width: 120px;
     height: 120px;
-    object-fit: contain;
+    font-size: 80px;
     color: #8a2be2;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(138, 43, 226, 0.15));
+    margin: 0;
+    /* Clear previous margins */
 }
 
-.cert-modal .card-content h2,
-.cert-modal .card-content p,
-.cert-modal .card-content .small {
-    text-align: left;
+/* Right Side: Details */
+.cert-details {
+    padding: 40px;
+    width: 60%;
+    background: #fff;
+    overflow-y: auto;
+    margin: 0;
+    /* Reset margin */
 }
 
-.cert-modal .card-content h2 {
-    margin: 0 0 6px 0;
+.cert-details h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 5px;
 }
 
-.cert-modal .card-content .cert-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+.cert-details .lead {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 25px;
 }
 
-.cert-modal .cert-modal-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    display: grid;
-    place-items: center;
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 6px 18px rgba(138, 43, 226, 0.12);
+.cert-details hr {
+    display: none;
 }
 
-.cert-modal .cert-modal-close:hover {
-    background: rgba(255, 255, 255, 1);
-}
-
-/* Vertical dashed separator between logo and details */
-.cert-modal .card-content::before {
-    content: '';
-    width: 1px;
-    height: 60%;
-    border-right: 2px dashed rgba(138, 43, 226, 0.18);
-    position: absolute;
-    left: 36%;
-    top: 20%;
-}
-
-@media (max-width: 900px) {
-    .cert-modal .card-content {
-        flex-direction: column;
-        padding: 28px;
-    }
-
-    .cert-badge-large {
-        width: 100%;
-    }
-
-    .cert-modal .card-content::before {
-        display: none;
-    }
-}
-
-/* Purple rounded accent along bottom-right (subtle) */
-.cert-modal .lightning-card::after {
-    content: '';
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-    width: 180px;
-    height: 16px;
-    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.95));
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 8px;
-    transform: translateY(8px);
-    opacity: 0.95;
-    pointer-events: none;
-}
-
-/* certificate list item styling inside modal */
+/* Clean List Items */
 .cert-list {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
 }
 
-.cert-list .cert-item {
+.cert-item {
     display: flex;
-    gap: 18px;
     align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
 }
 
-/* white rounded square icon */
-.cert-list .cert-item .cert-badge {
-    min-width: 56px;
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
+.cert-item:hover {
+    background: #fcfaff;
+}
+
+.cert-item .cert-badge {
+    min-width: 40px;
+    height: 40px;
+    background: #f3e8ff;
+    /* Light purple bg */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9333ea;
+    font-size: 1.2rem;
+    box-shadow: none;
+    /* Reset */
+    border: none;
+    /* Reset */
+}
+
+.cert-text h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.cert-text p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+.cert-text .date {
+    color: #9333ea;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* Close Button */
+.cert-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: #f4f4f5;
+    border-radius: 50%;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s ease;
     display: grid;
     place-items: center;
-    background: #ffffff;
-    color: #8a2be2;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(138, 43, 226, 0.06);
 }
 
-.cert-list .cert-item .cert-badge i {
-    font-size: 24px;
-    color: #8a2be2;
+.cert-modal-close:hover {
+    background: #e4e4e7;
+    color: #000;
+    transform: rotate(90deg);
 }
 
-.cert-list .cert-text h5 {
-    margin: 0;
-    font-size: 1.05rem;
-    font-weight: 800;
-}
-
-.cert-list .cert-text p {
-    margin: 0;
-    color: #555;
-}
-
-.cert-list .cert-text .date {
-    color: #8a2be2;
-    font-weight: 700;
-    margin-top: 6px;
-}
-
-@media (max-width: 900px) {
-    .cert-list .cert-item {
-        gap: 12px;
-    }
-
-    .cert-badge-large img {
-        width: 96px;
-        height: 96px;
-    }
-}
-
-.section-title::after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 4px;
-    background: var(--primary-gradient);
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-/* Modal visibility control: hide by default, show when `.show` class applied */
-.cert-modal {
+/* Clean up previous pseudos */
+.cert-modal .lightning-card::after,
+.cert-modal .card-content::before,
+.cert-modal .lightning-card .diagonal-highlight {
     display: none;
-    pointer-events: none;
 }
 
-.cert-modal.show {
-    display: flex;
-    pointer-events: auto;
+@media (max-width: 768px) {
+    .cert-modal .card-content {
+        flex-direction: column;
+        min-height: auto;
+        padding-top: 0;
+    }
+
+    .cert-badge-large,
+    .cert-details {
+        width: 100%;
+        border-right: none;
+    }
+
+    .cert-badge-large {
+        padding: 40px 20px;
+        background: #fdfbfd;
+        border-bottom: 1px dashed rgba(168, 85, 247, 0.2);
+    }
+
+    .cert-details {
+        padding: 30px 20px;
+    }
 }
 
 /* Timeline */
