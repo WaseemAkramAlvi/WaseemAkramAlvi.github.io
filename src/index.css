@@ -1357,6 +1357,10 @@ body.dark-mode .cert-item span {
         padding: 15px 40px;
         font-size: 1.1rem;
     }
+
+    .floating-skills-wrapper {
+        display: none !important;
+    }
 }
 
 /* --- INTRO SCREEN "WA" DESIGN --- */
