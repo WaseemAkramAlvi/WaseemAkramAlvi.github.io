@@ -20,6 +20,9 @@ import Contact from './components/sections/Contact';
 // Particles
 import ParticlesBackground from './components/ParticlesBackground';
 
+// UI
+import FloatingActions from './components/ui/FloatingActions';
+
 import './index.css';
 
 function App() {
@@ -95,20 +98,7 @@ function App() {
       )}
 
       {/* Floating Action Buttons */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0, scale: isLoaded ? 1 : 0 }}
-        transition={{ delay: 1, type: "spring", stiffness: 200 }}
-      >
-        <a href={`https://wa.me/${portfolioData.personalInfo.phone.replace(/[\s\+]+/g, '')}?text=Hello%20Waseem%2C%20I%20would%20like%20to%20discuss%20a%20project%20with%20you.`}
-          target="_blank" className="whatsapp-button" title="Chat on WhatsApp">
-          <i className="fab fa-whatsapp"></i>
-        </a>
-
-        <button className="scroll-to-top" id="scrollToTop" title="Back to Top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <i className="fas fa-arrow-up"></i>
-        </button>
-      </motion.div>
+      <FloatingActions />
     </div>
   );
 }
