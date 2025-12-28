@@ -1348,6 +1348,12 @@ body.dark-mode .cert-item span {
     }
 }
 
+html,
+body {
+    overflow-x: hidden;
+    /* Strict overflow prevention */
+}
+
 @media (max-width: 576px) {
     .hero h1 {
         font-size: 1.9rem;
@@ -1364,9 +1370,28 @@ body.dark-mode .cert-item span {
 
     .tech-ticker-section {
         margin-top: -200px;
-        /* Move up to cover bottom of image */
         padding: 10px 0;
-        /* Reduce spacing */
+    }
+
+    /* Strict Mobile Adjustments */
+    .section-title {
+        font-size: 2rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+
+    .p-5 {
+        padding: 1.5rem !important;
+        /* Reduce large paddings */
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+        /* Bootstrap display-4 override */
     }
 }
 
