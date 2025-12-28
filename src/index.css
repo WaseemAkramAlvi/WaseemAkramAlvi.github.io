@@ -1361,6 +1361,13 @@ body.dark-mode .cert-item span {
     .floating-skills-wrapper {
         display: none !important;
     }
+
+    .tech-ticker-section {
+        margin-top: -200px;
+        /* Move up to cover bottom of image */
+        padding: 10px 0;
+        /* Reduce spacing */
+    }
 }
 
 /* --- INTRO SCREEN "WA" DESIGN --- */
