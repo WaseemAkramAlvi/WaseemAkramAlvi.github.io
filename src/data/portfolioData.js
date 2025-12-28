@@ -1,4 +1,5 @@
-faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faTwitter, faInstagram, faMicrosoft, faMeta, faGoogle, faWordpress
+import {
+  faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faTwitter, faInstagram, faMicrosoft, faMeta, faGoogle, faWordpress
 } from '@fortawesome/free-brands-svg-icons';
 import {
     faCode, faPaintBrush, faBrain, faChalkboardTeacher, faLaptopCode, faLayerGroup, faPalette, faEnvelope, faPhone, faMapMarkerAlt, faPaperPlane, faAward, faNetworkWired,
@@ -10,7 +11,7 @@ export const portfolioData = {
     personalInfo: {
         name: "Waseem Akram Alvi",
         title: "Instructor & IT Specialist",
-        description: "Passionate Instructor & IT Specialist with a strong background in Web Designing & Development, Graphics Designing, and MS Office Training. BS in Software Engineering with 7+ years of experience.",
+        description: "Passionate Instructor & IT Specialist with a strong background in Web Designing & Development, Graphics Designing, and MS Office Training. BS in Software Engineering with 7+ years of experience in training, development, and creative solutions.",
         email: "waseemgtti@gmail.com",
         phone: "+92 307 5579 807",
         location: "Rahim Yar Khan, Punjab, Pakistan",
