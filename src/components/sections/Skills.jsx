@@ -24,6 +24,13 @@ const Skills = () => {
         setSelectedSkillData(null);
     };
 
+    // Handle Escape Key
+    React.useEffect(() => {
+        function onKey(e) { if (e.key === 'Escape') closeSkillModal(); }
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, []);
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -63,47 +70,46 @@ const Skills = () => {
                 </div>
             </div>
 
-            {/* Detailed Skill Modal */}
-            <div className={`cert-modal ${skillModalOpen ? 'show skill-mode' : ''}`} aria-hidden={!skillModalOpen} onClick={(e) => { if (e.target === e.currentTarget) closeSkillModal(); }}>
+            {/* Detailed Skill Modal - Matched to Certifications Modal */}
+            <div className={`cert-modal ${skillModalOpen ? 'show' : ''}`} aria-hidden={!skillModalOpen} onClick={(e) => { if (e.target === e.currentTarget) closeSkillModal(); }}>
                 <div className="modal-content-wrapper">
                     <div className="lightning-card">
+                        <div className="diagonal-highlight" />
                         <button className="cert-modal-close" onClick={closeSkillModal} aria-label="Close modal">
                             <FontAwesomeIcon icon={faTimes} />
                         </button>
-                        <div className="card-content">
-                            <div className="row g-0 w-100 align-items-stretch">
-                                {/* Left Side: Brand/Icon */}
-                                <div className="col-md-4 d-flex flex-column align-items-center justify-content-center cert-badge-large border-end-md">
-                                    <div className="brand-logo text-center">
-                                        {selectedSkillData && (
-                                            <>
-                                                <div className="mb-3" style={{ color: 'var(--accent-color)', fontSize: '4rem' }}>
-                                                    <FontAwesomeIcon icon={selectedSkillData.icon} />
-                                                </div>
-                                                <h3 className="fw-bold brand-purple">{selectedSkillData.title}</h3>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
 
-                                {/* Right Side: List */}
-                                <div className="col-md-8">
-                                    <div className="cert-details h-100">
-                                        <h4 className="mb-4 fw-bold">Specialized Competencies</h4>
-                                        <div className="cert-list">
-                                            {selectedSkillData?.items?.map((item, idx) => (
-                                                <div key={idx} className="cert-item">
-                                                    <div className="cert-badge">
-                                                        <FontAwesomeIcon icon={item.icon} />
-                                                    </div>
-                                                    <div className="cert-text">
-                                                        <h5>{item.title}</h5>
-                                                        <p>{item.desc}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
+                        <div className="card-content p-5 text-left">
+                            {/* Modal Icon / Header Logo */}
+                            <div className="cert-badge-large mb-4 mx-auto" id="certIcon">
+                                {selectedSkillData && (
+                                    <div style={{ color: selectedSkillData.color || 'var(--accent-color)', fontSize: '5rem', display: 'flex', justifyContent: 'center' }}>
+                                        <FontAwesomeIcon icon={selectedSkillData.icon} />
                                     </div>
+                                )}
+                            </div>
+
+                            <div className="cert-details">
+                                <h2 className="fw-bold mb-3" id="certBrand">
+                                    {selectedSkillData ? selectedSkillData.title : 'Details'}
+                                </h2>
+                                <p className="lead opacity-75">
+                                    {selectedSkillData ? selectedSkillData.desc : ''}
+                                </p>
+                                <hr />
+
+                                <div className="cert-list">
+                                    {selectedSkillData?.items?.map((item, idx) => (
+                                        <div key={idx} className="cert-item">
+                                            <div className="cert-badge">
+                                                <FontAwesomeIcon icon={item.icon} />
+                                            </div>
+                                            <div className="cert-text">
+                                                <h5>{item.title}</h5>
+                                                <p>{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

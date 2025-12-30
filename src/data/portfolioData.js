@@ -1,5 +1,5 @@
 import {
-  faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faTwitter, faInstagram, faMicrosoft, faMeta, faGoogle, faWordpress
+    faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faTwitter, faInstagram, faMicrosoft, faMeta, faGoogle, faWordpress
 } from '@fortawesome/free-brands-svg-icons';
 import {
     faCode, faPaintBrush, faBrain, faChalkboardTeacher, faLaptopCode, faLayerGroup, faPalette, faEnvelope, faPhone, faMapMarkerAlt, faPaperPlane, faAward, faNetworkWired,
