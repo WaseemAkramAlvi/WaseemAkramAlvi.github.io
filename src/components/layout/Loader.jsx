@@ -3,13 +3,27 @@ import { motion } from 'framer-motion';
 import QuantumParticles from './QuantumParticles'; // Import the background
 
 const Loader = ({ onEnter }) => {
+    const [isEntered, setIsEntered] = useState(false);
+
+    // Common enter handler
+    const triggerEnter = () => {
+        if (isEntered) return;
+        setIsEntered(true);
+        onEnter();
+    };
+
     // Auto-dismiss after 4 seconds
     React.useEffect(() => {
         const timer = setTimeout(() => {
-            onEnter();
+            triggerEnter();
         }, 4000);
         return () => clearTimeout(timer);
     }, [onEnter]);
+
+    const handleEnterClick = (e) => {
+        e?.stopPropagation();
+        triggerEnter();
+    };
 
     return (
         <div className="loader-wrapper" id="loaderWrapper">
@@ -41,7 +55,7 @@ const Loader = ({ onEnter }) => {
                 <div className="loader-progress">
                     <div className="loader-progress-bar" />
                 </div>
-                {/* Button removed for auto-entry, optionally keep a text indicating status if desired, or just clean UI */}
+                <button className="btn-enter" id="enterBtn" onClick={handleEnterClick}>{isEntered ? 'Entering...' : 'Enter'}</button>
             </div>
         </div>
     );
