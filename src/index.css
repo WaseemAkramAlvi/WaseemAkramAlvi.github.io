@@ -1135,6 +1135,7 @@ body.dark-mode .cert-item span {
     display: flex;
     padding: 0;
     min-height: 450px;
+    max-height: 85vh;
 }
 
 /* Left Side: Logo */
@@ -1286,6 +1287,7 @@ body.dark-mode .cert-item span {
         flex-direction: column;
         min-height: auto;
         padding-top: 0;
+        overflow-y: auto;
     }
 
     .cert-badge-large,
