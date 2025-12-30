@@ -38,22 +38,11 @@ function App() {
     }
   }, [darkMode]);
 
-  useEffect(() => {
-    // Check if user has already seen the splash screen in this session
-    const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
-
-    if (hasSeenSplash) {
-      setIsLoaded(true);
-      setShowMainContent(true);
-    }
-  }, []);
-
   const handleEnter = () => {
     // Matches the exit animation of the loader
     setTimeout(() => {
       setIsLoaded(true);
-      document.body.style.overflow = 'auto';
-      sessionStorage.setItem('hasSeenSplash', 'true');
+      document.body.style.overflow = 'auto'; // Re-enable scroll
       setTimeout(() => {
         setShowMainContent(true);
       }, 100);
