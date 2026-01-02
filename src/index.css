@@ -7,8 +7,8 @@
     --text-secondary: #666;
     --bg-light: #f8f9fa;
     --bg-dark: #0a0a0a;
-    --section-spacing: 120px;
-    --section-spacing-mobile: 80px;
+    --section-spacing: 60px;
+    --section-spacing-mobile: 60px;
 }
 
 body.dark-mode {
