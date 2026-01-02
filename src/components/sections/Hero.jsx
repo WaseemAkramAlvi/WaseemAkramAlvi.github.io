@@ -71,7 +71,7 @@ const Hero = () => {
                 <div className="hero-blob blob-2"></div>
             </div>
 
-            <div className="container min-vh-100 d-flex flex-column justify-content-center py-5" style={{ position: 'relative', zIndex: 10 }}>
+            <div className="container min-vh-100 d-flex flex-column justify-content-center" style={{ position: 'relative', zIndex: 10 }}>
                 <div className="row align-items-center g-5">
                     {/* Left Column: Content */}
                     <div className="col-md-6 text-center text-md-start order-2 order-md-1 pe-md-5">

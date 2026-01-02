@@ -46,7 +46,7 @@ const Skills = () => {
                     title="My Expertise"
                     subtitle="Combining technical proficiency with creative design thinking."
                 />
-                <div className="skills-slider-wrapper position-relative overflow-hidden py-4">
+                <div className="skills-slider-wrapper position-relative overflow-hidden">
                     <div className="skills-track d-flex">
                         {[...skills, ...skills, ...skills].map((skill, index) => (
                             <div key={index} className="skills-item px-3 flex-shrink-0" style={{ width: '300px' }}>

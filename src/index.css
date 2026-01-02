@@ -7,6 +7,8 @@
     --text-secondary: #666;
     --bg-light: #f8f9fa;
     --bg-dark: #0a0a0a;
+    --section-spacing: 120px;
+    --section-spacing-mobile: 80px;
 }
 
 body.dark-mode {
@@ -905,21 +907,8 @@ body.dark-mode .tech-ticker-section {
     box-shadow: 0 10px 30px rgba(138, 43, 226, 0.5);
 }
 
-/* Move all sections (About and below) upward */
-section#about,
-section#about~section {
-    margin-top: -100px;
-    padding-top: 100px;
-}
+/* Legacy #about margin hack removed in favor of global section spacing and scroll-margin-top */
 
-@media (max-width: 768px) {
-
-    section#about,
-    section#about~section {
-        margin-top: -50px;
-        padding-top: 50px;
-    }
-}
 
 /* Section titles */
 .section-title {
@@ -1381,21 +1370,31 @@ body {
         margin-bottom: 20px !important;
     }
 
-    section {
-        padding-top: 40px !important;
-        padding-bottom: 40px !important;
-    }
 
-    .p-5 {
-        padding: 1.5rem !important;
-        /* Reduce large paddings */
-    }
+
+
 
     .display-4 {
         font-size: 2.5rem;
         /* Bootstrap display-4 override */
     }
 }
+
+/* --- SECTIONS GLOBAL SPACING --- */
+section {
+    padding: var(--section-spacing) 0;
+    position: relative;
+    scroll-margin-top: 100px;
+    /* Offset for sticky navbar */
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: var(--section-spacing-mobile) 0;
+        scroll-margin-top: 80px;
+    }
+}
+
 
 /* --- INTRO SCREEN "WA" DESIGN --- */
 
