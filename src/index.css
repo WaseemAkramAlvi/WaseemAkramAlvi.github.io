@@ -7,8 +7,9 @@
     --text-secondary: #666;
     --bg-light: #f8f9fa;
     --bg-dark: #0a0a0a;
-    --section-spacing: 60px;
-    --section-spacing-mobile: 60px;
+    --section-padding-top: 30px;
+    --section-padding-bottom: 30px;
+    --section-padding-mobile: 30px;
 }
 
 body.dark-mode {
@@ -38,9 +39,11 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    z-index: 1100;
 }
 
 body.dark-mode .navbar {
@@ -307,14 +310,15 @@ body.dark-mode .theme-toggle i {
 
 /* --- HERO SECTION --- */
 .hero {
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
-    padding: 0;
+    padding-top: 70px;
+    padding-bottom: 0;
 }
 
 .hero .container {
@@ -322,8 +326,7 @@ body.dark-mode .theme-toggle i {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 80px;
-    /* Space for navbar */
+    padding-top: 0;
 }
 
 body.dark-mode .hero {
@@ -1360,7 +1363,7 @@ body {
     }
 
     .tech-ticker-section {
-        margin-top: -200px;
+        margin-top: -100px;
         padding: 10px 0;
     }
 
@@ -1382,16 +1385,15 @@ body {
 
 /* --- SECTIONS GLOBAL SPACING --- */
 section {
-    padding: var(--section-spacing) 0;
+    padding: var(--section-padding-top) 0 var(--section-padding-bottom) 0;
     position: relative;
-    scroll-margin-top: 100px;
-    /* Offset for sticky navbar */
+    scroll-margin-top: 70px;
 }
 
 @media (max-width: 768px) {
     section {
-        padding: var(--section-spacing-mobile) 0;
-        scroll-margin-top: 80px;
+        padding: var(--section-padding-mobile) 0;
+        scroll-margin-top: 60px;
     }
 }
 

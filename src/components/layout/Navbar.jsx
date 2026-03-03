@@ -23,7 +23,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
     return (
         <motion.nav
-            className={`navbar navbar-expand-lg fixed-top ${isScrolled ? 'scrolled' : ''}`}
+            className={`navbar navbar-expand-lg ${isScrolled ? 'scrolled' : ''}`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
