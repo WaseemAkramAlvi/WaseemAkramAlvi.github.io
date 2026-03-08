@@ -1,4 +1,87 @@
-﻿/* --- PREMIUM DESIGN SYSTEM (RESTORED FROM ORIGINAL) --- */
+﻿/* --- GLASS DESIGN CARD (Graphic Design Expertise) --- */
+.glass-design-card {
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    padding: 36px 32px 28px 32px;
+    min-width: 320px;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.glass-design-card .design-header {
+    width: 100%;
+    margin-bottom: 8px;
+}
+.glass-design-card .design-tools {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.glass-design-card .tool-badge {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 6px 14px 6px 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(138,43,226,0.06);
+}
+.glass-design-card .design-features {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+}
+.glass-design-card .feature-card {
+    background: linear-gradient(135deg, #f8fafc 60%, #e0e7ef 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(138,43,226,0.07);
+    padding: 24px 18px 18px 18px;
+    min-width: 120px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.18s;
+}
+.glass-design-card .feature-card:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 8px 32px rgba(138,43,226,0.13);
+}
+.glass-design-card .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+.glass-design-card .feature-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #334155;
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .glass-design-card {
+        padding: 24px 10px 18px 10px;
+        min-width: 0;
+    }
+    .glass-design-card .design-features {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    .glass-design-card .feature-card {
+        min-width: 0;
+        width: 100%;
+    }
+}
+/* --- PREMIUM DESIGN SYSTEM (RESTORED FROM ORIGINAL) --- */
 :root {
     --primary-gradient: linear-gradient(45deg, #8a2be2, #da70d6);
     --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -7,9 +90,9 @@
     --text-secondary: #666;
     --bg-light: #f8f9fa;
     --bg-dark: #0a0a0a;
-    --section-padding-top: 30px;
-    --section-padding-bottom: 30px;
-    --section-padding-mobile: 30px;
+    --section-padding-top: 50px;
+    --section-padding-bottom: 50px;
+    --section-padding-mobile: 40px;
 }
 
 body.dark-mode {
@@ -317,8 +400,8 @@ body.dark-mode .theme-toggle i {
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
-    padding-top: 70px;
-    padding-bottom: 0;
+    padding-top: 60px;
+    padding-bottom: 80px;
 }
 
 .hero .container {
@@ -716,13 +799,10 @@ body.dark-mode .float-skill {
 /* Tickers */
 .tech-ticker-section {
     background: rgba(0, 0, 0, 0.95);
-    /* Premium black contrast */
     padding: 20px 0;
     overflow: hidden;
-    /* Move the ticker up so it covers the bottom of the hero image and
-         hides the circular image cut. Increase z-index so it sits above
-         the hero image. */
-    margin-top: -160px;
+    position: relative;
+    margin-top: -60px;
     z-index: 70;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     border-top: 2px solid rgba(138, 43, 226, 0.4);
@@ -761,16 +841,269 @@ body.dark-mode .tech-ticker-section {
 
 .skills-slider-wrapper {
     min-height: 250px;
-    /* Pull the slider closer to the header to tighten vertical spacing */
-    /* margin-top: 0px; */
-    position: absolute;
-    top: -100px;
+    position: relative;
+    top: 0;
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {
     .skills-slider-wrapper {
-        margin-top: -40px;
+        margin-top: 0;
     }
+}
+
+/* --- BENTO GRID EXPERTISE CARDS --- */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.bento-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 40px 36px 32px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.bento-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.bento-wide {
+    grid-column: 1 / -1;
+}
+
+/* Tag label */
+.bento-tag {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    font-family: 'Courier New', monospace;
+}
+
+/* Heading */
+.bento-heading {
+    color: #111827;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Process flow container */
+.bento-flow-container {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    min-height: 240px;
+}
+
+.bento-flow-svg {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    overflow: visible;
+}
+
+/* ── Flow Diagram Animations ── */
+
+/* Flowing dashed lines */
+@keyframes flowDash {
+    to {
+        stroke-dashoffset: -20;
+    }
+}
+
+/* Pulsing center hub ring */
+@keyframes flowHubPulse {
+    0%, 100% {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.55;
+        transform: scale(1.06);
+    }
+}
+
+/* Staggered node fade-in */
+@keyframes flowNodeFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulsing connection dot */
+@keyframes flowDotPulse {
+    0%, 100% {
+        opacity: 0.3;
+        r: 3;
+    }
+    50% {
+        opacity: 0.9;
+        r: 5;
+    }
+}
+
+/* Glow ring around hub */
+@keyframes flowGlowRing {
+    0%, 100% {
+        stroke-opacity: 0.15;
+        stroke-width: 1.5;
+    }
+    50% {
+        stroke-opacity: 0.4;
+        stroke-width: 3;
+    }
+}
+
+/* Traveling particle */
+@keyframes flowParticleTravel {
+    0% {
+        offset-distance: 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        offset-distance: 100%;
+        opacity: 0;
+    }
+}
+
+/* Apply flowing animation to dashed lines */
+.flow-line {
+    animation: flowDash 1.5s linear infinite;
+}
+
+/* Pulsing hub circle */
+.flow-hub-ring {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: flowHubPulse 3s ease-in-out infinite;
+}
+
+/* Glowing outer ring on hub */
+.flow-hub-glow {
+    animation: flowGlowRing 3s ease-in-out infinite;
+}
+
+/* Pulsing connection dots */
+.flow-dot {
+    animation: flowDotPulse 2s ease-in-out infinite;
+}
+
+/* Staggered node groups */
+.flow-node {
+    opacity: 0;
+    animation: flowNodeFadeIn 0.6s ease-out forwards;
+}
+.flow-node-d1 { animation-delay: 0.15s; }
+.flow-node-d2 { animation-delay: 0.35s; }
+.flow-node-d3 { animation-delay: 0.55s; }
+.flow-node-d4 { animation-delay: 0.75s; }
+.flow-node-d5 { animation-delay: 0.95s; }
+.flow-node-d6 { animation-delay: 1.15s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .bento-card {
+        min-height: 380px;
+        padding: 30px 24px 24px;
+    }
+
+    .bento-heading {
+        font-size: 1.35rem;
+    }
+
+    .bento-flow-container {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bento-card {
+        min-height: 340px;
+    }
+
+    .bento-flow-container {
+        min-height: 180px;
+    }
+}
+
+/* Light mode adjustments for bento cards */
+body:not(.dark-mode) .bento-card {
+    background: #ffffff;
+}
+
+body:not(.dark-mode) #skills {
+    background: #f8fafc;
+}
+
+body:not(.dark-mode) #skills .section-title,
+body:not(.dark-mode) #skills .section-subtitle {
+    color: #1e293b;
+}
+
+body:not(.dark-mode) #skills .section-title-underline {
+    background: linear-gradient(90deg, #a855f7, #22d3ee);
+}
+
+body.dark-mode #skills {
+    background: #0f172a;
+}
+
+body.dark-mode .bento-card {
+    background: #1a1b2e;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+}
+
+body.dark-mode .bento-card:hover {
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .bento-heading {
+    color: #fff;
 }
 
 .skills-track {
@@ -778,7 +1111,7 @@ body.dark-mode .tech-ticker-section {
     width: fit-content;
     animation: scrollSlow 60s linear infinite;
     padding: 20px 0;
-    margin-top: 30px;
+    margin-top: 0;
 }
 
 .cert-track {
@@ -915,10 +1248,10 @@ body.dark-mode .tech-ticker-section {
 
 /* Section titles */
 .section-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     position: relative;
     color: var(--text-primary);
 }
@@ -1093,14 +1426,13 @@ body.dark-mode .cert-item span {
     width: min(900px, 95vw);
     border-radius: 24px;
     position: relative;
-    transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .cert-modal.show .modal-content-wrapper {
     transform: scale(1);
 }
 
+/* Keep cert-modal styles for Certifications section modal */
 .cert-modal .lightning-card {
     width: 100%;
     background: #fff;
@@ -1110,7 +1442,6 @@ body.dark-mode .cert-item span {
     position: relative;
 }
 
-/* Purple Pill Top-Left */
 .cert-modal .lightning-card::before {
     content: '';
     position: absolute;
@@ -1130,7 +1461,6 @@ body.dark-mode .cert-item span {
     max-height: 85vh;
 }
 
-/* Left Side: Logo */
 .cert-badge-large {
     width: 40%;
     background: linear-gradient(135deg, #fdfbfd 0%, #f4f4f5 100%);
@@ -1140,7 +1470,6 @@ body.dark-mode .cert-item span {
     justify-content: center;
     position: relative;
     border-right: 1px dashed rgba(168, 85, 247, 0.2);
-    /* Reset absolute from previous CSS */
     top: auto;
     left: auto;
     transform: none;
@@ -1157,17 +1486,14 @@ body.dark-mode .cert-item span {
     object-fit: contain;
     filter: drop-shadow(0 10px 20px rgba(138, 43, 226, 0.15));
     margin: 0;
-    /* Clear previous margins */
 }
 
-/* Right Side: Details */
 .cert-details {
     padding: 40px;
     width: 60%;
     background: #fff;
     overflow-y: auto;
     margin: 0;
-    /* Reset margin */
 }
 
 .cert-details h2 {
@@ -1187,7 +1513,6 @@ body.dark-mode .cert-item span {
     display: none;
 }
 
-/* Clean List Items */
 .cert-list {
     display: flex;
     flex-direction: column;
@@ -1211,7 +1536,6 @@ body.dark-mode .cert-item span {
     min-width: 40px;
     height: 40px;
     background: #f3e8ff;
-    /* Light purple bg */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1219,9 +1543,7 @@ body.dark-mode .cert-item span {
     color: #9333ea;
     font-size: 1.2rem;
     box-shadow: none;
-    /* Reset */
     border: none;
-    /* Reset */
 }
 
 .cert-text h5 {
@@ -1243,7 +1565,6 @@ body.dark-mode .cert-item span {
     margin-top: 5px;
 }
 
-/* Close Button */
 .cert-modal-close {
     position: absolute;
     top: 20px;
@@ -1267,14 +1588,185 @@ body.dark-mode .cert-item span {
     transform: rotate(90deg);
 }
 
-/* Clean up previous pseudos */
 .cert-modal .lightning-card::after,
 .cert-modal .card-content::before,
 .cert-modal .lightning-card .diagonal-highlight {
     display: none;
 }
 
+/* ══════════════════════════════════════════
+   SKILL MODAL — ngrok Dark Flow Card
+   ══════════════════════════════════════════ */
+
+/* Entrance */
+@keyframes skillDarkSlideUp {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.skill-modal-dark {
+    width: min(1320px, 97vw);
+    opacity: 0;
+    transform: scale(0.92) translateY(30px);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.cert-modal.show .skill-modal-dark {
+    animation: skillDarkSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Dark card */
+.skill-dark-card {
+    background: linear-gradient(145deg, #1a1b30 0%, #141524 50%, #0f1020 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 48px 56px 40px;
+    position: relative;
+    overflow: hidden;
+    min-height: 780px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Dot grid */
+.skill-dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Close */
+.skill-dark-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.25s ease;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+}
+
+.skill-dark-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+/* Tag */
+@keyframes skillDarkTagFade {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.skill-dark-tag {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    margin-bottom: 12px;
+    display: block;
+    text-align: center;
+    text-shadow: 0 0 25px currentColor;
+}
+
+.cert-modal.show .skill-dark-tag {
+    animation: skillDarkTagFade 0.4s ease-out 0.15s forwards;
+}
+
+/* Heading */
+@keyframes skillDarkHeadingFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.skill-dark-heading {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 24px 0;
+    line-height: 1.15;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+.cert-modal.show .skill-dark-heading {
+    animation: skillDarkHeadingFade 0.45s ease-out 0.25s forwards;
+}
+
+/* Flow area */
+.skill-dark-flow {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 580px;
+}
+
+.skill-dark-flow-svg {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    overflow: visible;
+}
+
+/* Flow nodes inside modal — staggered */
+.skill-dark-flow-svg .flow-node {
+    opacity: 0;
+    animation: flowNodeFadeIn 0.5s ease-out forwards;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+    .skill-modal-dark {
+        width: 96vw;
+    }
+
+    .skill-dark-card {
+        padding: 32px 22px 22px;
+        min-height: 500px;
+    }
+
+    .skill-dark-heading {
+        font-size: 1.6rem;
+    }
+
+    .skill-dark-tag {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+    }
+
+    .skill-dark-flow {
+        min-height: 360px;
+    }
+
     .cert-modal .card-content {
         flex-direction: column;
         min-height: auto;
@@ -1296,6 +1788,21 @@ body.dark-mode .cert-item span {
 
     .cert-details {
         padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-dark-card {
+        padding: 24px 16px 16px;
+        min-height: 400px;
+    }
+
+    .skill-dark-heading {
+        font-size: 1.3rem;
+    }
+
+    .skill-dark-flow {
+        min-height: 280px;
     }
 }
 
@@ -1363,14 +1870,14 @@ body {
     }
 
     .tech-ticker-section {
-        margin-top: -100px;
+        margin-top: -40px;
         padding: 10px 0;
     }
 
     /* Strict Mobile Adjustments */
     .section-title {
-        font-size: 2rem !important;
-        margin-bottom: 20px !important;
+        font-size: 1.8rem !important;
+        margin-bottom: 10px !important;
     }
 
 
@@ -1381,6 +1888,10 @@ body {
         font-size: 2.5rem;
         /* Bootstrap display-4 override */
     }
+}
+
+#skills {
+    overflow: hidden;
 }
 
 /* --- SECTIONS GLOBAL SPACING --- */

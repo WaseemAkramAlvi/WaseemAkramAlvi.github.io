@@ -119,7 +119,7 @@ const Hero = () => {
                                 <div className="hero-circle-frame"></div>
                                 <div className="circle-ornament-left"></div>
                                 <div className="circle-ornament-right"></div>
-                                <img src={HeroImage} alt={personalInfo.name} className="hero-main-img img-fluid" style={{ maxHeight: '65vh', width: 'auto', minWidth: '320px', position: 'relative', zIndex: 10 }} />
+                                <img src={HeroImage} alt={personalInfo.name} className="hero-main-img img-fluid" style={{ maxHeight: '70vh', width: 'auto', minWidth: '320px', position: 'relative', zIndex: 10 }} />
                             </div>
                         </motion.div>
                     </div>

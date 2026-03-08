@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const SectionHeader = ({ title, subtitle }) => {
     return (
-        <div className="section-header-wrapper text-center mb-5">
+        <div className="section-header-wrapper text-center mb-4">
             <motion.h2
                 className="section-title"
                 initial={{ opacity: 0, y: 20 }}

@@ -68,7 +68,11 @@ export const portfolioData = {
     projects: [
         { title: "Custom Web Development", icon: faLaptopCode, desc: "Developed full-stack web solutions for various clients at CZone Software House using PHP and MySQL." },
         { title: "UI/UX Capstone Project", icon: faLayerGroup, desc: "Completed a comprehensive UI/UX solution including user research, wireframing, and high-fidelity prototyping." },
-        { title: "Brand Identity Design", icon: faPalette, desc: "Created logos, marketing graphics, and social media creatives for diverse industry clients." }
+        { title: "Brand Identity Design", icon: faPalette, desc: "Created logos, marketing graphics, and social media creatives for diverse industry clients." },
+        { title: "College Management System", icon: faChalkboardTeacher, desc: "A platform for managing college operations including admissions, attendance, exams, and staff." },
+        { title: "Crop Care Disease Prediction", icon: faBrain, desc: "AI-powered system for predicting crop diseases using image recognition and environmental data." },
+        { title: "Transport Management System", icon: faExchangeAlt, desc: "Digital solution for managing transport fleets, bookings, and logistics." },
+        { title: "iAXON Branding", icon: faPaintBrush, desc: "Developed a complete branding package for iAXON, including logo, business cards, and social media graphics." }
     ],
     skillsDetail: {
         'Web Development': {
