@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
@@ -323,8 +323,13 @@ const flowComponents = [WebDevFlow, GraphicDesignFlow, AITechFlow, MentoringFlow
 
 const Skills = () => {
     const { skills, skillsDetail } = portfolioData;
+    const [activeIndex, setActiveIndex] = React.useState(0);
     const [skillModalOpen, setSkillModalOpen] = React.useState(false);
     const [selectedSkillData, setSelectedSkillData] = React.useState(null);
+
+    const containerRef = React.useRef(null);
+    const isScrollingRef = React.useRef(false);
+    const touchStartYRef = React.useRef(0);
 
     const openSkillModal = (skillTitle, skillColor) => {
         const detailData = skillsDetail[skillTitle];
@@ -345,16 +350,165 @@ const Skills = () => {
         return () => window.removeEventListener('keydown', onKey);
     }, []);
 
-    const tagColors = ['#a855f7', '#22d3ee', '#facc15', '#34d399'];
+    // Non-trapping scroll wheel rotation logic
+    React.useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 40 },
-        visible: (i) => ({
-            opacity: 1,
-            y: 0,
-            transition: { delay: i * 0.15, duration: 0.6, ease: 'easeOut' }
-        })
+        const handleWheel = (e) => {
+            if (isScrollingRef.current) {
+                e.preventDefault();
+                return;
+            }
+
+            const deltaY = e.deltaY;
+            const direction = deltaY > 0 ? 1 : -1;
+
+            if (direction === 1) {
+                if (activeIndex < skills.length - 1) {
+                    e.preventDefault();
+                    isScrollingRef.current = true;
+                    setActiveIndex((prev) => prev + 1);
+                    setTimeout(() => {
+                        isScrollingRef.current = false;
+                    }, 800);
+                }
+            } else if (direction === -1) {
+                if (activeIndex > 0) {
+                    e.preventDefault();
+                    isScrollingRef.current = true;
+                    setActiveIndex((prev) => prev - 1);
+                    setTimeout(() => {
+                        isScrollingRef.current = false;
+                    }, 800);
+                }
+            }
+        };
+
+        container.addEventListener('wheel', handleWheel, { passive: false });
+        return () => {
+            container.removeEventListener('wheel', handleWheel);
+        };
+    }, [activeIndex, skills.length]);
+
+    // Touch Swipe logic for mobile swiping support
+    const handleTouchStart = (e) => {
+        touchStartYRef.current = e.touches[0].clientY;
     };
+
+    const handleTouchMove = (e) => {
+        if (isScrollingRef.current) return;
+
+        const touchEndY = e.touches[0].clientY;
+        const diffY = touchStartYRef.current - touchEndY;
+
+        if (Math.abs(diffY) > 50) {
+            if (diffY > 0) {
+                if (activeIndex < skills.length - 1) {
+                    isScrollingRef.current = true;
+                    setActiveIndex((prev) => prev + 1);
+                    setTimeout(() => { isScrollingRef.current = false; }, 800);
+                }
+            } else {
+                if (activeIndex > 0) {
+                    isScrollingRef.current = true;
+                    setActiveIndex((prev) => prev - 1);
+                    setTimeout(() => { isScrollingRef.current = false; }, 800);
+                }
+            }
+        }
+    };
+
+    const getSkillStyleVars = (index) => {
+        switch (index) {
+            case 0:
+                return {
+                    '--skill-color': '#a855f7',
+                    '--skill-color-dark': '#7e22ce',
+                    '--skill-glow': 'rgba(168, 85, 247, 0.35)',
+                    '--skill-glow-inner': '#a855f7',
+                    '--skill-glow-btn': 'rgba(168, 85, 247, 0.25)',
+                    '--skill-glow-btn-hover': 'rgba(168, 85, 247, 0.45)',
+                    '--skill-light-bg': 'rgba(168, 85, 247, 0.1)'
+                };
+            case 1:
+                return {
+                    '--skill-color': '#ec4899',
+                    '--skill-color-dark': '#be185d',
+                    '--skill-glow': 'rgba(236, 72, 153, 0.35)',
+                    '--skill-glow-inner': '#ec4899',
+                    '--skill-glow-btn': 'rgba(236, 72, 153, 0.25)',
+                    '--skill-glow-btn-hover': 'rgba(236, 72, 153, 0.45)',
+                    '--skill-light-bg': 'rgba(236, 72, 153, 0.1)'
+                };
+            case 2:
+                return {
+                    '--skill-color': '#10b981',
+                    '--skill-color-dark': '#047857',
+                    '--skill-glow': 'rgba(16, 185, 129, 0.35)',
+                    '--skill-glow-inner': '#10b981',
+                    '--skill-glow-btn': 'rgba(16, 185, 129, 0.25)',
+                    '--skill-glow-btn-hover': 'rgba(16, 185, 129, 0.45)',
+                    '--skill-light-bg': 'rgba(16, 185, 129, 0.1)'
+                };
+            case 3:
+                return {
+                    '--skill-color': '#f59e0b',
+                    '--skill-color-dark': '#b45309',
+                    '--skill-glow': 'rgba(245, 158, 11, 0.35)',
+                    '--skill-glow-inner': '#f59e0b',
+                    '--skill-glow-btn': 'rgba(245, 158, 11, 0.25)',
+                    '--skill-glow-btn-hover': 'rgba(245, 158, 11, 0.45)',
+                    '--skill-light-bg': 'rgba(245, 158, 11, 0.1)'
+                };
+            default:
+                return {};
+        }
+    };
+
+    const getSkillData = (index) => {
+        switch (index) {
+            case 0:
+                return {
+                    toolBadges: [
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', label: 'React' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', label: 'JavaScript' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg', label: 'Bootstrap' },
+                    ]
+                };
+            case 1:
+                return {
+                    toolBadges: [
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg', label: 'Photoshop' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg', label: 'Illustrator' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', label: 'Figma' },
+                    ]
+                };
+            case 2:
+                return {
+                    toolBadges: [
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'Python' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg', label: 'Pandas' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', label: 'Cloud' },
+                    ]
+                };
+            case 3:
+                return {
+                    toolBadges: [
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/education/education-original.svg', label: 'Curriculum' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', label: 'Projects' },
+                        { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg', label: 'Workshops' },
+                    ]
+                };
+            default:
+                return { toolBadges: [] };
+        }
+    };
+
+    const activeSkill = skills[activeIndex];
+    const activeSkillDetail = skillsDetail[activeSkill.title];
+    const skillStyleVars = getSkillStyleVars(activeIndex);
+    const skillExtraData = getSkillData(activeIndex);
 
     return (
         <section id="skills">
@@ -364,91 +518,132 @@ const Skills = () => {
                     subtitle="Combining technical proficiency with creative design thinking."
                 />
 
-                <div className="bento-grid">
-                    {skills.map((skill, index) => {
-                        // Card content for each expertise
-                        // You can customize the icons, tool badges, and features for each skill below
-                        let cardTitle = skill.title;
-                        let cardDesc = skill.desc;
-                        let toolBadges = [];
-                        let features = [];
-                        if (skill.title === 'Graphic Design') {
-                            toolBadges = [
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg', label: 'Photoshop' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg', label: 'Illustrator' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', label: 'Figma' },
-                            ];
-                            features = [
-                                { icon: '💎', title: 'Logo & Branding' },
-                                { icon: '📱', title: 'Social Media Design' },
-                                { icon: '🎨', title: 'UI/UX Design' },
-                            ];
-                        } else if (skill.title === 'Web Development') {
-                            toolBadges = [
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', label: 'React' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', label: 'JavaScript' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg', label: 'Bootstrap' },
-                            ];
-                            features = [
-                                { icon: '⚛️', title: 'React Apps' },
-                                { icon: '🗄️', title: 'Node.js & Express' },
-                                { icon: '🗃️', title: 'REST APIs' },
-                            ];
-                        } else if (skill.title === 'AI & Tech') {
-                            toolBadges = [
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', label: 'Python' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg', label: 'Pandas' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', label: 'Cloud' },
-                            ];
-                            features = [
-                                { icon: '🤖', title: 'ML Models' },
-                                { icon: '📊', title: 'Data Analysis' },
-                                { icon: '🔍', title: 'Insights' },
-                            ];
-                        } else if (skill.title === 'Mentoring') {
-                            toolBadges = [
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/education/education-original.svg', label: 'Curriculum' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', label: 'Projects' },
-                                { icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg', label: 'Workshops' },
-                            ];
-                            features = [
-                                { icon: '🎓', title: 'Skilled Grads' },
-                                { icon: '🧑‍🏫', title: 'Guidance' },
-                                { icon: '🚀', title: 'Career Ready' },
-                            ];
-                        }
-                        return (
-                            <motion.div
-                                key={index}
-                                className="bento-card glass-design-card"
-                                custom={index}
-                                variants={cardVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
+                <div 
+                    className="skills-split-layout"
+                    ref={containerRef}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    style={skillStyleVars}
+                >
+                    {/* Left Column: Visual Rotating Circle */}
+                    <div className="skills-left-visual">
+                        <div className="skills-circle-wrapper">
+                            {/* Track circles */}
+                            <div className="skills-circle-track" />
+                            <div className="skills-outer-ring" />
+
+                            {/* Rotating Ring container */}
+                            <div 
+                                className="skills-outer-circle"
+                                style={{ transform: `rotate(${activeIndex * -90}deg)` }}
                             >
-                                <div className="design-header">
-                                    <span className="bento-tag" style={{ color: '#3b82f6', fontWeight: 700, letterSpacing: 2 }}>
-                                        {cardTitle.toUpperCase()}
-                                    </span>
-                                    <h3 className="bento-heading" style={{ fontSize: '2rem', marginBottom: 8 }}>{cardDesc}</h3>
-                                    <div className="design-tools" style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
-                                        {toolBadges.map((tb, i) => (
-                                            <span className="tool-badge" key={i}><img src={tb.icon} alt={tb.label} style={{ width: 20, marginRight: 6 }} />{tb.label}</span>
-                                        ))}
-                                    </div>
+                                {skills.map((skill, index) => {
+                                    const isNodeActive = activeIndex === index;
+                                    const nodeStyle = {
+                                        '--skill-color': getSkillStyleVars(index)['--skill-color'],
+                                        '--skill-glow': getSkillStyleVars(index)['--skill-glow'],
+                                    };
+                                    // Counter rotate so content stays perfectly vertical
+                                    const counterRotation = activeIndex * 90;
+                                    const innerStyle = {
+                                        transform: `rotate(${counterRotation}deg)`,
+                                    };
+
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={`skill-circle-node skill-circle-node-${index} ${isNodeActive ? 'active' : ''}`}
+                                            style={nodeStyle}
+                                            onClick={() => setActiveIndex(index)}
+                                        >
+                                            <div className="node-inner" style={innerStyle}>
+                                                <div className="node-icon">
+                                                    <FontAwesomeIcon icon={skill.icon} />
+                                                </div>
+                                                <span className="node-label">{skill.title}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Static Center Hub */}
+                            <div className="skills-center-hub">
+                                <div className="hub-glow-bg" />
+                                <div className="hub-brand">WA</div>
+                                <div className="hub-subtitle">Expertise</div>
+                            </div>
+                        </div>
+
+                        {/* Interactive Scroll Visual */}
+                        <div className="scroll-wheel-indicator">
+                            <div className="mouse-visual" />
+                            <span className="scroll-text">Scroll or Tap to Spin</span>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Dynamic Detail Panel */}
+                    <div className="skills-right-details">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeIndex}
+                                className="details-card-glass"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -30 }}
+                                transition={{ duration: 0.5, ease: 'easeOut' }}
+                            >
+                                <span className="detail-tag">{activeSkill.title}</span>
+                                <h3 className="detail-heading">{activeSkill.desc}</h3>
+                                
+                                <div className="detail-tools-list">
+                                    {skillExtraData.toolBadges.map((tb, i) => (
+                                        <span className="detail-tool-badge" key={i}>
+                                            <img src={tb.icon} alt={tb.label} style={{ width: 16, height: 16, marginRight: 8 }} />
+                                            {tb.label}
+                                        </span>
+                                    ))}
                                 </div>
-                                <div className="design-features" style={{ display: 'flex', gap: 18, justifyContent: 'center', marginTop: 12 }}>
-                                    {features.map((f, i) => (
-                                        <div className="feature-card" key={i}>
-                                            <div className="feature-icon" style={{ fontSize: 32, marginBottom: 8 }}>{f.icon}</div>
-                                            <div className="feature-title">{f.title}</div>
+
+                                <div className="sub-skills-grid">
+                                    {activeSkillDetail.items.slice(0, 6).map((item, i) => (
+                                        <div className="sub-skill-mini-card" key={i}>
+                                            <div className="sub-skill-icon-wrap">
+                                                <FontAwesomeIcon icon={item.icon} />
+                                            </div>
+                                            <div className="sub-skill-info">
+                                                <h4>{item.title}</h4>
+                                                <p>{item.desc}</p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
+
+                                <button 
+                                    className="detail-cta-btn" 
+                                    onClick={() => openSkillModal(activeSkill.title, getSkillStyleVars(activeIndex)['--skill-color'])}
+                                >
+                                    Explore Architecture
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </button>
                             </motion.div>
-                        );
-                    })}
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Side indicators (dots) for fast clicking */}
+                    <div className="skills-side-indicators">
+                        {skills.map((_, index) => (
+                            <button
+                                key={index}
+                                className={`indicator-dot ${activeIndex === index ? 'active' : ''}`}
+                                onClick={() => setActiveIndex(index)}
+                                aria-label={`Go to skill ${index + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -456,25 +651,16 @@ const Skills = () => {
             <div className={`cert-modal ${skillModalOpen ? 'show' : ''}`} aria-hidden={!skillModalOpen} onClick={(e) => { if (e.target === e.currentTarget) closeSkillModal(); }}>
                 <div className="modal-content-wrapper skill-modal-dark">
                     <div className="skill-dark-card">
-                        {/* Dot grid background */}
                         <div className="skill-dot-grid" />
-
-                        {/* Close button */}
                         <button className="skill-dark-close" onClick={closeSkillModal} aria-label="Close modal">
                             <FontAwesomeIcon icon={faTimes} />
                         </button>
-
-                        {/* Tag */}
                         <span className="skill-dark-tag" style={{ color: selectedSkillData?.color || '#a855f7' }}>
                             {selectedSkillData?.title?.toUpperCase() || ''}
                         </span>
-
-                        {/* Heading */}
                         <h2 className="skill-dark-heading">
                             {selectedSkillData?.desc || ''}
                         </h2>
-
-                        {/* Flow Diagram SVG */}
                         {selectedSkillData && (
                             <div className="skill-dark-flow">
                                 <svg className="skill-dark-flow-svg" viewBox="0 0 1100 720" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -488,33 +674,26 @@ const Skills = () => {
 
                                         return (
                                             <>
-                                                {/* Left side items */}
                                                 {leftItems.map((item, i) => {
                                                     const y = 30 + i * 95;
                                                     const x = 30;
                                                     return (
                                                         <g key={`l-${i}`} className="flow-node" style={{ animationDelay: `${0.2 + i * 0.12}s` }}>
-                                                            {/* Dashed line to hub */}
                                                             <line x1={x + 250} y1={y + 12} x2={hubX - 130} y2={hubY}
                                                                 stroke={color} strokeWidth="1.5" strokeDasharray="8 5" opacity="0.35" className="flow-line" />
-                                                            {/* Pulsing dot on line */}
                                                             <circle className="flow-dot" cx={(x + 250 + hubX - 130) / 2} cy={(y + 12 + hubY) / 2} r="5" fill={color} style={{ animationDelay: `${i * 0.3}s` }} />
-                                                            {/* Icon circle */}
                                                             <circle cx={x + 22} cy={y + 10} r="24" fill={`${color}18`} stroke={color} strokeWidth="1.4" opacity="0.5" />
-                                                            {/* FontAwesome icon */}
                                                             <foreignObject x={x + 6} y={y - 8} width="32" height="32">
                                                                 <div xmlns="http://www.w3.org/1999/xhtml" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                                                     <FontAwesomeIcon icon={item.icon} style={{ color: color, fontSize: '14px', opacity: 0.85 }} />
                                                                 </div>
                                                             </foreignObject>
-                                                            {/* Text */}
                                                             <text x={x + 58} y={y + 6} fill="rgba(255,255,255,0.92)" fontSize="17" fontWeight="700" fontFamily="'Segoe UI', sans-serif">
                                                                 {item.title}
                                                             </text>
                                                             <text x={x + 58} y={y + 28} fill="rgba(255,255,255,0.45)" fontSize="13" fontFamily="'Segoe UI', sans-serif">
                                                                 {item.desc.length > 40 ? item.desc.substring(0, 40) + '…' : item.desc}
                                                             </text>
-                                                            {/* Vertical connector to next */}
                                                             {i < leftItems.length - 1 && (
                                                                 <line x1={x + 22} y1={y + 36} x2={x + 22} y2={y + 73}
                                                                     stroke={color} strokeWidth="1.2" strokeDasharray="4 4" opacity="0.2" className="flow-line" />
@@ -523,12 +702,10 @@ const Skills = () => {
                                                     );
                                                 })}
 
-                                                {/* Center hub — large with FontAwesome icon */}
                                                 <g className="flow-node" style={{ animationDelay: '0.1s' }}>
                                                     <circle className="flow-hub-glow" cx={hubX} cy={hubY} r="120" stroke={color} fill="none" />
                                                     <circle className="flow-hub-ring" cx={hubX} cy={hubY} r="95" stroke={color} strokeWidth="2.5" strokeDasharray="8 6" opacity="0.4" fill={`${color}08`} />
                                                     <circle cx={hubX} cy={hubY} r="65" fill={`${color}12`} stroke={color} strokeWidth="1.8" opacity="0.3" />
-                                                    {/* FontAwesome category icon */}
                                                     <foreignObject x={hubX - 30} y={hubY - 30} width="60" height="60">
                                                         <div xmlns="http://www.w3.org/1999/xhtml" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                                             <FontAwesomeIcon icon={selectedSkillData.icon} style={{ color: color, fontSize: '34px', opacity: 0.95, filter: `drop-shadow(0 0 12px ${color})` }} />
@@ -536,33 +713,26 @@ const Skills = () => {
                                                     </foreignObject>
                                                 </g>
 
-                                                {/* Right side items */}
                                                 {rightItems.map((item, i) => {
                                                     const y = 30 + i * 95;
                                                     const x = 790;
                                                     return (
                                                         <g key={`r-${i}`} className="flow-node" style={{ animationDelay: `${0.4 + i * 0.12}s` }}>
-                                                            {/* Dashed line from hub */}
                                                             <line x1={hubX + 130} y1={hubY} x2={x} y2={y + 12}
                                                                 stroke={color} strokeWidth="1.5" strokeDasharray="8 5" opacity="0.35" className="flow-line" />
-                                                            {/* Pulsing dot */}
                                                             <circle className="flow-dot" cx={(hubX + 130 + x) / 2} cy={(hubY + y + 12) / 2} r="5" fill={color} style={{ animationDelay: `${(i + half) * 0.3}s` }} />
-                                                            {/* Icon circle */}
                                                             <circle cx={x + 22} cy={y + 10} r="24" fill={`${color}18`} stroke={color} strokeWidth="1.4" opacity="0.5" />
-                                                            {/* FontAwesome icon */}
                                                             <foreignObject x={x + 6} y={y - 8} width="32" height="32">
                                                                 <div xmlns="http://www.w3.org/1999/xhtml" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
                                                                     <FontAwesomeIcon icon={item.icon} style={{ color: color, fontSize: '14px', opacity: 0.85 }} />
                                                                 </div>
                                                             </foreignObject>
-                                                            {/* Text */}
                                                             <text x={x + 58} y={y + 6} fill="rgba(255,255,255,0.92)" fontSize="17" fontWeight="700" fontFamily="'Segoe UI', sans-serif">
                                                                 {item.title}
                                                             </text>
                                                             <text x={x + 58} y={y + 28} fill="rgba(255,255,255,0.45)" fontSize="13" fontFamily="'Segoe UI', sans-serif">
                                                                 {item.desc.length > 40 ? item.desc.substring(0, 40) + '…' : item.desc}
                                                             </text>
-                                                            {/* Vertical connector to next */}
                                                             {i < rightItems.length - 1 && (
                                                                 <line x1={x + 22} y1={y + 36} x2={x + 22} y2={y + 73}
                                                                     stroke={color} strokeWidth="1.2" strokeDasharray="4 4" opacity="0.2" className="flow-line" />
@@ -571,7 +741,6 @@ const Skills = () => {
                                                     );
                                                 })}
 
-                                                {/* Bottom output node */}
                                                 <g className="flow-node" style={{ animationDelay: '0.8s' }}>
                                                     <line x1={hubX} y1={hubY + 110} x2={hubX} y2={630}
                                                         stroke={color} strokeWidth="1.5" strokeDasharray="8 5" opacity="0.35" className="flow-line" />
