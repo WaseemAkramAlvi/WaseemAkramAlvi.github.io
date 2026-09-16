@@ -1,18 +1,70 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAtom, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 
 const Footer = () => {
     const { personalInfo } = portfolioData;
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
-        <footer className="py-5">
-            <div className="container text-center">
-                <p className="mb-0">
-                    &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-                </p>
-                <p className="footer-tagline mt-2 text-muted">
-                    Crafting digital excellence through code and design.
-                </p>
+        <footer className="footer-research py-5 border-top border-secondary-subtle">
+            <div className="container">
+                <div className="row g-4 align-items-center justify-content-between mb-4">
+                    <div className="col-md-6 text-center text-md-start">
+                        <div className="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
+                            <FontAwesomeIcon icon={faAtom} className="text-cyan fs-5" />
+                            <h5 className="fw-bold mb-0 text-light-emphasis">{personalInfo.name}</h5>
+                        </div>
+                        <p className="text-secondary small mb-1">
+                            {personalInfo.headline}
+                        </p>
+                        <p className="text-muted small mb-0">
+                            {personalInfo.secondaryPositioning}
+                        </p>
+                    </div>
+
+                    <div className="col-md-6 text-center text-md-end">
+                        <div className="d-flex justify-content-center justify-content-md-end gap-3 mb-3">
+                            <a 
+                                href="https://www.linkedin.com/in/waseemakramalvi/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="footer-social-link"
+                                title="LinkedIn"
+                            >
+                                <FontAwesomeIcon icon={faLinkedin} size="lg" />
+                            </a>
+                            <a 
+                                href={`https://github.com/${personalInfo.githubUsername}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="footer-social-link"
+                                title="GitHub"
+                            >
+                                <FontAwesomeIcon icon={faGithub} size="lg" />
+                            </a>
+                            <button 
+                                onClick={scrollToTop} 
+                                className="footer-social-link border-0"
+                                title="Scroll to Top"
+                            >
+                                <FontAwesomeIcon icon={faArrowUp} />
+                            </button>
+                        </div>
+                        <div className="small text-muted font-mono">
+                            Quantum Computing × AI/ML × Optimization × Software Engineering
+                        </div>
+                    </div>
+                </div>
+
+                <div className="border-top border-secondary-subtle pt-3 text-center small text-muted">
+                    &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Professional research &amp; engineering portfolio.
+                </div>
             </div>
         </footer>
     );

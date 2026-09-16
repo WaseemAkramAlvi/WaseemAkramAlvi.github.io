@@ -1,133 +1,416 @@
 import {
-    faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faTwitter, faInstagram, faMicrosoft, faMeta, faGoogle, faWordpress
+    faHtml5, faCss3Alt, faJs, faReact, faPython, faFigma, faNodeJs, faGitAlt, faBootstrap, faLinkedin, faGithub, faMicrosoft, faMeta, faGoogle, faWordpress
 } from '@fortawesome/free-brands-svg-icons';
 import {
     faCode, faPaintBrush, faBrain, faChalkboardTeacher, faLaptopCode, faLayerGroup, faPalette, faEnvelope, faPhone, faMapMarkerAlt, faPaperPlane, faAward, faNetworkWired,
     faDatabase, faMobileAlt, faServer, faExchangeAlt, faImage, faPenFancy, faGem, faShareAlt, faHeading, faLaptop, faFile, faChartLine, faCube, faChartBar, faTable, faChartPie,
-    faSitemap, faCloud, faCogs, faBook, faProjectDiagram, faComments, faClipboardCheck, faUsers, faCompass, faVideo, faHandshake
+    faSitemap, faCloud, faCogs, faBook, faProjectDiagram, faComments, faClipboardCheck, faUsers, faCompass, faVideo, faHandshake,
+    faAtom, faMicrochip, faGraduationCap, faBriefcase, faFilePdf, faExternalLinkAlt, faCheckCircle, faRoute
 } from '@fortawesome/free-solid-svg-icons';
 
 export const portfolioData = {
     personalInfo: {
-        name: "Waseem Akram Alvi",
-        title: "Instructor & IT Specialist",
-        description: "Passionate Instructor & IT Specialist with a strong background in Web Designing & Development, Graphics Designing, and MS Office Training. BS in Software Engineering with 7+ years of experience in training, development, and creative solutions.",
+        name: "Waseem Akram",
+        headline: "Quantum Software Engineer | Machine Learning Specialist",
+        secondaryPositioning: "Developing Quantum-Classical Hybrid Systems | Optimization & Quantum Neural Networks",
+        brandStatement: "Quantum Computing × AI/ML × Optimization × Software Engineering",
+        summary: "I am a Software Engineering graduate and Computer Science researcher working at the intersection of Quantum Computing, Machine Learning, Optimization, and Software Engineering. My current research focuses on developing practical quantum-classical approaches to complex optimization problems using simulation-based quantum computing.",
+        aboutNarrative: "I hold a BS in Software Engineering from Virtual University of Pakistan and am currently pursuing MS/MPhil Computer Science research at The Islamia University of Bahawalpur with a focus on Quantum Computing, Quantum Machine Learning, Artificial Intelligence, and combinatorial optimization.\n\nMy work focuses on exploring how quantum and classical computational techniques can be combined to develop efficient approaches to challenging optimization problems. I am particularly interested in QAOA, quantum neural networks, variational quantum algorithms, hybrid optimization, and simulation-based quantum computing.\n\nAlongside research, I have 7+ years of practical experience across software development, web engineering, database systems, AI/ML tools, and technical education as an Instructor.",
         email: "waseemgtti@gmail.com",
         phone: "+92 307 5579 807",
         location: "Rahim Yar Khan, Punjab, Pakistan",
+        githubUsername: "WaseemAkramAlvi",
         socials: [
             { name: "LinkedIn", icon: faLinkedin, url: "https://www.linkedin.com/in/waseemakramalvi/" },
-            { name: "GitHub", icon: faGithub, url: "https://github.com/WaseemAkramAlvi" },
-            { name: "Twitter", icon: faTwitter, url: "#" },
-            { name: "Instagram", icon: faInstagram, url: "#" }
+            { name: "GitHub", icon: faGithub, url: "https://github.com/WaseemAkramAlvi" }
         ]
     },
+
     stats: [
-        { value: "7+", label: "Years Exp" },
-        { value: "50+", label: "Projects Completed" },
-        { value: "10+", label: "Certs Earned" }
+        { value: "MS / BS", label: "Academic Track (IUB / VU)" },
+        { value: "QAOA & QML", label: "Primary Research Focus" },
+        { value: "7+ Years", label: "Software & IT Training" },
+        { value: "10+", label: "Industry Credentials" }
     ],
+
+    // 6 Dedicated Research Focus Areas
+    researchFocus: [
+        {
+            id: "quantum-computing",
+            title: "Quantum Computing",
+            icon: faAtom,
+            color: "#06b6d4",
+            summary: "Quantum algorithms, quantum circuits, variational algorithms, qubit-efficient approaches, and quantum simulation.",
+            details: "Focusing on parameterized quantum circuits (PQCs), state preparation heuristics, error mitigation in simulated environments, and resource-bounded gate compilations."
+        },
+        {
+            id: "quantum-ml",
+            title: "Quantum Machine Learning",
+            icon: faBrain,
+            color: "#8b5cf6",
+            summary: "Quantum neural networks, variational quantum circuits, hybrid quantum-classical learning, and trainability.",
+            details: "Investigating quantum kernel methods, barren plateau mitigation, expressibility of parameterized circuits, and classical-quantum feature embedding."
+        },
+        {
+            id: "combinatorial-opt",
+            title: "Combinatorial Optimization",
+            icon: faRoute,
+            color: "#3b82f6",
+            summary: "Vehicle routing, constrained optimization, graph-based optimization, and practical optimization problems.",
+            details: "Formulating NP-hard routing problems into Quadratic Unconstrained Binary Optimization (QUBO) and Ising representations with constraint penalty balancing."
+        },
+        {
+            id: "qaoa",
+            title: "QAOA & Variational Methods",
+            icon: faMicrochip,
+            color: "#10b981",
+            summary: "Quantum Approximate Optimization Algorithm and warm-started/hybrid approaches for optimization problems.",
+            details: "Developing warm-started mixer Hamiltonians, continuous-to-binary relaxation mappings, and multi-angle parameter transfer strategies."
+        },
+        {
+            id: "hybrid-systems",
+            title: "Quantum-Classical Hybrid Systems",
+            icon: faProjectDiagram,
+            color: "#ec4899",
+            summary: "Combining classical preprocessing, decomposition, optimization, and quantum optimization components.",
+            details: "Architecting co-processing loops where classical algorithms handle clustering, route seeding, and outer-loop parameter updates while quantum subroutines evaluate combinatorial kernels."
+        },
+        {
+            id: "ai-ml",
+            title: "Artificial Intelligence & Machine Learning",
+            icon: faChartLine,
+            color: "#f59e0b",
+            summary: "Machine learning, deep learning, generative AI, LLMs, and AI engineering.",
+            details: "Practical implementation of supervised predictive pipelines, neural architectures, prompt engineering, and intelligent workflow automation."
+        }
+    ],
+
+    // Current Research / Thesis Details
+    currentResearch: {
+        title: "A Hybrid Decomposition-Based Warm-Started QAOA Framework for Qubit-Efficient Capacitated Vehicle Routing",
+        subtitle: "MS/MPhil Computer Science Thesis Research — The Islamia University of Bahawalpur",
+        description: "My current research explores a hybrid decomposition-based framework for solving Capacitated Vehicle Routing Problems (CVRP) using warm-started QAOA while considering qubit efficiency and practical simulation constraints.",
+        concepts: [
+            "Capacitated Vehicle Routing Problem (CVRP)",
+            "Problem Decomposition Heuristics",
+            "Classical Preprocessing & Seeding",
+            "Warm-Started QAOA Formulations",
+            "Qubit-Efficient Encodings",
+            "Quantum-Classical Co-Optimization",
+            "Simulation-Based Performance Evaluation",
+            "Combinatorial QUBO/Ising Mappings"
+        ],
+        pipeline: [
+            { step: 1, name: "CVRP Formulation", desc: "Customer nodes, fleet capacities, demand vectors, and depot network modeling." },
+            { step: 2, name: "Decomposition", desc: "Clustering large problem instances into partitionable sub-routing graphs." },
+            { step: 3, name: "Classical Preprocessing", desc: "Continuous relaxation and heuristic route seeding for baseline optimization." },
+            { step: 4, name: "Qubit-Efficient Encoding", desc: "Compact binary/qubit mapping minimizing physical register requirements." },
+            { step: 5, name: "Warm Start Initialization", desc: "Biasing initial quantum state toward high-quality classical candidate solutions." },
+            { step: 6, name: "QAOA Execution", desc: "Parameterized alternating cost and mixer Hamiltonian evolution in simulation." },
+            { step: 7, name: "Classical Optimization", desc: "Outer-loop classical optimizer (e.g. COBYLA/Nelder-Mead) refining variational parameters." },
+            { step: 8, name: "Simulation Evaluation", desc: "Validating approximation ratios, convergence profiles, and constraint satisfaction." }
+        ],
+        frameworkScope: "Investigating computational trade-offs, qubit savings, and solution quality across benchmark instances via simulation-based quantum execution frameworks (Python & Qiskit)."
+    },
+
+    // Research Interests
+    researchInterests: [
+        "Quantum Computing",
+        "Quantum Machine Learning",
+        "Quantum Optimization",
+        "QAOA",
+        "Variational Quantum Algorithms",
+        "Quantum Neural Networks",
+        "Hybrid Quantum-Classical Algorithms",
+        "Combinatorial Optimization",
+        "Vehicle Routing Problems (CVRP)",
+        "Quantum Circuit Optimization",
+        "Qubit-Efficient Quantum Algorithms",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Generative AI"
+    ],
+
+    // Technical Skills Organized by Category
+    technicalSkills: {
+        quantum: {
+            title: "Quantum Computing & QML",
+            icon: faAtom,
+            skills: [
+                { name: "QAOA", desc: "Quantum Approximate Optimization Algorithm & warm-start mixers" },
+                { name: "Variational Algorithms", desc: "VQE, Parameterized Quantum Circuits (PQCs)" },
+                { name: "Quantum Circuits", desc: "Gate synthesis, circuit depth, entanglement layouts" },
+                { name: "Quantum Optimization", desc: "QUBO, Ising formulations, combinatorial mappings" },
+                { name: "Quantum Machine Learning", desc: "Quantum neural networks & hybrid classifiers" },
+                { name: "Quantum Simulation", desc: "Statevector, matrix product states, noisy simulation" }
+            ]
+        },
+        aiml: {
+            title: "AI & Machine Learning",
+            icon: faBrain,
+            skills: [
+                { name: "Machine Learning", desc: "Supervised & unsupervised learning, classification, regression" },
+                { name: "Deep Learning", desc: "Multi-layer perceptrons, CNNs, optimization strategies" },
+                { name: "Generative AI", desc: "Prompt engineering, workflow integration, model tuning" },
+                { name: "Large Language Models", desc: "LLM integration, context management, API orchestration" },
+                { name: "RAG Systems", desc: "Retrieval-augmented generation fundamentals & vector retrieval" },
+                { name: "AI Engineering", desc: "End-to-end model evaluation, testing, and deployment workflows" }
+            ]
+        },
+        programming: {
+            title: "Programming Languages",
+            icon: faCode,
+            skills: [
+                { name: "Python", desc: "Core scientific computing, NumPy, SciPy, algorithm development" },
+                { name: "JavaScript", desc: "ES6+, asynchronous patterns, modern UI architectures" },
+                { name: "PHP", desc: "Server-side logic, backend services, legacy & modern systems" },
+                { name: "SQL", desc: "Relational queries, schema design, database normalization" },
+                { name: "HTML5 & CSS3", desc: "Semantic markup, modern CSS layouts, responsive design" }
+            ]
+        },
+        frameworks: {
+            title: "Frameworks & Libraries",
+            icon: faProjectDiagram,
+            skills: [
+                { name: "Qiskit", desc: "Quantum circuit building, algorithms, operator primitives, simulators" },
+                { name: "TensorFlow & Keras", desc: "Deep learning model construction, training, validation" },
+                { name: "PyTorch", desc: "Tensor operations, neural architectures, autograd computation" },
+                { name: "Scikit-learn", desc: "Classical statistical modeling, preprocessing, evaluation metrics" },
+                { name: "LangChain", desc: "LLM chaining, prompt structuring, retrieval orchestration" },
+                { name: "React", desc: "Component architecture, hooks, state management, modern SPAs" },
+                { name: "Bootstrap", desc: "Grid systems, accessible UI components, responsive foundations" }
+            ]
+        },
+        databases: {
+            title: "Databases & Storage",
+            icon: faDatabase,
+            skills: [
+                { name: "MySQL", desc: "Relational database management, query optimization, transactions" },
+                { name: "Database Design", desc: "Entity relationships, indexing strategies, integrity constraints" }
+            ]
+        },
+        tools: {
+            title: "Developer Tools & Platforms",
+            icon: faCogs,
+            skills: [
+                { name: "Git & GitHub", desc: "Version control, branching workflows, collaborative repositories" },
+                { name: "VS Code", desc: "Primary IDE, debugging, Python & React environments" },
+                { name: "Jupyter Notebook", desc: "Interactive scientific computing, simulation experiments, visualization" }
+            ]
+        }
+    },
+
+    // Legacy skills array for backward compatibility with existing components
+    skills: [
+        { title: "Quantum & QML", icon: faAtom, color: "#06b6d4", desc: "QAOA, Variational Circuits, Quantum Simulation, Qiskit" },
+        { title: "AI & Machine Learning", icon: faBrain, color: "#8b5cf6", desc: "Machine Learning, Deep Learning, Generative AI, PyTorch" },
+        { title: "Software Engineering", icon: faLaptopCode, color: "#3b82f6", desc: "Python, JavaScript, PHP, MySQL, React, Full-Stack Architecture" },
+        { title: "Technical Education", icon: faChalkboardTeacher, color: "#10b981", desc: "CBT&A Instructor, Curriculum Development, Hands-on Mentoring" }
+    ],
+
+    techStack: [
+        'QISKIT', 'PYTHON', 'QAOA', 'TENSORFLOW', 'PYTORCH', 'SCIKIT-LEARN',
+        'REACT', 'JAVASCRIPT', 'PHP', 'MYSQL', 'GIT', 'GITHUB'
+    ],
+
+    // Authentic Projects Categorized (All, Quantum, AI/ML, Software, Web)
+    projects: [
+        {
+            id: "thesis-qaoa-cvrp",
+            title: "Qubit-Efficient Warm-Started QAOA for CVRP",
+            category: "Quantum",
+            badge: "Featured Research Project",
+            isFeatured: true,
+            problem: "Capacitated Vehicle Routing is NP-hard. Standard quantum QUBO formulations require an impractical number of qubits that exceed NISQ and simulation constraints.",
+            technology: ["Python", "Qiskit", "QAOA", "Combinatorial Optimization", "CVRP", "Quantum Simulation"],
+            description: "A research-oriented hybrid quantum-classical framework exploring decomposition and warm-start strategies for solving capacitated vehicle routing problems while reducing quantum resource requirements.",
+            keyContribution: "Formulated a problem-decomposition and warm-started initialization pipeline that significantly scales down required qubit registers, enabling simulation-based evaluation of routing instances.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: "#research-thesis"
+        },
+        {
+            id: "crop-care-ai",
+            title: "Crop Care Disease Prediction System",
+            category: "AI/ML",
+            badge: "Computer Vision & AI",
+            isFeatured: false,
+            problem: "Agricultural crop diseases often go undetected in early stages, leading to significant yield reduction and economic loss for farmers.",
+            technology: ["Python", "TensorFlow", "OpenCV", "Flask", "Scikit-learn"],
+            description: "AI-powered diagnostic system that utilizes convolutional neural network models to identify leaf plant diseases from visual imagery and suggest preventive remedies.",
+            keyContribution: "Trained and evaluated deep neural classifiers on plant disease datasets, integrating preprocessing pipelines and an accessible diagnostic interface.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: null
+        },
+        {
+            id: "college-mgmt-system",
+            title: "College Management & Academic Platform",
+            category: "Software",
+            badge: "Enterprise Web App",
+            isFeatured: false,
+            problem: "Educational institutions require unified administrative workflows for admissions, student records, fee reconciliation, and faculty grading.",
+            technology: ["React", "PHP", "MySQL", "Bootstrap", "REST APIs"],
+            description: "A comprehensive digital administration platform supporting multi-role access (administrators, instructors, students) with attendance, examination tracking, and reporting.",
+            keyContribution: "Designed modular relational database architecture, role-based authentication, and responsive administrative dashboards.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: null
+        },
+        {
+            id: "transport-logistics-system",
+            title: "Transport & Fleet Logistics System",
+            category: "Software",
+            badge: "Logistics Software",
+            isFeatured: false,
+            problem: "Managing freight operations, route assignments, vehicle scheduling, and delivery tracking without digital central coordination causes operational delays.",
+            technology: ["React", "PHP", "MySQL", "JavaScript"],
+            description: "A centralized logistics tracking application for vehicle allocation, consignment logging, route coordination, and operational fleet analytics.",
+            keyContribution: "Implemented fleet scheduling logic, shipment status lifecycle management, and relational tracking tables.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: null
+        },
+        {
+            id: "custom-web-engineering",
+            title: "Full-Stack Web Engineering Solutions",
+            category: "Web",
+            badge: "Client Web Engineering",
+            isFeatured: false,
+            problem: "Businesses need robust, responsive web platforms optimized for search engines, fast load times, and structured database operations.",
+            technology: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3", "Bootstrap"],
+            description: "Developed custom dynamic websites and content platforms at CZone Software House tailored to client requirements with clean backend scripting and secure data handling.",
+            keyContribution: "Engineered performant, responsive web interfaces and server-side CRUD modules adhering to web standards.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: null
+        },
+        {
+            id: "uiux-brand-design",
+            title: "UI/UX & Brand Identity Systems",
+            category: "Web",
+            badge: "Design & Prototyping",
+            isFeatured: false,
+            problem: "Tech products and emerging platforms often suffer from cluttered user interfaces and inconsistent visual identity.",
+            technology: ["Figma", "Adobe Photoshop", "Illustrator", "Design Systems"],
+            description: "End-to-end design systems, high-fidelity prototypes, and brand collateral for software applications and organizations (including iAXON branding).",
+            keyContribution: "Established comprehensive component libraries, user journey wireframes, and production-ready visual brand guidelines.",
+            github: "https://github.com/WaseemAkramAlvi",
+            demo: null,
+            documentation: null
+        }
+    ],
+
+    // Education Timeline
+    education: [
+        {
+            degree: "MS / MPhil in Computer Science",
+            institution: "The Islamia University of Bahawalpur",
+            period: "In Progress (Research Phase)",
+            status: "Current Graduate Research",
+            details: "Specializing in Quantum Computing, Quantum Machine Learning, and Combinatorial Optimization.",
+            thesis: "A Hybrid Decomposition-Based Warm-Started QAOA Framework for Qubit-Efficient Capacitated Vehicle Routing"
+        },
+        {
+            degree: "BS in Software Engineering",
+            institution: "Virtual University of Pakistan",
+            period: "Graduated: September 2025",
+            status: "Completed",
+            cgpa: "2.89 / 4.00",
+            details: "Core focus on Software Architecture, Object-Oriented Programming, Data Structures & Algorithms, Database Design, Web Engineering, and Artificial Intelligence."
+        }
+    ],
+
+    // Professional Experience Timeline
     experience: [
         {
             date: "2024 - Present",
-            role: "Instructor CBT&A (Web Dev)",
+            role: "Instructor CBT&A (Web Development & IT)",
             company: "Govt. Technical Training Institute",
-            desc: "Teaching HTML, CSS, JS, PHP, MySQL and guiding students on freelancing."
+            location: "Rahim Yar Khan, Pakistan",
+            desc: "Delivering Competency-Based Training & Assessment (CBT&A) courses in Web Design & Development (HTML, CSS, JavaScript, PHP, MySQL), Database Fundamentals, AI Tools, and Prompt Engineering. Mentoring aspiring developers through project-based learning and freelancing readiness."
         },
         {
             date: "2022 - Present",
-            role: "Web Dev & Graphics Designer",
+            role: "Web Developer & Graphics Designer",
             company: "CZone Software House",
-            desc: "Developing custom websites and designing branding materials for clients."
+            location: "Rahim Yar Khan, Pakistan",
+            desc: "Developing custom responsive websites, dynamic web applications, and comprehensive brand identity designs. Collaborating with clients to translate business requirements into functional digital products."
         },
         {
             date: "2015 - 2017",
             role: "Assistant Manager",
             company: "Al-Hassan Lajpal Traler Service",
-            desc: "Oversaw daily operational tasks and logistics management."
+            location: "Rahim Yar Khan, Pakistan",
+            desc: "Coordinated daily freight logistics, fleet management schedules, and operational reporting, building practical insight into real-world transport and routing challenges."
         }
     ],
-    skills: [
-        { title: "Web Development", icon: faCode, color: "#e34f26", desc: "HTML, CSS, JavaScript, PHP, Bootstrap, WordPress" },
-        { title: "Graphic Design", icon: faPaintBrush, color: "#264de4", desc: "Adobe Photoshop, Illustrator, Figma, Logo Design" },
-        { title: "AI & Tech", icon: faBrain, color: "#f7df1e", desc: "Artificial Intelligence, Python, MS Office Suite" },
-        { title: "Mentoring", icon: faChalkboardTeacher, color: "#61dafb", desc: "Curriculum Development, Project-Based Learning" }
-    ],
-    techStack: [
-        'GIT', 'GITHUB', 'FIGMA', 'PHOTOSHOP', 'HTML5', 'CSS3',
-        'JAVASCRIPT', 'REACT', 'NODE.JS', 'PHP', 'MYSQL', 'PYTHON'
-    ],
+
+    // Authentic Certifications
     certifications: [
-        { name: "IBM", icon: faAward, tooltip: "AI, Data Science & Cloud fundamentals" },
-        { name: "Adobe", icon: faAward, tooltip: "Creative Cloud design tools & workflows" },
-        { name: "Microsoft", icon: faMicrosoft, tooltip: "Cloud, productivity & development badges" },
-        { name: "Meta", icon: faMeta, tooltip: "Front-end, UX & social platforms" },
-        { name: "CISCO", icon: faNetworkWired, tooltip: "Networking, security & infrastructure" },
-        { name: "Google", icon: faGoogle, tooltip: "Analytics, cloud & automation" }
+        { name: "IBM", icon: faAward, tooltip: "AI, UI/UX & Cloud credentials", desc: "IBM AI, Design Thinking and Cloud Professional badges" },
+        { name: "Microsoft", icon: faMicrosoft, tooltip: "Azure Fundamentals & Microsoft 365", desc: "Cloud computing and developer suite certifications" },
+        { name: "Meta", icon: faMeta, tooltip: "Front-End Developer & UX programs", desc: "Front-end development and modern web practices" },
+        { name: "CISCO", icon: faNetworkWired, tooltip: "Networking & Security Essentials", desc: "Network routing, switching, and security foundations" },
+        { name: "Adobe", icon: faAward, tooltip: "Creative Cloud Specialist", desc: "Professional visual design and digital media workflows" },
+        { name: "Google", icon: faGoogle, tooltip: "Analytics & Cloud Fundamentals", desc: "Data analytics and cloud foundations" }
     ],
-    projects: [
-        { title: "Custom Web Development", icon: faLaptopCode, desc: "Developed full-stack web solutions for various clients at CZone Software House using PHP and MySQL." },
-        { title: "UI/UX Capstone Project", icon: faLayerGroup, desc: "Completed a comprehensive UI/UX solution including user research, wireframing, and high-fidelity prototyping." },
-        { title: "Brand Identity Design", icon: faPalette, desc: "Created logos, marketing graphics, and social media creatives for diverse industry clients." },
-        { title: "College Management System", icon: faChalkboardTeacher, desc: "A platform for managing college operations including admissions, attendance, exams, and staff." },
-        { title: "Crop Care Disease Prediction", icon: faBrain, desc: "AI-powered system for predicting crop diseases using image recognition and environmental data." },
-        { title: "Transport Management System", icon: faExchangeAlt, desc: "Digital solution for managing transport fleets, bookings, and logistics." },
-        { title: "iAXON Branding", icon: faPaintBrush, desc: "Developed a complete branding package for iAXON, including logo, business cards, and social media graphics." }
-    ],
-    skillsDetail: {
-        'Web Development': {
-            icon: faCode,
-            items: [
-                { title: 'React', icon: faReact, desc: 'Component-based UI libraries, Hooks, State Management' },
-                { title: 'JavaScript ES6+', icon: faJs, desc: 'Async/Await, Arrow Functions, Destructuring' },
-                { title: 'PHP & MySQL', icon: faDatabase, desc: 'Server-side scripting, Database Design, CRUD Operations' },
-                { title: 'HTML5 & CSS3', icon: faCode, desc: 'Semantic HTML, Flexbox, Grid, Animations' },
-                { title: 'Bootstrap', icon: faMobileAlt, desc: 'Mobile-first Design, Media Queries, Component Library' },
-                { title: 'Node.js & Express', icon: faServer, desc: 'API Development, Middleware, Authentication' },
-                { title: 'WordPress', icon: faWordpress, desc: 'Theme Customization, Plugin Development, SEO' },
-                { title: 'REST APIs', icon: faExchangeAlt, desc: 'API Design, JSON, HTTP Methods, Integration' }
+
+    certDetails: {
+        IBM: {
+            title: "IBM Credentials",
+            certs: [
+                { title: "IBM UI/UX Designer", institute: "IBM", date: "Sep 2023" },
+                { title: "Enterprise Design Thinking Practitioner", institute: "IBM", date: "Aug 2023" },
+                { title: "IBM Cloud Foundations", institute: "IBM", date: "Mar 2021" }
             ]
         },
-        'Graphic Design': {
-            icon: faPaintBrush,
-            items: [
-                { title: 'Adobe Photoshop', icon: faImage, desc: 'Photo Editing, Layer Management, Effects & Filters' },
-                { title: 'Adobe Illustrator', icon: faPenFancy, desc: 'Vector Graphics, Logo Design, Typography' },
-                { title: 'Figma', icon: faFigma, desc: 'UI/UX Design, Prototyping, Design Systems' },
-                { title: 'Logo Design', icon: faGem, desc: 'Brand Identity, Icon Design, Visual Communication' },
-                { title: 'Social Media', icon: faShareAlt, desc: 'Banners, Posts, Stories, Thumbnails' },
-                { title: 'Color Theory', icon: faPalette, desc: 'Color Harmony, Psychology, Accessibility' },
-                { title: 'Typography', icon: faHeading, desc: 'Font Selection, Spacing, Hierarchy, Readability' },
-                { title: 'Web Design UI/UX', icon: faLaptop, desc: 'Wireframing, Prototyping, User Experience' },
-                { title: 'InDesign Layout', icon: faFile, desc: 'Print Design, Brochures, Posters, Publications' }
+        Microsoft: {
+            title: "Microsoft Credentials",
+            certs: [
+                { title: "Microsoft Azure Fundamentals", institute: "Microsoft", date: "Dec 2023" },
+                { title: "Microsoft 365 Certified", institute: "Microsoft", date: "Nov 2023" }
             ]
         },
-        'AI & Tech': {
-            icon: faBrain,
-            items: [
-                { title: 'Machine Learning', icon: faChartLine, desc: 'Supervised Learning, Classification, Regression' },
-                { title: 'Deep Learning', icon: faCube, desc: 'Neural Networks, CNNs, RNNs, TensorFlow' },
-                { title: 'Python', icon: faPython, desc: 'Data Analysis, Libraries: NumPy, Pandas, Scikit-learn' },
-                { title: 'Data Analysis', icon: faChartBar, desc: 'Data Visualization, Statistical Analysis, Insights' },
-                { title: 'Excel Advanced', icon: faTable, desc: 'Formulas, Pivot Tables, Data Modeling' },
-                { title: 'Power BI', icon: faChartPie, desc: 'Dashboard Creation, Data Visualization, BI Analytics' },
-                { title: 'IoT Basics', icon: faSitemap, desc: 'Arduino, Sensors, Connected Devices' },
-                { title: 'Cloud Computing', icon: faCloud, desc: 'AWS, Azure, Google Cloud Basics' },
-                { title: 'Automation Scripts', icon: faCogs, desc: 'Task Automation, Scripting, Process Optimization' }
+        Meta: {
+            title: "Meta Credentials",
+            certs: [
+                { title: "Meta Front-End Developer Track", institute: "Meta", date: "Oct 2023" },
+                { title: "Meta Digital & Social Media Foundations", institute: "Meta", date: "Sep 2023" }
             ]
         },
-        'Mentoring': {
-            icon: faChalkboardTeacher,
-            items: [
-                { title: 'Curriculum Dev', icon: faBook, desc: 'Course Design, Learning Objectives, Content Structure' },
-                { title: 'Project-Based Learning', icon: faProjectDiagram, desc: 'Hands-on Projects, Real-world Applications, Case Studies' },
-                { title: 'Interactive Teaching', icon: faComments, desc: 'Class Engagement, Q&A Sessions, Discussions' },
-                { title: 'Student Assessment', icon: faClipboardCheck, desc: 'Evaluation, Grading, Feedback, Progress Tracking' },
-                { title: 'Workshops', icon: faUsers, desc: 'Group Sessions, Seminars, Training Programs' },
-                { title: 'Career Guidance', icon: faCompass, desc: 'Career Path Planning, Skill Development, Mentorship' },
-                { title: 'Online Teaching', icon: faVideo, desc: 'Virtual Classes, LMS Management, Video Tutorials' },
-                { title: 'Soft Skills', icon: faHandshake, desc: 'Communication, Leadership, Problem-solving, Teamwork' }
+        CISCO: {
+            title: "Cisco Credentials",
+            certs: [
+                { title: "Cisco Network Fundamentals", institute: "Cisco", date: "Aug 2023" },
+                { title: "Cisco Security Essentials", institute: "Cisco", date: "Jul 2023" }
+            ]
+        },
+        Adobe: {
+            title: "Adobe Credentials",
+            certs: [
+                { title: "Adobe Photoshop Specialist", institute: "Adobe", date: "Mar 2024" },
+                { title: "Adobe Illustrator Expert", institute: "Adobe", date: "Feb 2024" }
+            ]
+        },
+        Google: {
+            title: "Google Credentials",
+            certs: [
+                { title: "Google Analytics Qualification", institute: "Google", date: "Jun 2023" },
+                { title: "Google Data Analytics Certificate", institute: "Google", date: "May 2023" }
             ]
         }
+    },
+
+    // Publications (Transparent & Factual)
+    publications: {
+        statusText: "Research publications and technical manuscripts will be added as they become available.",
+        activeManuscripts: [
+            {
+                title: "A Hybrid Decomposition-Based Warm-Started QAOA Framework for Qubit-Efficient Capacitated Vehicle Routing",
+                venue: "MS Thesis Research (Under Investigation)",
+                focus: "Decomposition heuristics, warm-started QAOA circuits, qubit resource reduction, simulation-based benchmarking on CVRP instances."
+            }
+        ]
     }
 };

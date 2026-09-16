@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAtom, faFilePdf, faMoon, faSun, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar = ({ darkMode, setDarkMode, onOpenCV }) => {
     const { personalInfo } = portfolioData;
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 50);
+        const handleScroll = () => setIsScrolled(window.scrollY > 40);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -16,73 +18,92 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     const navLinks = [
         { name: 'Home', href: '#home' },
         { name: 'About', href: '#about' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Certifications', href: '#certifications' },
+        { name: 'Thesis', href: '#thesis' },
+        { name: 'Research', href: '#research' },
         { name: 'Projects', href: '#projects' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Education', href: '#education' },
+        { name: 'Experience', href: '#experience' },
+        { name: 'Certifications', href: '#certifications' },
+        { name: 'Contact', href: '#contact' }
     ];
+
+    const handleNavClick = () => {
+        setIsMobileMenuOpen(false);
+    };
 
     return (
         <motion.nav
-            className={`navbar navbar-expand-lg ${isScrolled ? 'scrolled' : ''}`}
-            initial={{ y: -100 }}
+            className={`navbar navbar-expand-xl fixed-top research-navbar ${isScrolled ? 'scrolled' : ''}`}
+            initial={{ y: -80 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <div className="container">
-                <a className="navbar-brand" href="#home">
-                    {personalInfo.name.split(' ').slice(0, 2).join('.')}.<span className="brand-purple">Alvi</span>
+            <div className="container-fluid px-lg-5">
+                {/* Brand */}
+                <a className="navbar-brand d-flex align-items-center gap-2" href="#home">
+                    <span className="brand-logo-icon">
+                        <FontAwesomeIcon icon={faAtom} className="text-cyan" />
+                    </span>
+                    <span className="fw-bold tracking-tight text-light-emphasis">
+                        {personalInfo.name}
+                    </span>
+                    <span className="badge bg-secondary-subtle text-cyan d-none d-sm-inline-block font-mono small">
+                        Quantum &amp; ML
+                    </span>
                 </a>
 
+                {/* Mobile Hamburger Toggle */}
                 <button
-                    className="navbar-toggler border-0"
+                    className="navbar-toggler border-0 text-light p-2"
                     type="button"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle navigation"
                 >
-                    <span className="navbar-toggler-icon"></span>
+                    <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} size="lg" />
                 </button>
 
-                <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show' : ''}`}>
-                    <ul className="navbar-nav ms-auto align-items-center">
-                        {navLinks.map((link, index) => (
-                            <motion.li
-                                key={index}
-                                className="nav-item"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 + 0.5 }}
-                            >
-                                <a className="nav-link" href={link.href} onClick={() => setIsMobileMenuOpen(false)}>
+                {/* Links Collapse */}
+                <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show' : ''}`} id="navbarNav">
+                    <ul className="navbar-nav ms-auto align-items-xl-center gap-1">
+                        {navLinks.map((link, idx) => (
+                            <li key={idx} className="nav-item">
+                                <a 
+                                    className="nav-link py-2 px-3 rounded-pill" 
+                                    href={link.href} 
+                                    onClick={handleNavClick}
+                                >
                                     {link.name}
                                 </a>
-                            </motion.li>
+                            </li>
                         ))}
-                        <motion.li
-                            className="nav-item ms-lg-3 mt-3 mt-lg-0"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1 }}
-                        >
-                            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} title="Toggle Theme">
-                                <AnimatePresence mode="wait">
-                                    <motion.i
-                                        key={darkMode ? 'moon' : 'sun'}
-                                        initial={{ rotate: -90, opacity: 0 }}
-                                        animate={{ rotate: 0, opacity: 1 }}
-                                        exit={{ rotate: 90, opacity: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className={`fas ${darkMode ? 'fa-moon' : 'fa-sun'}`}
-                                    ></motion.i>
-                                </AnimatePresence>
+
+                        {/* CV Button */}
+                        <li className="nav-item ms-xl-2 my-2 my-xl-0">
+                            <button 
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    if (onOpenCV) onOpenCV();
+                                }}
+                                className="btn btn-sm btn-outline-cyan rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2"
+                                title="Open Curriculum Vitae"
+                            >
+                                <FontAwesomeIcon icon={faFilePdf} />
+                                <span>CV</span>
                             </button>
-                        </motion.li>
-                        <motion.li
-                            className="nav-item ms-lg-3 mt-3 mt-lg-0"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 1.2 }}
-                        >
-                            <a href="#contact-me" className="btn btn-custom btn-sm px-4 rounded-pill">Get in Touch</a>
-                        </motion.li>
+                        </li>
+
+                        {/* Theme Toggle Button */}
+                        <li className="nav-item ms-xl-2 my-2 my-xl-0">
+                            <button
+                                className="theme-toggle btn btn-sm rounded-circle"
+                                onClick={() => setDarkMode(!darkMode)}
+                                title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                                aria-label="Toggle Theme"
+                            >
+                                <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -20,69 +20,101 @@ const techIcons = {
   WordPress: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg',
   'C++': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
   'Java': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-  'Bootstrap': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
-  'Tensorflow': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+  PyTorch: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',
+  Git: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
 };
 
 const ProjectDetailsModal = ({ open, onClose, project }) => {
   if (!open || !project) return null;
+
+  const techList = project.technology || project.technologies || [];
+  const overviewText = project.overview || project.description || '';
+
   return (
     <div className="project-details-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="project-details-modal">
         <button className="project-details-close" onClick={onClose}>&times;</button>
         <div className="project-details-header">
-          <span className="project-details-icon">{project.icon}</span>
+          <span className="project-details-icon">{project.icon || '⚛️'}</span>
           <div>
             <div className="project-details-title">{project.title}</div>
-            <span className="project-details-badge">{project.badge}</span>
+            <span className="project-details-badge">{project.badge || project.category}</span>
           </div>
         </div>
         <div className="project-details-body">
           <div className="project-details-main">
             <div className="project-details-section">
-              <div className="project-details-section-title">Project Overview</div>
-              <div className="project-details-overview">{project.overview}</div>
+              <div className="project-details-section-title">Problem Statement</div>
+              <div className="project-details-overview">{project.problem || 'Complex algorithmic or engineering problem requiring modern computational methodology.'}</div>
             </div>
+
+            <div className="project-details-section">
+              <div className="project-details-section-title">Technical Overview</div>
+              <div className="project-details-overview">{overviewText}</div>
+            </div>
+
+            {project.keyContribution && (
+              <div className="project-details-section">
+                <div className="project-details-section-title">Key Contribution</div>
+                <div className="project-details-overview">{project.keyContribution}</div>
+              </div>
+            )}
+
             <div className="project-details-section">
               <div className="project-details-section-title">Technologies Used</div>
               <div className="project-details-techs">
-                {project.technologies.map(tech => (
+                {techList.map(tech => (
                   <span className="project-details-tech-badge" key={tech}>
-                    <img src={techIcons[tech]} alt={tech} /> {tech}
+                    {techIcons[tech] && <img src={techIcons[tech]} alt={tech} />} {tech}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="project-details-section">
-              <div className="project-details-section-title">Development Process</div>
-              <div className="project-details-process">
-                {project.process.map((step, idx) => (
-                  <div className="project-details-process-step" key={idx}>
-                    <span className="project-details-process-icon">{step.icon}</span>
-                    <span>{step.label}</span>
-                  </div>
-                ))}
+
+            {project.process && project.process.length > 0 && (
+              <div className="project-details-section">
+                <div className="project-details-section-title">Engineering Methodology</div>
+                <div className="project-details-process">
+                  {project.process.map((step, idx) => (
+                    <div className="project-details-process-step" key={idx}>
+                      <span className="project-details-process-icon">{step.icon}</span>
+                      <span>{step.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="project-details-section">
-              <div className="project-details-section-title">Project Preview</div>
-              <ul className="project-details-preview-list">
-                {project.preview.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            </div>
+            )}
+
+            {project.preview && project.preview.length > 0 && (
+              <div className="project-details-section">
+                <div className="project-details-section-title">System Highlights</div>
+                <ul className="project-details-preview-list">
+                  {project.preview.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="project-details-actions">
-              {project.demo && <a href={project.demo} className="project-details-btn" target="_blank" rel="noopener noreferrer">Live Demo</a>}
-              {project.code && <a href={project.code} className="project-details-btn alt" target="_blank" rel="noopener noreferrer">View Code</a>}
+              {project.github && (
+                <a href={project.github} className="project-details-btn alt" target="_blank" rel="noopener noreferrer">
+                  GitHub Repository
+                </a>
+              )}
+              {project.documentation && (
+                <a href={project.documentation} className="project-details-btn" onClick={onClose}>
+                  Research Thesis Section
+                </a>
+              )}
+              {project.demo && (
+                <a href={project.demo} className="project-details-btn" target="_blank" rel="noopener noreferrer">
+                  Live Demo
+                </a>
+              )}
               <button className="project-details-btn close" onClick={onClose}>Close</button>
             </div>
           </div>
-          {project.image && (
-            <div className="project-details-image">
-              <img src={project.image} alt="Project Screenshot" />
-            </div>
-          )}
         </div>
       </div>
     </div>
