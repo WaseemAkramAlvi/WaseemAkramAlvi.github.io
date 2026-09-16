@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faAtom } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 
-const FloatingActions = () => {
+const FloatingActions = ({ onReplayIntro }) => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -32,6 +32,21 @@ const FloatingActions = () => {
 
     return (
         <div className="floating-actions-container">
+            {/* Replay Quantum Intro Button */}
+            {onReplayIntro && (
+                <motion.button
+                    className="floating-btn intro-replay-btn"
+                    onClick={onReplayIntro}
+                    title="Experience Quantum Intro Animation"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <FontAwesomeIcon icon={faAtom} className="text-cyan" />
+                </motion.button>
+            )}
+
             {/* WhatsApp Button - Always Visible */}
             <motion.a
                 href={whatsappLink}

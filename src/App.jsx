@@ -61,6 +61,12 @@ function App() {
     }, 800);
   };
 
+  const handleReplayIntro = () => {
+    setIsLoaded(false);
+    setShowMainContent(false);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       <ScrollProgress />
@@ -92,6 +98,7 @@ function App() {
             darkMode={darkMode} 
             setDarkMode={setDarkMode} 
             onOpenCV={() => setIsCVOpen(true)}
+            onReplayIntro={handleReplayIntro}
           />
 
           <main id="main-portfolio-flow">
@@ -119,7 +126,7 @@ function App() {
       )}
 
       {/* Floating Action Buttons */}
-      <FloatingActions />
+      <FloatingActions onReplayIntro={handleReplayIntro} />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAtom, faFilePdf, faMoon, faSun, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 
-const Navbar = ({ darkMode, setDarkMode, onOpenCV }) => {
+const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
     const { personalInfo } = portfolioData;
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,7 +41,17 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV }) => {
         >
             <div className="container-fluid px-lg-5">
                 {/* Brand */}
-                <a className="navbar-brand d-flex align-items-center gap-2" href="#home">
+                <a 
+                    className="navbar-brand d-flex align-items-center gap-2" 
+                    href="#home"
+                    onClick={(e) => {
+                        if (onReplayIntro && window.scrollY < 80) {
+                            e.preventDefault();
+                            onReplayIntro();
+                        }
+                    }}
+                    title="Click to replay Quantum Intro"
+                >
                     <span className="brand-logo-icon">
                         <FontAwesomeIcon icon={faAtom} className="text-cyan" />
                     </span>

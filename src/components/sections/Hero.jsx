@@ -16,10 +16,11 @@ import {
 import { portfolioData } from '../../data/portfolioData';
 import TechTicker from './TechTicker';
 import HeroImage from '/assets/WASEEM_PIC.png';
+import QuantumAtom from '../layout/QuantumAtom';
 
 const Hero = ({ onOpenCV }) => {
     const { personalInfo, stats } = portfolioData;
-    const [visualMode, setVisualMode] = useState('circuit'); // 'circuit' or 'photo'
+    const [visualMode, setVisualMode] = useState('circuit'); // 'circuit', 'atom', or 'photo'
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -136,6 +137,14 @@ const Hero = ({ onOpenCV }) => {
                                     </button>
                                     <button 
                                         type="button" 
+                                        className={`btn btn-sm ${visualMode === 'atom' ? 'btn-cyan-active' : 'btn-ghost'}`}
+                                        onClick={() => setVisualMode('atom')}
+                                        title="View 3D Quantum Atom & Orbitals"
+                                    >
+                                        3D Atom
+                                    </button>
+                                    <button 
+                                        type="button" 
                                         className={`btn btn-sm ${visualMode === 'photo' ? 'btn-cyan-active' : 'btn-ghost'}`}
                                         onClick={() => setVisualMode('photo')}
                                         title="View Researcher Profile"
@@ -145,7 +154,20 @@ const Hero = ({ onOpenCV }) => {
                                 </div>
                             </div>
 
-                            {visualMode === 'circuit' ? (
+                            {visualMode === 'atom' ? (
+                                /* Interactive 3D Quantum Atom Display */
+                                <div className="hero-atom-stage p-4 d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '340px' }}>
+                                    <div className="py-2">
+                                        <QuantumAtom />
+                                    </div>
+                                    <div className="mt-4 text-center">
+                                        <span className="badge bg-dark-subtle text-cyan font-mono border border-cyan-subtle px-3 py-2">
+                                            <FontAwesomeIcon icon={faAtom} className="me-2" />
+                                            QUANTUM BOHR-SOMMERFELD ATOMIC MODEL // HOVER OR CLICK TO EXCITE
+                                        </span>
+                                    </div>
+                                </div>
+                            ) : visualMode === 'circuit' ? (
                                 /* Interactive Quantum-Classical Graph & Circuit Diagram */
                                 <div className="quantum-circuit-canvas p-3 rounded-3 position-relative">
                                     <svg viewBox="0 0 440 330" className="w-100 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -5420,4 +5420,834 @@ body.dark-mode .thesis-callout .text-light-emphasis {
     }
 }
 
+/* ==========================================================================
+   QUANTUM COMPUTING INTRO SCREEN & 3D QUANTUM ATOM ORBITAL SYSTEM
+   ========================================================================== */
+
+.quantum-intro-wrapper {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #0a1128 0%, #050814 55%, #020409 100%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #f1f5f9;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    user-select: none;
+}
+
+/* Ambient Cyber Quantum Grid */
+.quantum-ambient-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 1;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+}
+
+/* Top Telemetry HUD */
+.quantum-hud-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.15);
+    background: rgba(5, 8, 20, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+}
+
+.hud-metric {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hud-label {
+    color: #64748b;
+    font-weight: 600;
+}
+
+.hud-value {
+    font-weight: 700;
+}
+
+/* Bottom Telemetry Coordinates */
+.quantum-footer-telemetry {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(6, 182, 212, 0.12);
+    background: rgba(5, 8, 20, 0.5);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.7rem;
+    color: #64748b;
+    letter-spacing: 1.5px;
+    z-index: 20;
+}
+
+/* Floating Dirac Bra-Ket Mathematical Chips */
+.quantum-dirac-floating {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.dirac-chip {
+    position: absolute;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: rgba(6, 182, 212, 0.55);
+    background: rgba(6, 182, 212, 0.04);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: floatDirac 8s ease-in-out infinite;
+}
+
+.dirac-1 { top: 18%; left: 8%; animation-delay: 0s; color: rgba(6, 182, 212, 0.7); }
+.dirac-2 { top: 22%; right: 10%; animation-delay: 2s; color: rgba(139, 92, 246, 0.7); border-color: rgba(139, 92, 246, 0.2); }
+.dirac-3 { top: 48%; left: 6%; animation-delay: 4s; color: rgba(56, 189, 248, 0.7); }
+.dirac-4 { top: 52%; right: 8%; animation-delay: 1.5s; color: rgba(236, 72, 153, 0.7); border-color: rgba(236, 72, 153, 0.2); }
+.dirac-5 { bottom: 22%; left: 12%; animation-delay: 3s; color: rgba(6, 182, 212, 0.7); }
+.dirac-6 { bottom: 26%; right: 12%; animation-delay: 5s; color: rgba(139, 92, 246, 0.7); }
+.dirac-7 { top: 12%; left: 45%; animation-delay: 2.5s; color: rgba(6, 182, 212, 0.5); }
+.dirac-8 { bottom: 15%; left: 42%; animation-delay: 3.5s; color: rgba(139, 92, 246, 0.5); }
+
+@keyframes floatDirac {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-16px) rotate(1.5deg);
+        opacity: 0.95;
+    }
+}
+
+/* Central Content Frame */
+.quantum-intro-content {
+    position: relative;
+    z-index: 10;
+    max-width: 640px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ==========================================================================
+   3D QUANTUM ATOM ORBITAL SYSTEM
+   ========================================================================== */
+.atom-centerpiece-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+}
+
+.quantum-atom-system {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quantum-atom-system:hover,
+.quantum-atom-system.excited-state {
+    transform: scale(1.08);
+}
+
+/* Outer Probability Field */
+.quantum-orbital-cloud {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(139, 92, 246, 0.06) 50%, transparent 75%);
+    filter: blur(12px);
+    pointer-events: none;
+    animation: cloudBreathe 4s ease-in-out infinite alternate;
+}
+
+@keyframes cloudBreathe {
+    0% { transform: scale(0.92); opacity: 0.5; }
+    100% { transform: scale(1.12); opacity: 0.85; }
+}
+
+/* Quantum Wave-Packet Emission Rings */
+.quantum-wave-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(6, 182, 212, 0.6);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.wave-ring-1 {
+    animation: waveEmit 3s ease-out infinite;
+}
+
+.wave-ring-2 {
+    animation: waveEmit 3s ease-out infinite 1s;
+    border-color: rgba(139, 92, 246, 0.6);
+}
+
+.wave-ring-3 {
+    animation: waveEmit 3s ease-out infinite 2s;
+    border-color: rgba(236, 72, 153, 0.5);
+}
+
+@keyframes waveEmit {
+    0% {
+        width: 20px;
+        height: 20px;
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        width: 240px;
+        height: 240px;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+/* 3D Orbital Planes */
+.atom-orbit-plane {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 220px;
+    height: 220px;
+    margin-left: -110px;
+    margin-top: -110px;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+/* Orbit Inclinations in 3D Space */
+.orbit-plane-1 {
+    transform: rotateZ(30deg) rotateX(68deg);
+}
+
+.orbit-plane-2 {
+    transform: rotateZ(90deg) rotateX(68deg);
+}
+
+.orbit-plane-3 {
+    transform: rotateZ(150deg) rotateX(68deg);
+}
+
+.orbit-plane-4 {
+    transform: rotateZ(-45deg) rotateX(62deg);
+}
+
+/* Glowing Orbital Tracks */
+.orbit-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border-width: 1.5px;
+    border-style: solid;
+    box-sizing: border-box;
+}
+
+.track-cyan {
+    border-color: rgba(6, 182, 212, 0.45);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.25), inset 0 0 8px rgba(6, 182, 212, 0.15);
+}
+
+.track-violet {
+    border-color: rgba(139, 92, 246, 0.45);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.25), inset 0 0 8px rgba(139, 92, 246, 0.15);
+}
+
+.track-magenta {
+    border-color: rgba(236, 72, 153, 0.45);
+    box-shadow: 0 0 12px rgba(236, 72, 153, 0.25), inset 0 0 8px rgba(236, 72, 153, 0.15);
+}
+
+.track-blue {
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25), inset 0 0 8px rgba(56, 189, 248, 0.15);
+}
+
+/* Electron Carrier - Rotates along the 3D orbit circumference */
+.electron-carrier {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    transform-origin: center center;
+}
+
+.electron-carrier-1 {
+    animation: electronOrbit 3.2s linear infinite;
+}
+
+.electron-carrier-2 {
+    animation: electronOrbitReverse 3.8s linear infinite;
+}
+
+.electron-carrier-3 {
+    animation: electronOrbit 4.4s linear infinite;
+}
+
+.electron-carrier-4 {
+    animation: electronOrbitReverse 2.8s linear infinite;
+}
+
+/* Excited speed-up */
+.quantum-atom-system.excited-state .electron-carrier-1 { animation-duration: 1.6s; }
+.quantum-atom-system.excited-state .electron-carrier-2 { animation-duration: 1.9s; }
+.quantum-atom-system.excited-state .electron-carrier-3 { animation-duration: 2.2s; }
+.quantum-atom-system.excited-state .electron-carrier-4 { animation-duration: 1.4s; }
+
+@keyframes electronOrbit {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes electronOrbitReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Orbiting Electron Particle */
+.quantum-electron {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    margin-left: -7px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateX(-68deg);
+}
+
+.electron-core {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.electron-halo {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    filter: blur(2px);
+    z-index: 1;
+}
+
+.electron-trail {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 24px;
+    height: 4px;
+    transform: translateY(-50%) rotate(15deg);
+    border-radius: 2px;
+    opacity: 0.7;
+    filter: blur(1px);
+    z-index: 0;
+}
+
+.electron-spin {
+    position: absolute;
+    top: -12px;
+    font-size: 8px;
+    font-family: monospace;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    opacity: 0.85;
+}
+
+/* Color variations for electrons */
+.electron-cyan .electron-core {
+    box-shadow: 0 0 8px #ffffff, 0 0 16px #00ffff, 0 0 28px #06b6d4;
+}
+.electron-cyan .electron-halo {
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.8) 0%, transparent 70%);
+}
+.electron-cyan .electron-trail {
+    background: linear-gradient(to left, rgba(6, 182, 212, 0.8), transparent);
+}
+.electron-cyan .electron-spin {
+    color: #06b6d4;
+}
+
+.electron-violet .electron-core {
+    box-shadow: 0 0 8px #ffffff, 0 0 16px #c084fc, 0 0 28px #8b5cf6;
+}
+.electron-violet .electron-halo {
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, transparent 70%);
+}
+.electron-violet .electron-trail {
+    background: linear-gradient(to left, rgba(139, 92, 246, 0.8), transparent);
+}
+.electron-violet .electron-spin {
+    color: #c084fc;
+}
+
+.electron-magenta .electron-core {
+    box-shadow: 0 0 8px #ffffff, 0 0 16px #f472b6, 0 0 28px #ec4899;
+}
+.electron-magenta .electron-halo {
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, transparent 70%);
+}
+.electron-magenta .electron-trail {
+    background: linear-gradient(to left, rgba(236, 72, 153, 0.8), transparent);
+}
+.electron-magenta .electron-spin {
+    color: #f472b6;
+}
+
+.electron-blue .electron-core {
+    box-shadow: 0 0 8px #ffffff, 0 0 16px #38bdf8, 0 0 28px #0284c7;
+}
+.electron-blue .electron-halo {
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.8) 0%, transparent 70%);
+}
+.electron-blue .electron-trail {
+    background: linear-gradient(to left, rgba(56, 189, 248, 0.8), transparent);
+}
+.electron-blue .electron-spin {
+    color: #38bdf8;
+}
+
+/* ==========================================================================
+   CENTRAL QUANTUM NUCLEUS
+   ========================================================================== */
+.atom-nucleus-complex {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 54px;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+}
+
+/* Energy Corona */
+.nucleus-corona {
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.7) 0%, rgba(139, 92, 246, 0.35) 55%, transparent 80%);
+    filter: blur(6px);
+    animation: coronaPulsate 2.4s infinite ease-in-out;
+}
+
+@keyframes coronaPulsate {
+    0%, 100% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.25); opacity: 0.95; }
+}
+
+/* Nucleon Cluster */
+.nucleons-cluster {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    animation: clusterSpin 12s linear infinite;
+}
+
+@keyframes clusterSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.nucleon {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: inset -1px -1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.nucleon-proton {
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #06b6d4 50%, #0891b2 100%);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.8);
+}
+
+.nucleon-neutron {
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #a855f7 50%, #7e22ce 100%);
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+}
+
+.proton-1 { top: 2px; left: 4px; }
+.proton-2 { bottom: 2px; right: 4px; }
+.proton-3 { top: 10px; right: 2px; }
+.neutron-1 { bottom: 4px; left: 6px; }
+.neutron-2 { top: 4px; right: 10px; }
+
+/* Fusion Point */
+.nucleus-fusion-core {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 16px #ffffff, 0 0 30px #06b6d4, 0 0 45px #8b5cf6;
+    animation: fusionBlink 1.6s infinite alternate ease-in-out;
+}
+
+@keyframes fusionBlink {
+    0% { transform: scale(0.85); opacity: 0.8; }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Quantum State Tag Below Nucleus */
+.quantum-state-tag {
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #22d3ee;
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.excited-state .quantum-state-tag {
+    color: #ec4899;
+    border-color: rgba(236, 72, 153, 0.6);
+    background: rgba(236, 72, 153, 0.18);
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+}
+
+/* Bloch Sphere Coordinate Lines Overlay */
+.atom-bloch-overlay {
+    position: absolute;
+    inset: -10px;
+    width: 260px;
+    height: 260px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.65;
+    animation: blochRotate 40s linear infinite;
+}
+
+@keyframes blochRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   INTRO IDENTITY & PRESENTATION
+   ========================================================================== */
+.intro-badge-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quantum-intro-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 14px;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    color: #94a3b8;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.quantum-intro-name {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    text-shadow: 0 0 25px rgba(6, 182, 212, 0.4), 0 0 50px rgba(139, 92, 246, 0.2);
+    margin: 0;
+}
+
+.quantum-intro-role {
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #22d3ee;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+}
+
+/* Dynamic Quantum Status Message Box */
+.quantum-status-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    background: rgba(6, 182, 212, 0.06);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    backdrop-filter: blur(6px);
+    max-width: 90%;
+}
+
+.status-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #06b6d4;
+    box-shadow: 0 0 10px #06b6d4;
+    animation: statusPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+.status-code-font {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    letter-spacing: 0.5px;
+}
+
+/* Quantum Coherence Progress Bar */
+.quantum-coherence-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+.coherence-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.coherence-percent {
+    color: #06b6d4;
+    font-weight: 700;
+}
+
+.quantum-progress-track {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.quantum-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+    border-radius: 9999px;
+    position: relative;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+    transition: width 0.1s linear;
+}
+
+.quantum-sparkle-head {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 10px #ffffff, 0 0 20px #06b6d4;
+}
+
+/* ==========================================================================
+   INITIALIZE / ENTER PORTFOLIO BUTTON
+   ========================================================================== */
+.intro-action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-quantum-enter {
+    position: relative;
+    padding: 16px 42px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.5);
+    color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: visible;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.25), inset 0 0 15px rgba(6, 182, 212, 0.1);
+}
+
+.btn-quantum-enter:hover {
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #22d3ee;
+    box-shadow: 0 0 35px rgba(6, 182, 212, 0.55), inset 0 0 20px rgba(6, 182, 212, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-quantum-enter:active,
+.btn-quantum-enter.active-transition {
+    transform: scale(0.97);
+    background: rgba(6, 182, 212, 0.35);
+    box-shadow: 0 0 45px rgba(6, 182, 212, 0.8);
+}
+
+/* Cyber Corner Brackets on Enter Button */
+.corner-bracket {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: #22d3ee;
+    border-style: solid;
+    transition: all 0.3s ease;
+}
+
+.corner-bracket.top-left {
+    top: -3px;
+    left: -3px;
+    border-width: 2px 0 0 2px;
+}
+
+.corner-bracket.top-right {
+    top: -3px;
+    right: -3px;
+    border-width: 2px 2px 0 0;
+}
+
+.corner-bracket.bottom-left {
+    bottom: -3px;
+    left: -3px;
+    border-width: 0 0 2px 2px;
+}
+
+.corner-bracket.bottom-right {
+    bottom: -3px;
+    right: -3px;
+    border-width: 0 2px 2px 0;
+}
+
+.btn-quantum-enter:hover .corner-bracket {
+    width: 14px;
+    height: 14px;
+    border-color: #ffffff;
+}
+
+.enter-hint {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Mobile Responsiveness for Intro */
+@media (max-width: 768px) {
+    .atom-centerpiece-container {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 0.5rem;
+    }
+
+    .quantum-atom-system {
+        width: 190px;
+        height: 190px;
+    }
+
+    .atom-orbit-plane {
+        width: 170px;
+        height: 170px;
+        margin-left: -85px;
+        margin-top: -85px;
+    }
+
+    .atom-bloch-overlay {
+        width: 200px;
+        height: 200px;
+    }
+
+    .quantum-intro-name {
+        font-size: 1.85rem;
+    }
+
+    .quantum-intro-role {
+        font-size: 0.9rem;
+    }
+
+    .dirac-chip {
+        display: none;
+    }
+
+    .btn-quantum-enter {
+        padding: 13px 28px;
+        font-size: 0.85rem;
+    }
+}
+
+
 
