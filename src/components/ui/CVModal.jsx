@@ -59,7 +59,7 @@ const CVModal = ({ isOpen, onClose }) => {
                     <div className="cv-modal-body p-4 p-md-5" ref={cvContentRef}>
                         {/* Header */}
                         <div className="cv-header text-center pb-4 mb-4 border-bottom">
-                            <h1 className="h2 fw-bold text-uppercase mb-1 tracking-wider">{personalInfo.name}</h1>
+                            <h1 className="h2 fw-bold text-uppercase mb-1 tracking-wider cv-name" style={{ color: '#090d16' }}>{personalInfo.name}</h1>
                             <div className="text-primary fw-semibold mb-2">
                                 {personalInfo.headline}
                             </div>

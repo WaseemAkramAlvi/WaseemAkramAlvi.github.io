@@ -4235,7 +4235,7 @@ body.dark-mode .btn-outline-cv:hover,
     box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
 }
 
-/* --- CV MODAL --- */
+/* --- CV MODAL (Clean, high-contrast document presentation in all modes) --- */
 .cv-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -4249,9 +4249,10 @@ body.dark-mode .btn-outline-cv:hover,
     overflow-y: auto;
 }
 
-.cv-modal-dialog {
-    background: #ffffff;
-    color: #0f172a;
+.cv-modal-dialog,
+body.dark-mode .cv-modal-dialog {
+    background: #ffffff !important;
+    color: #0f172a !important;
     width: 100%;
     max-width: 850px;
     max-height: 90vh;
@@ -4262,37 +4263,103 @@ body.dark-mode .btn-outline-cv:hover,
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-.cv-modal-header {
-    background: #f8fafc;
+.cv-modal-header,
+body.dark-mode .cv-modal-header {
+    background: #f8fafc !important;
+    color: #0f172a !important;
 }
 
-.cv-modal-body {
+.cv-modal-body,
+body.dark-mode .cv-modal-body {
+    background: #ffffff !important;
     overflow-y: auto;
-    color: #1e293b;
+    color: #1e293b !important;
     line-height: 1.5;
 }
 
-.cv-section-title {
-    font-size: 0.88rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #0f172a;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 4px;
-    margin-bottom: 8px;
-    font-family: var(--font-heading);
+/* Headings inside CV modal (overriding global dark mode white text) */
+.cv-modal-dialog h1,
+.cv-modal-dialog h2,
+.cv-modal-dialog h3,
+.cv-modal-dialog h4,
+.cv-modal-dialog h5,
+.cv-modal-dialog h6,
+body.dark-mode .cv-modal-dialog h1,
+body.dark-mode .cv-modal-dialog h2,
+body.dark-mode .cv-modal-dialog h3,
+body.dark-mode .cv-modal-dialog h4,
+body.dark-mode .cv-modal-dialog h5,
+body.dark-mode .cv-modal-dialog h6 {
+    color: #0f172a !important;
 }
 
-.btn-close-custom {
-    background: transparent;
-    border: none;
-    font-size: 1.1rem;
-    color: #64748b;
+/* Name styling - highlighted, clear, bold */
+.cv-name,
+.cv-header h1,
+body.dark-mode .cv-name,
+body.dark-mode .cv-header h1 {
+    color: #0a0f1d !important;
+    font-size: 2.15rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 4px !important;
+    display: inline-block;
+}
+
+/* Section titles */
+.cv-section-title,
+body.dark-mode .cv-section-title {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    color: #0f172a !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 8px !important;
+    font-family: var(--font-heading) !important;
+    text-transform: uppercase !important;
+}
+
+/* Paragraphs & typography inside CV body */
+.cv-modal-body p,
+body.dark-mode .cv-modal-body p {
+    color: #334155 !important;
+}
+
+.cv-modal-body .text-secondary,
+body.dark-mode .cv-modal-body .text-secondary {
+    color: #475569 !important;
+}
+
+.cv-modal-body .text-muted,
+body.dark-mode .cv-modal-body .text-muted {
+    color: #64748b !important;
+}
+
+.cv-modal-body strong,
+body.dark-mode .cv-modal-body strong,
+.cv-modal-body .fw-bold,
+body.dark-mode .cv-modal-body .fw-bold {
+    color: #0f172a !important;
+}
+
+.cv-modal-body .text-primary,
+body.dark-mode .cv-modal-body .text-primary {
+    color: #0284c7 !important;
+}
+
+.btn-close-custom,
+body.dark-mode .btn-close-custom {
+    background: transparent !important;
+    border: none !important;
+    font-size: 1.1rem !important;
+    color: #64748b !important;
     cursor: pointer;
 }
 
-.btn-close-custom:hover {
-    color: #0f172a;
+.btn-close-custom:hover,
+body.dark-mode .btn-close-custom:hover {
+    color: #0f172a !important;
 }
 
 /* Footer styling */
