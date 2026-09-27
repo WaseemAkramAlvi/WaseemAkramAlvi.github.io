@@ -1,11 +1,20 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAtom, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faCode, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 
-const Footer = () => {
-    const { personalInfo } = portfolioData;
+const Footer = ({ viewMode = 'normal', onToggleViewMode }) => {
+    let portfolio = portfolioData;
+    let setIsAdminOpen = null;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+        if (context?.setIsAdminOpen) setIsAdminOpen = context.setIsAdminOpen;
+    } catch (e) {}
+    const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -17,14 +26,16 @@ const Footer = () => {
                 <div className="row g-4 align-items-center justify-content-between mb-4">
                     <div className="col-md-6 text-center text-md-start">
                         <div className="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
-                            <FontAwesomeIcon icon={faAtom} className="text-cyan fs-5" />
-                            <h5 className="fw-bold mb-0 text-light-emphasis">{personalInfo.name}</h5>
+                            <FontAwesomeIcon icon={viewMode === 'quantum' ? faAtom : faCode} className="text-cyan fs-5" />
+                            <h5 className="fw-bold mb-0 text-light-emphasis">
+                                {viewMode === 'quantum' ? personalInfo.shortName || personalInfo.name : personalInfo.name}
+                            </h5>
                         </div>
                         <p className="text-secondary small mb-1">
-                            {personalInfo.headline}
+                            {viewMode === 'quantum' ? personalInfo.quantumHeadline : personalInfo.normalHeadline}
                         </p>
                         <p className="text-muted small mb-0">
-                            {personalInfo.secondaryPositioning}
+                            {viewMode === 'quantum' ? personalInfo.quantumSubtitle : personalInfo.normalSubtitle}
                         </p>
                     </div>
 
@@ -56,14 +67,52 @@ const Footer = () => {
                                 <FontAwesomeIcon icon={faArrowUp} />
                             </button>
                         </div>
-                        <div className="small text-muted font-mono">
-                            Quantum Computing × AI/ML × Optimization × Software Engineering
+                        <div className="small text-muted font-mono mb-2">
+                            {viewMode === 'quantum' 
+                                ? 'Quantum Computing × AI/ML × Optimization × Software Engineering'
+                                : 'Full-Stack Web Dev × Graphic Design × CBT&A IT Mentoring'}
                         </div>
+                        {onToggleViewMode && (
+                            <div>
+                                {viewMode === 'normal' ? (
+                                    <button
+                                        onClick={() => onToggleViewMode('quantum')}
+                                        className="btn btn-sm btn-link text-cyan p-0 text-decoration-none font-mono small"
+                                    >
+                                        <FontAwesomeIcon icon={faAtom} className="me-1" />
+                                        Special Quantum Research Edition →
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => onToggleViewMode('normal')}
+                                        className="btn btn-sm btn-link text-success p-0 text-decoration-none font-mono small"
+                                    >
+                                        <FontAwesomeIcon icon={faCode} className="me-1" />
+                                        Return to Normal Web Developer Portfolio →
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <div className="border-top border-secondary-subtle pt-3 text-center small text-muted">
-                    &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Professional research &amp; engineering portfolio.
+                <div className="border-top border-secondary-subtle pt-3 d-flex flex-wrap align-items-center justify-content-between gap-2 small text-muted">
+                    <div>
+                        &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Professional portfolio.
+                    </div>
+                    {setIsAdminOpen && (
+                        <div>
+                            <button 
+                                onClick={() => setIsAdminOpen(true)}
+                                className="btn btn-sm btn-link text-muted p-0 text-decoration-none d-inline-flex align-items-center gap-1 font-mono"
+                                style={{ fontSize: '0.78rem' }}
+                                title="Open Content Admin Dashboard (Ctrl+Shift+A)"
+                            >
+                                <FontAwesomeIcon icon={faLock} className="text-secondary" />
+                                <span>Admin Portal</span>
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </footer>

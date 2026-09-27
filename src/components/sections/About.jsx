@@ -9,16 +9,25 @@ import {
     faProjectDiagram, 
     faArrowDown,
     faCheckCircle,
-    faGraduationCap
+    faGraduationCap,
+    faPaintBrush,
+    faChalkboardTeacher,
+    faCode
 } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 
-const About = () => {
-    const { personalInfo } = portfolioData;
+const About = ({ viewMode = 'normal', onToggleViewMode }) => {
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
 
-    const technicalProgression = [
+    const quantumProgression = [
         {
             stage: "Foundation",
             title: "Software Engineering Core",
@@ -49,12 +58,47 @@ const About = () => {
         }
     ];
 
+    const normalProgression = [
+        {
+            stage: "Web Engineering",
+            title: "Full-Stack Web Development",
+            desc: "7+ years crafting scalable web applications with React, JavaScript, PHP, MySQL, Bootstrap, and RESTful API integrations.",
+            icon: faCode,
+            color: "#3b82f6"
+        },
+        {
+            stage: "Creative Design",
+            title: "UI/UX & Graphic Design",
+            desc: "Creating high-fidelity wireframes, branding kits, logos, and digital marketing creatives with Figma, Photoshop & Illustrator.",
+            icon: faPaintBrush,
+            color: "#ec4899"
+        },
+        {
+            stage: "Instruction",
+            title: "CBT&A Technical Education",
+            desc: "Instructor at Govt. Technical Training Institute delivering hands-on training, project-based learning, and freelancing guidance.",
+            icon: faChalkboardTeacher,
+            color: "#10b981"
+        },
+        {
+            stage: "Innovation",
+            title: "AI & Emerging Technologies",
+            desc: "Practical exploration of machine learning pipelines, computer vision models, and generative AI prompt engineering.",
+            icon: faBrain,
+            color: "#8b5cf6"
+        }
+    ];
+
+    const technicalProgression = viewMode === 'quantum' ? quantumProgression : normalProgression;
+
     return (
         <section id="about" className="py-5 about-section">
             <div className="container">
                 <SectionHeader
-                    title="About & Background"
-                    subtitle="Software engineering foundations evolving into quantum-classical research"
+                    title={viewMode === 'quantum' ? "About & Background" : "About Me"}
+                    subtitle={viewMode === 'quantum' 
+                        ? "Software engineering foundations evolving into quantum-classical research" 
+                        : "Software engineer, web developer, graphic designer & CBT&A IT instructor"}
                 />
 
                 <div className="row g-5 align-items-center mb-5">
@@ -68,42 +112,64 @@ const About = () => {
                     >
                         <GlassCard className="p-4 p-md-5 rounded-4 h-100">
                             <div className="d-flex align-items-center gap-2 mb-3 text-cyan">
-                                <FontAwesomeIcon icon={faGraduationCap} />
-                                <span className="text-uppercase small fw-bold tracking-wider">Research Trajectory</span>
+                                <FontAwesomeIcon icon={viewMode === 'quantum' ? faGraduationCap : faLaptopCode} />
+                                <span className="text-uppercase small fw-bold tracking-wider">
+                                    {viewMode === 'quantum' ? 'Research Trajectory' : 'Professional Journey'}
+                                </span>
                             </div>
 
                             <h3 className="fw-bold mb-3">
-                                Bridging Classical Systems with Quantum Optimization
+                                {viewMode === 'quantum' 
+                                    ? "Bridging Classical Systems with Quantum Optimization"
+                                    : "Crafting High-Performance Web Solutions & Digital Identities"}
                             </h3>
 
-                            <p className="text-secondary-emphasis lead fs-6 mb-3">
-                                I am a Software Engineering graduate and an MS/MPhil Computer Science researcher with a dedicated interest in Quantum Computing, Quantum Machine Learning, Artificial Intelligence, and combinatorial optimization.
-                            </p>
+                            {viewMode === 'quantum' ? (
+                                <>
+                                    <p className="text-secondary-emphasis lead fs-6 mb-3">
+                                        I am a Software Engineering graduate and an MS/MPhil Computer Science researcher with a dedicated interest in Quantum Computing, Quantum Machine Learning, Artificial Intelligence, and combinatorial optimization.
+                                    </p>
 
-                            <p className="text-secondary-emphasis mb-3">
-                                My work focuses on exploring how quantum and classical computational techniques can be combined to develop efficient approaches to challenging optimization problems. I am particularly interested in QAOA, quantum neural networks, variational quantum algorithms, hybrid optimization, and simulation-based quantum computing.
-                            </p>
+                                    <p className="text-secondary-emphasis mb-3">
+                                        My work focuses on exploring how quantum and classical computational techniques can be combined to develop efficient approaches to challenging optimization problems. I am particularly interested in QAOA, quantum neural networks, variational quantum algorithms, hybrid optimization, and simulation-based quantum computing.
+                                    </p>
 
-                            <p className="text-secondary-emphasis mb-4">
-                                Alongside research, I bring 7+ years of practical experience across software development, web engineering, database design, AI/ML tools, and technical education as a CBT&A Instructor.
-                            </p>
+                                    <p className="text-secondary-emphasis mb-4">
+                                        Alongside research, I bring 7+ years of practical experience across software development, web engineering, database design, AI/ML tools, and technical education as a CBT&A Instructor.
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-secondary-emphasis lead fs-6 mb-3">
+                                        I hold a BS in Software Engineering from Virtual University of Pakistan and bring 7+ years of hands-on experience across Full-Stack Web Development, UI/UX &amp; Graphic Design, and Technical Education.
+                                    </p>
+
+                                    <p className="text-secondary-emphasis mb-3">
+                                        As an Instructor for Competency-Based Training &amp; Assessment (CBT&amp;A) at Govt. Technical Training Institute and a Developer at CZone Software House, I develop custom responsive web platforms, engineer relational database architectures, and mentor hundreds of aspiring developers in modern web standards, programming, and freelancing.
+                                    </p>
+
+                                    <p className="text-secondary-emphasis mb-4">
+                                        I am passionate about building clean, efficient, and user-centric digital products that solve real-world problems for clients and empower students to thrive in the modern tech ecosystem.
+                                    </p>
+                                </>
+                            )}
 
                             <div className="pt-3 border-top border-secondary-subtle">
                                 <div className="row g-3">
                                     <div className="col-sm-6">
-                                        <div className="small text-muted mb-1">Affiliation</div>
-                                        <div className="small fw-semibold text-light-emphasis">The Islamia University of Bahawalpur</div>
+                                        <div className="small text-muted mb-1">Education</div>
+                                        <div className="small fw-semibold text-light-emphasis">BS Software Engineering (VU)</div>
                                     </div>
                                     <div className="col-sm-6">
-                                        <div className="small text-muted mb-1">Undergraduate</div>
-                                        <div className="small fw-semibold text-light-emphasis">Virtual University of Pakistan</div>
+                                        <div className="small text-muted mb-1">Current Role</div>
+                                        <div className="small fw-semibold text-light-emphasis">Instructor CBT&amp;A (Web Dev)</div>
                                     </div>
                                 </div>
                             </div>
                         </GlassCard>
                     </motion.div>
 
-                    {/* Right Column: Progressive Technical Journey Infographic */}
+                    {/* Right Column: Progressive Journey Roadmap */}
                     <motion.div 
                         className="col-lg-6"
                         initial={{ opacity: 0, x: 30 }}
@@ -114,7 +180,7 @@ const About = () => {
                         <div className="progression-roadmap p-3 p-md-4 rounded-4">
                             <h5 className="fw-bold mb-4 d-flex align-items-center gap-2">
                                 <span className="progression-dot"></span>
-                                Technical Journey & Research Evolution
+                                {viewMode === 'quantum' ? 'Technical Journey & Research Evolution' : 'Core Disciplines & Expertise'}
                             </h5>
 
                             <div className="progression-steps position-relative">

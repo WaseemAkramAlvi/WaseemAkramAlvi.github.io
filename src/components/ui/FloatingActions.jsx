@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUp, faAtom } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faAtom, faCode, faRotateRight } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 
-const FloatingActions = ({ onReplayIntro }) => {
+const FloatingActions = ({ onReplayIntro, viewMode = 'normal', onToggleViewMode }) => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -32,18 +32,45 @@ const FloatingActions = ({ onReplayIntro }) => {
 
     return (
         <div className="floating-actions-container">
-            {/* Replay Quantum Intro Button */}
-            {onReplayIntro && (
+            {/* Quick Switch Mode Button */}
+            {viewMode === 'normal' ? (
                 <motion.button
-                    className="floating-btn intro-replay-btn"
-                    onClick={onReplayIntro}
-                    title="Experience Quantum Intro Animation"
+                    className="floating-btn intro-replay-btn quantum-edition-quick-btn"
+                    onClick={() => onToggleViewMode && onToggleViewMode('quantum')}
+                    title="Switch to Special Quantum Research Edition"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <FontAwesomeIcon icon={faAtom} className="text-cyan" />
+                    <FontAwesomeIcon icon={faAtom} className="text-cyan quantum-spin-hover" />
+                </motion.button>
+            ) : (
+                <motion.button
+                    className="floating-btn intro-replay-btn normal-portfolio-quick-btn"
+                    onClick={() => onToggleViewMode && onToggleViewMode('normal')}
+                    title="Return to Normal Web Developer Portfolio"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <FontAwesomeIcon icon={faCode} className="text-success" />
+                </motion.button>
+            )}
+
+            {/* Replay Intro Button (if in Quantum mode) */}
+            {viewMode === 'quantum' && onReplayIntro && (
+                <motion.button
+                    className="floating-btn intro-replay-btn"
+                    onClick={onReplayIntro}
+                    title="Replay Quantum Intro Animation"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <FontAwesomeIcon icon={faRotateRight} className="text-warning" />
                 </motion.button>
             )}
 

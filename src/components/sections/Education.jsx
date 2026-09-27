@@ -3,11 +3,17 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCalendarAlt, faUniversity, faAtom } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 
 const Education = () => {
-    const { education } = portfolioData;
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const { education } = portfolio;
 
     return (
         <section id="education" className="py-5 education-section">

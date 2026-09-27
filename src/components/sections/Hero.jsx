@@ -11,16 +11,26 @@ import {
     faCode, 
     faCircleCheck,
     faExternalLinkAlt,
-    faUserCheck
+    faUserCheck,
+    faLaptopCode
 } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import TechTicker from './TechTicker';
 import HeroImage from '/assets/WASEEM_PIC.png';
 import QuantumAtom from '../layout/QuantumAtom';
 
-const Hero = ({ onOpenCV }) => {
-    const { personalInfo, stats } = portfolioData;
-    const [visualMode, setVisualMode] = useState('circuit'); // 'circuit', 'atom', or 'photo'
+const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
+    const normalStats = portfolio.normalStats || portfolioData.normalStats;
+    const quantumStats = portfolio.quantumStats || portfolioData.quantumStats;
+    const stats = viewMode === 'quantum' ? quantumStats : normalStats;
+    const [visualMode, setVisualMode] = useState(viewMode === 'quantum' ? 'circuit' : 'photo'); // 'circuit', 'atom', or 'photo'
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -39,61 +49,114 @@ const Hero = ({ onOpenCV }) => {
     };
 
     return (
-        <section className="hero hero-research-theme position-relative overflow-hidden" id="home">
-            {/* Background Ambient Quantum Grid */}
+        <section className={`hero position-relative overflow-hidden ${viewMode === 'quantum' ? 'hero-research-theme' : 'hero-normal-theme'}`} id="home">
+            {/* Background Ambient Grid */}
             <div className="hero-quantum-grid" aria-hidden="true"></div>
 
             <div className="container position-relative py-5" style={{ zIndex: 5 }}>
                 <div className="row align-items-center g-5 min-vh-80">
-                    {/* Left Column: Technical Narrative & Positioning */}
+                    {/* Left Column: Narrative & Positioning */}
                     <div className="col-lg-7 text-center text-lg-start pe-lg-4">
                         <motion.div
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            {/* Academic & Research Badge */}
+                            {/* Role / Focus Badge */}
                             <motion.div variants={itemVariants} className="d-inline-flex align-items-center gap-2 mb-3">
-                                <span className="hero-research-pill">
-                                    <FontAwesomeIcon icon={faAtom} className="text-cyan me-1" />
-                                    Quantum Computing × AI/ML × Optimization
-                                </span>
+                                {viewMode === 'quantum' ? (
+                                    <span className="hero-research-pill">
+                                        <FontAwesomeIcon icon={faAtom} className="text-cyan me-1" />
+                                        Quantum Computing × AI/ML × Optimization
+                                    </span>
+                                ) : (
+                                    <span className="hero-research-pill normal-hero-pill">
+                                        <FontAwesomeIcon icon={faCode} className="text-cyan me-1" />
+                                        Full-Stack Web Dev × Graphic Design × CBT&amp;A Instructor
+                                    </span>
+                                )}
                             </motion.div>
 
                             {/* Main Heading */}
                             <motion.h1 variants={itemVariants} className="hero-research-title mb-3 fw-bold">
-                                Quantum Software Engineer <span className="text-gradient-cyan">&amp;</span> Machine Learning Specialist
+                                {viewMode === 'quantum' ? (
+                                    <>
+                                        Quantum Software Engineer <span className="text-gradient-cyan">&amp;</span> Machine Learning Specialist
+                                    </>
+                                ) : (
+                                    <>
+                                        Full-Stack Web Developer <span className="text-gradient-cyan">&amp;</span> Graphic Designer
+                                    </>
+                                )}
                             </motion.h1>
 
                             {/* Supporting Headline */}
                             <motion.p variants={itemVariants} className="hero-supporting-headline mb-3 fw-medium">
-                                Developing Quantum-Classical Hybrid Systems for Optimization, Quantum Machine Learning, and Intelligent Computing.
+                                {viewMode === 'quantum' 
+                                    ? personalInfo.quantumSubtitle || personalInfo.secondaryPositioning
+                                    : personalInfo.normalSubtitle || personalInfo.secondaryPositioning}
                             </motion.p>
 
                             {/* Factual Short Introduction */}
-                            <motion.p variants={itemVariants} className="hero-intro-text lead mb-4 fs-6">
-                                {personalInfo.summary}
+                            <motion.p variants={itemVariants} className="hero-intro-text lead mb-4 fs-6 text-secondary-emphasis">
+                                {viewMode === 'quantum' ? personalInfo.quantumSummary : personalInfo.normalSummary}
                             </motion.p>
 
                             {/* Call to Actions */}
                             <motion.div variants={itemVariants} className="d-flex gap-3 mb-5 justify-content-center justify-content-lg-start flex-wrap align-items-center">
-                                <a href="#thesis" className="btn btn-custom-cyan px-4 py-2 rounded-pill shadow-lg">
-                                    View My Research
-                                    <FontAwesomeIcon icon={faArrowRight} className="ms-2 small" />
-                                </a>
+                                {viewMode === 'quantum' ? (
+                                    <>
+                                        <a href="#thesis" className="btn btn-custom-cyan px-4 py-2 rounded-pill shadow-lg">
+                                            View My Research
+                                            <FontAwesomeIcon icon={faArrowRight} className="ms-2 small" />
+                                        </a>
 
-                                <a href="#projects" className="btn btn-outline-research px-4 py-2 rounded-pill">
-                                    Explore Projects
-                                </a>
+                                        <a href="#projects" className="btn btn-outline-research px-4 py-2 rounded-pill">
+                                            Explore Projects
+                                        </a>
+                                    </>
+                                ) : (
+                                    <>
+                                        <a href="#projects" className="btn btn-custom-cyan px-4 py-2 rounded-pill shadow-lg">
+                                            Explore Projects
+                                            <FontAwesomeIcon icon={faArrowRight} className="ms-2 small" />
+                                        </a>
+
+                                        <a href="#contact" className="btn btn-outline-research px-4 py-2 rounded-pill">
+                                            Let's Talk
+                                        </a>
+                                    </>
+                                )}
 
                                 <button 
                                     onClick={onOpenCV}
                                     className="btn btn-outline-cv px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2"
-                                    title="View & Download Technical CV"
+                                    title={viewMode === 'quantum' ? "View & Download Quantum Research CV" : "View & Download Full-Stack Developer CV"}
                                 >
-                                    <FontAwesomeIcon icon={faDownload} />
-                                    <span>Download CV</span>
+                                    <FontAwesomeIcon icon={viewMode === 'quantum' ? faAtom : faDownload} />
+                                    <span>{viewMode === 'quantum' ? 'Quantum CV' : 'Download CV'}</span>
                                 </button>
+
+                                {/* Direct toggle to other mode */}
+                                {viewMode === 'normal' ? (
+                                    <button
+                                        onClick={() => onToggleViewMode && onToggleViewMode('quantum')}
+                                        className="btn btn-special-quantum-pill px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2"
+                                        title="Explore Special Quantum Computing & QAOA Research Portfolio"
+                                    >
+                                        <FontAwesomeIcon icon={faAtom} className="text-cyan quantum-spin-hover" />
+                                        <span className="fw-semibold text-white">Quantum Edition →</span>
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => onToggleViewMode && onToggleViewMode('normal')}
+                                        className="btn btn-special-quantum-pill px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2"
+                                        title="Return to Normal Portfolio"
+                                    >
+                                        <FontAwesomeIcon icon={faCode} className="text-success" />
+                                        <span className="fw-semibold text-white">Normal Portfolio →</span>
+                                    </button>
+                                )}
                             </motion.div>
 
                             {/* Key Stats Row */}
@@ -112,7 +175,7 @@ const Hero = ({ onOpenCV }) => {
                         </motion.div>
                     </div>
 
-                    {/* Right Column: Sophisticated Technical Visual (Quantum-Classical Circuit & Graph) */}
+                    {/* Right Column: Visual Showcase */}
                     <div className="col-lg-5 text-center">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.92 }}
@@ -123,31 +186,35 @@ const Hero = ({ onOpenCV }) => {
                             {/* Visual Mode Selector Tabs */}
                             <div className="d-flex justify-content-between align-items-center mb-3 px-2">
                                 <div className="d-flex align-items-center gap-2 small font-mono text-cyan">
-                                    <FontAwesomeIcon icon={faMicrochip} />
-                                    <span>QUANTUM-CLASSICAL CO-PROCESSOR</span>
+                                    <FontAwesomeIcon icon={viewMode === 'quantum' ? faMicrochip : faLaptopCode} />
+                                    <span>{viewMode === 'quantum' ? 'QUANTUM-CLASSICAL CO-PROCESSOR' : 'FULL-STACK SOFTWARE ENGINEER'}</span>
                                 </div>
                                 <div className="btn-group btn-group-sm visual-mode-toggle" role="group">
-                                    <button 
-                                        type="button" 
-                                        className={`btn btn-sm ${visualMode === 'circuit' ? 'btn-cyan-active' : 'btn-ghost'}`}
-                                        onClick={() => setVisualMode('circuit')}
-                                        title="View Quantum Circuit Architecture"
-                                    >
-                                        Circuit
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        className={`btn btn-sm ${visualMode === 'atom' ? 'btn-cyan-active' : 'btn-ghost'}`}
-                                        onClick={() => setVisualMode('atom')}
-                                        title="View 3D Quantum Atom & Orbitals"
-                                    >
-                                        3D Atom
-                                    </button>
+                                    {viewMode === 'quantum' && (
+                                        <>
+                                            <button 
+                                                type="button" 
+                                                className={`btn btn-sm ${visualMode === 'circuit' ? 'btn-cyan-active' : 'btn-ghost'}`}
+                                                onClick={() => setVisualMode('circuit')}
+                                                title="View Quantum Circuit Architecture"
+                                            >
+                                                Circuit
+                                            </button>
+                                            <button 
+                                                type="button" 
+                                                className={`btn btn-sm ${visualMode === 'atom' ? 'btn-cyan-active' : 'btn-ghost'}`}
+                                                onClick={() => setVisualMode('atom')}
+                                                title="View 3D Quantum Atom & Orbitals"
+                                            >
+                                                3D Atom
+                                            </button>
+                                        </>
+                                    )}
                                     <button 
                                         type="button" 
                                         className={`btn btn-sm ${visualMode === 'photo' ? 'btn-cyan-active' : 'btn-ghost'}`}
                                         onClick={() => setVisualMode('photo')}
-                                        title="View Researcher Profile"
+                                        title="View Profile Portrait"
                                     >
                                         Profile
                                     </button>
@@ -279,37 +346,63 @@ const Hero = ({ onOpenCV }) => {
                                     </div>
                                 </div>
                             ) : (
-                                /* Professional Researcher Profile Visual */
-                                <div className="profile-view-wrapper p-3 rounded-3 text-center">
-                                    <div className="hero-photo-frame mx-auto mb-3">
+                                /* Profile Visual */
+                                <div className="profile-view-wrapper p-3 rounded-3 text-center position-relative">
+                                    <div className="hero-photo-frame mx-auto mb-3 position-relative">
                                         <img 
                                             src={HeroImage} 
                                             alt={personalInfo.name} 
                                             className="img-fluid rounded-4 shadow"
-                                            style={{ maxHeight: '280px', objectFit: 'cover' }}
+                                            style={{ maxHeight: '290px', objectFit: 'cover' }}
                                         />
                                     </div>
                                     <h5 className="fw-bold mb-1 text-white">{personalInfo.name}</h5>
-                                    <p className="small text-cyan mb-1 fw-medium">MS / MPhil Computer Science Researcher</p>
-                                    <p className="small text-light-subtle mb-0">The Islamia University of Bahawalpur</p>
+                                    {viewMode === 'quantum' ? (
+                                        <>
+                                            <p className="small text-cyan mb-1 fw-medium">MS / MPhil Computer Science Researcher</p>
+                                            <p className="small text-light-subtle mb-0">The Islamia University of Bahawalpur</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className="small text-cyan mb-1 fw-medium">Full-Stack Web Dev &amp; Graphic Designer</p>
+                                            <p className="small text-light-subtle mb-0">Instructor CBT&amp;A @ Govt. Technical Training Institute</p>
+                                        </>
+                                    )}
                                 </div>
                             )}
 
                             {/* Under-Card Micro Specs */}
-                            <div className="visual-card-footer d-flex justify-content-around text-start mt-3 pt-3 border-top border-secondary-subtle">
-                                <div>
-                                    <span className="d-block text-cyan-light small text-uppercase font-mono">Architecture</span>
-                                    <span className="small fw-semibold text-white">Hybrid QAOA + CVRP</span>
+                            {viewMode === 'quantum' ? (
+                                <div className="visual-card-footer d-flex justify-content-around text-start mt-3 pt-3 border-top border-secondary-subtle">
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Architecture</span>
+                                        <span className="small fw-semibold text-white">Hybrid QAOA + CVRP</span>
+                                    </div>
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Simulators</span>
+                                        <span className="small fw-semibold text-white">Statevector / Aer</span>
+                                    </div>
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Status</span>
+                                        <span className="small fw-semibold text-cyan">Active Research</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span className="d-block text-cyan-light small text-uppercase font-mono">Simulators</span>
-                                    <span className="small fw-semibold text-white">Statevector / Aer</span>
+                            ) : (
+                                <div className="visual-card-footer d-flex justify-content-around text-start mt-3 pt-3 border-top border-secondary-subtle">
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Specialization</span>
+                                        <span className="small fw-semibold text-white">Full-Stack &amp; UI/UX</span>
+                                    </div>
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Tech Stack</span>
+                                        <span className="small fw-semibold text-white">React, PHP, MySQL</span>
+                                    </div>
+                                    <div>
+                                        <span className="d-block text-cyan-light small text-uppercase font-mono">Availability</span>
+                                        <span className="small fw-semibold text-success">Open for Projects</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span className="d-block text-cyan-light small text-uppercase font-mono">Status</span>
-                                    <span className="small fw-semibold text-cyan">Active Research</span>
-                                </div>
-                            </div>
+                            )}
                         </motion.div>
                     </div>
                 </div>

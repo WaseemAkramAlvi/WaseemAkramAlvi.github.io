@@ -10,12 +10,29 @@ import {
 
 export const portfolioData = {
     personalInfo: {
-        name: "Waseem Akram",
-        headline: "Quantum Software Engineer | Machine Learning Specialist",
-        secondaryPositioning: "Developing Quantum-Classical Hybrid Systems | Optimization & Quantum Neural Networks",
-        brandStatement: "Quantum Computing × AI/ML × Optimization × Software Engineering",
-        summary: "I am a Software Engineering graduate and Computer Science researcher working at the intersection of Quantum Computing, Machine Learning, Optimization, and Software Engineering. My current research focuses on developing practical quantum-classical approaches to complex optimization problems using simulation-based quantum computing.",
-        aboutNarrative: "I hold a BS in Software Engineering from Virtual University of Pakistan and am currently pursuing MS/MPhil Computer Science research at The Islamia University of Bahawalpur with a focus on Quantum Computing, Quantum Machine Learning, Artificial Intelligence, and combinatorial optimization.\n\nMy work focuses on exploring how quantum and classical computational techniques can be combined to develop efficient approaches to challenging optimization problems. I am particularly interested in QAOA, quantum neural networks, variational quantum algorithms, hybrid optimization, and simulation-based quantum computing.\n\nAlongside research, I have 7+ years of practical experience across software development, web engineering, database systems, AI/ML tools, and technical education as an Instructor.",
+        name: "Waseem Akram Alvi",
+        shortName: "Waseem Akram",
+        // Normal Portfolio Positioning
+        normalTitle: "Full-Stack Web Developer & Graphic Designer",
+        normalHeadline: "Full-Stack Web Developer | Graphic Designer | CBT&A Instructor",
+        normalSubtitle: "Building High-Performance Web Applications, Digital Brands & Mentoring Emerging Tech Talent",
+        normalSummary: "Passionate Software Engineer, Web Developer, and CBT&A Instructor with 7+ years of hands-on experience across Full-Stack Web Development (React, PHP, MySQL, JavaScript), UI/UX & Graphic Design (Photoshop, Illustrator, Figma), and Technical IT Education.",
+        normalAboutNarrative: "I hold a BS in Software Engineering from Virtual University of Pakistan and bring 7+ years of professional experience across Full-Stack Web Development, UI/UX & Graphic Design, and Technical Education.\n\nAs an Instructor for Competency-Based Training & Assessment (CBT&A) at Govt. Technical Training Institute and a Developer at CZone Software House, I develop custom responsive web platforms, engineer relational database architectures, and mentor hundreds of aspiring developers in modern web standards, programming, and freelancing.\n\nAlongside web engineering and design, I am actively engaged in graduate research in Computer Science at The Islamia University of Bahawalpur, exploring practical applications of artificial intelligence, machine learning, and advanced computing.",
+
+        // Quantum Research Positioning (Special Mode)
+        quantumHeadline: "Quantum Software Engineer | Machine Learning Specialist",
+        quantumSubtitle: "Developing Quantum-Classical Hybrid Systems | Optimization & Quantum Neural Networks",
+        quantumBrandStatement: "Quantum Computing × AI/ML × Optimization × Software Engineering",
+        quantumSummary: "I am a Software Engineering graduate and Computer Science researcher working at the intersection of Quantum Computing, Machine Learning, Optimization, and Software Engineering. My current research focuses on developing practical quantum-classical approaches to complex optimization problems using simulation-based quantum computing.",
+        quantumAboutNarrative: "I hold a BS in Software Engineering from Virtual University of Pakistan and am currently pursuing MS/MPhil Computer Science research at The Islamia University of Bahawalpur with a focus on Quantum Computing, Quantum Machine Learning, Artificial Intelligence, and combinatorial optimization.\n\nMy work focuses on exploring how quantum and classical computational techniques can be combined to develop efficient approaches to challenging optimization problems. I am particularly interested in QAOA, quantum neural networks, variational quantum algorithms, hybrid optimization, and simulation-based quantum computing.\n\nAlongside research, I have 7+ years of practical experience across software development, web engineering, database systems, AI/ML tools, and technical education as an Instructor.",
+
+        // Defaults for backward compatibility
+        headline: "Full-Stack Web Developer | Graphic Designer | CBT&A Instructor",
+        secondaryPositioning: "Building High-Performance Web Applications, Digital Brands & Mentoring Emerging Tech Talent",
+        brandStatement: "Full-Stack Web Dev × Graphic Design × CBT&A IT Mentoring",
+        summary: "Passionate Software Engineer, Web Developer, and CBT&A Instructor with 7+ years of hands-on experience across Full-Stack Web Development (React, PHP, MySQL, JavaScript), UI/UX & Graphic Design (Photoshop, Illustrator, Figma), and Technical IT Education.",
+        aboutNarrative: "I hold a BS in Software Engineering from Virtual University of Pakistan and bring 7+ years of professional experience across Full-Stack Web Development, UI/UX & Graphic Design, and Technical Education.\n\nAs an Instructor for Competency-Based Training & Assessment (CBT&A) at Govt. Technical Training Institute and a Developer at CZone Software House, I develop custom responsive web platforms, engineer relational database architectures, and mentor hundreds of aspiring developers in modern web standards, programming, and freelancing.\n\nAlongside web engineering and design, I am actively engaged in graduate research in Computer Science at The Islamia University of Bahawalpur, exploring practical applications of artificial intelligence, machine learning, and advanced computing.",
+
         email: "waseemgtti@gmail.com",
         phone: "+92 307 5579 807",
         location: "Rahim Yar Khan, Punjab, Pakistan",
@@ -26,11 +43,28 @@ export const portfolioData = {
         ]
     },
 
-    stats: [
+    // Normal Portfolio Stats
+    normalStats: [
+        { value: "7+ Years", label: "Professional Exp" },
+        { value: "50+", label: "Completed Projects" },
+        { value: "10+", label: "Industry Credentials" },
+        { value: "500+", label: "Students Trained" }
+    ],
+
+    // Quantum Research Stats
+    quantumStats: [
         { value: "MS / BS", label: "Academic Track (IUB / VU)" },
         { value: "QAOA & QML", label: "Primary Research Focus" },
         { value: "7+ Years", label: "Software & IT Training" },
         { value: "10+", label: "Industry Credentials" }
+    ],
+
+    // Default stats
+    stats: [
+        { value: "7+ Years", label: "Professional Exp" },
+        { value: "50+", label: "Completed Projects" },
+        { value: "10+", label: "Industry Credentials" },
+        { value: "500+", label: "Students Trained" }
     ],
 
     // 6 Dedicated Research Focus Areas
@@ -131,7 +165,75 @@ export const portfolioData = {
         "Generative AI"
     ],
 
-    // Technical Skills Organized by Category
+    // Normal Portfolio Technical Skills (Web, Design, Programming, AI, Mentoring)
+    normalTechnicalSkills: {
+        web: {
+            title: "Web Development",
+            icon: faCode,
+            color: "#3b82f6",
+            skills: [
+                { name: "React", desc: "Component architecture, custom hooks, state management, modern SPAs" },
+                { name: "JavaScript ES6+", desc: "Async/await, closures, modern ES6+ syntax, API integrations" },
+                { name: "PHP & MySQL", desc: "Server-side scripting, relational schemas, secure CRUD operations" },
+                { name: "HTML5 & CSS3", desc: "Semantic structure, responsive layouts, Flexbox, Grid, CSS animations" },
+                { name: "Bootstrap", desc: "Mobile-first frameworks, utility systems, accessible component kits" },
+                { name: "Node.js & Express", desc: "Backend RESTful APIs, routing middleware, server environments" },
+                { name: "WordPress", desc: "Theme customization, dynamic CMS configuration, responsive design" },
+                { name: "REST APIs", desc: "Endpoint design, JSON protocols, HTTP methods, frontend integration" }
+            ]
+        },
+        design: {
+            title: "Graphic Design & UI/UX",
+            icon: faPaintBrush,
+            color: "#ec4899",
+            skills: [
+                { name: "Figma", desc: "UI/UX wireframing, high-fidelity prototypes, component design systems" },
+                { name: "Adobe Photoshop", desc: "Photo editing, visual composition, marketing banners, social creatives" },
+                { name: "Adobe Illustrator", desc: "Vector graphics, brand identity logos, custom vector illustrations" },
+                { name: "Logo & Brand Identity", desc: "Comprehensive brand identity kits, color theory, typography" },
+                { name: "Social Media Graphics", desc: "Marketing post designs, promotional campaigns, ad creative kits" },
+                { name: "UI/UX Wireframing", desc: "User flows, interaction patterns, accessibility, responsive UI" }
+            ]
+        },
+        programming: {
+            title: "Programming & Databases",
+            icon: faLaptopCode,
+            color: "#10b981",
+            skills: [
+                { name: "PHP", desc: "Object-oriented backend engineering, session auth, data validation" },
+                { name: "JavaScript", desc: "Full-stack scripting, event-driven programming, DOM manipulation" },
+                { name: "Python", desc: "Scripting, algorithm development, data analysis, automation pipelines" },
+                { name: "MySQL", desc: "Relational database modeling, query optimization, indexing, ACID transactions" },
+                { name: "Git & GitHub", desc: "Version control workflows, branch management, collaborative codebases" },
+                { name: "VS Code", desc: "Primary development environment, debugging tools, extensions workflow" }
+            ]
+        },
+        aiml: {
+            title: "AI & Emerging Tech",
+            icon: faBrain,
+            color: "#8b5cf6",
+            skills: [
+                { name: "Machine Learning", desc: "Supervised predictive pipelines, classification, regression with Scikit-learn" },
+                { name: "Computer Vision", desc: "Convolutional neural networks, OpenCV, plant disease detection models" },
+                { name: "Python Data Science", desc: "NumPy, Pandas, Matplotlib, exploratory data analysis workflows" },
+                { name: "Prompt Engineering & GenAI", desc: "LLM orchestration, prompt optimization, AI-assisted development" }
+            ]
+        },
+        mentoring: {
+            title: "CBT&A Training & Mentoring",
+            icon: faChalkboardTeacher,
+            color: "#f59e0b",
+            skills: [
+                { name: "CBT&A Curriculum", desc: "Competency-based training standards, curriculum design for web tech" },
+                { name: "Project-Based Learning", desc: "Leading hands-on capstone projects simulating client deliverables" },
+                { name: "Interactive Instruction", desc: "Technical lab facilitation, live coding sessions, concept reviews" },
+                { name: "Freelancing Coaching", desc: "Profile optimization, client proposals, freelancing marketplace skills" },
+                { name: "Student Assessment", desc: "Skill gap evaluation, structured feedback, practical exams" }
+            ]
+        }
+    },
+
+    // Quantum Research Skills (Special Mode)
     technicalSkills: {
         quantum: {
             title: "Quantum Computing & QML",

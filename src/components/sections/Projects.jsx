@@ -14,39 +14,57 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 import ProjectDetailsModal from '../ui/ProjectDetailsModal';
 
-const Projects = () => {
-    const { projects } = portfolioData;
+const Projects = ({ viewMode = 'normal', onToggleViewMode }) => {
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const projects = portfolio.projects || [];
     const [activeFilter, setActiveFilter] = useState('All');
     const [selectedProject, setSelectedProject] = useState(null);
 
-    const categories = ['All', 'Quantum', 'AI/ML', 'Software', 'Web'];
+    const normalCategories = ['All', 'Web', 'Software', 'AI/ML', 'Design', 'Quantum'];
+    const quantumCategories = ['All', 'Quantum', 'AI/ML', 'Software', 'Web'];
+    const categories = viewMode === 'quantum' ? quantumCategories : normalCategories;
 
     const filteredProjects = activeFilter === 'All' 
         ? projects 
-        : projects.filter(p => p.category.toLowerCase() === activeFilter.toLowerCase());
+        : projects.filter(p => {
+            const pCat = p.category.toLowerCase();
+            const filterCat = activeFilter.toLowerCase();
+            if (filterCat === 'design') return pCat.includes('design') || pCat.includes('web');
+            return pCat === filterCat;
+        });
 
-    const featuredProject = projects.find(p => p.isFeatured) || projects[0];
+    const normalFeatured = projects.find(p => p.id === 'custom-web-engineering') || projects[0];
+    const quantumFeatured = projects.find(p => p.id === 'thesis-qaoa-cvrp') || projects[0];
+    const featuredProject = viewMode === 'quantum' ? quantumFeatured : normalFeatured;
 
     const categoryIcons = {
         Quantum: faAtom,
         'AI/ML': faBrain,
         Software: faLaptopCode,
-        Web: faGlobe
+        Web: faGlobe,
+        Design: faGlobe
     };
 
     return (
         <section id="projects" className="py-5 projects-section">
             <div className="container">
                 <SectionHeader
-                    title="Research & Software Projects"
-                    subtitle="Algorithmic research implementations, machine learning models, and engineering architectures"
+                    title={viewMode === 'quantum' ? "Research & Software Projects" : "Featured Projects & Solutions"}
+                    subtitle={viewMode === 'quantum' 
+                        ? "Algorithmic research implementations, machine learning models, and engineering architectures"
+                        : "Full-stack web applications, dynamic enterprise platforms, and brand identity systems"}
                 />
 
-                {/* Prominent Featured Thesis Project Spotlight */}
+                {/* Prominent Featured Project Spotlight */}
                 <div className="featured-project-spotlight mb-5">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -57,10 +75,10 @@ const Projects = () => {
                         <GlassCard className="p-4 p-md-5 rounded-4 featured-spotlight-card position-relative overflow-hidden">
                             <div className="d-flex align-items-center gap-2 mb-3">
                                 <span className="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 font-mono">
-                                    <FontAwesomeIcon icon={faStar} className="me-1" /> FEATURED RESEARCH PROJECT
+                                    <FontAwesomeIcon icon={faStar} className="me-1" /> {viewMode === 'quantum' ? 'FEATURED RESEARCH PROJECT' : 'FEATURED FULL-STACK SOLUTION'}
                                 </span>
                                 <span className="badge bg-cyan-subtle text-cyan font-mono">
-                                    MS Thesis Implementation
+                                    {featuredProject.badge}
                                 </span>
                             </div>
 
@@ -85,7 +103,7 @@ const Projects = () => {
 
                                     <div className="key-contribution-box p-3 rounded-3 mb-4 bg-dark-subtle border border-secondary-subtle">
                                         <div className="small text-cyan text-uppercase fw-bold font-mono mb-1">
-                                            <FontAwesomeIcon icon={faCheckCircle} className="me-1" /> Key Research Contribution:
+                                            <FontAwesomeIcon icon={faCheckCircle} className="me-1" /> {viewMode === 'quantum' ? 'Key Research Contribution:' : 'Key Engineering Deliverable:'}
                                         </div>
                                         <p className="small text-light-emphasis mb-0">
                                             {featuredProject.keyContribution}
@@ -101,13 +119,23 @@ const Projects = () => {
                                     </div>
 
                                     <div className="d-flex flex-wrap gap-3">
-                                        <a 
-                                            href="#thesis" 
-                                            className="btn btn-custom px-4 py-2 rounded-pill shadow"
-                                        >
-                                            <FontAwesomeIcon icon={faBookOpen} className="me-2" />
-                                            View Research Pipeline
-                                        </a>
+                                        {viewMode === 'quantum' ? (
+                                            <a 
+                                                href="#thesis" 
+                                                className="btn btn-custom px-4 py-2 rounded-pill shadow"
+                                            >
+                                                <FontAwesomeIcon icon={faBookOpen} className="me-2" />
+                                                View Research Pipeline
+                                            </a>
+                                        ) : (
+                                            <a 
+                                                href="#contact" 
+                                                className="btn btn-custom px-4 py-2 rounded-pill shadow"
+                                            >
+                                                <FontAwesomeIcon icon={faGlobe} className="me-2" />
+                                                Discuss Project
+                                            </a>
+                                        )}
 
                                         {featuredProject.github && (
                                             <a 
@@ -134,14 +162,14 @@ const Projects = () => {
                                 <div className="col-lg-4 text-center">
                                     <div className="p-4 rounded-4 bg-dark-subtle border border-cyan-subtle text-center">
                                         <div className="featured-icon-circle mx-auto mb-3">
-                                            <FontAwesomeIcon icon={faAtom} size="3x" className="text-cyan" />
+                                            <FontAwesomeIcon icon={viewMode === 'quantum' ? faAtom : faLaptopCode} size="3x" className="text-cyan" />
                                         </div>
-                                        <h5 className="fw-bold mb-1">QAOA + CVRP</h5>
-                                        <p className="small text-muted mb-3">Qubit-Efficient Hybrid Simulation</p>
+                                        <h5 className="fw-bold mb-1">{viewMode === 'quantum' ? 'QAOA + CVRP' : 'Full-Stack Architecture'}</h5>
+                                        <p className="small text-muted mb-3">{viewMode === 'quantum' ? 'Qubit-Efficient Hybrid Simulation' : 'Modular, Scalable & Secure'}</p>
                                         <div className="p-2 rounded-2 bg-body-tertiary small text-start font-mono text-muted">
-                                            <div>&gt; target: NP-hard Routing</div>
-                                            <div>&gt; mode: Warm-start Mixer</div>
-                                            <div>&gt; framework: Qiskit</div>
+                                            <div>&gt; frontend: {viewMode === 'quantum' ? 'Qiskit Aer' : 'React / Modern UI'}</div>
+                                            <div>&gt; backend: {viewMode === 'quantum' ? 'Warm-start Mixer' : 'PHP & MySQL'}</div>
+                                            <div>&gt; standard: {viewMode === 'quantum' ? 'Combinatorial QUBO' : 'REST APIs & Security'}</div>
                                         </div>
                                     </div>
                                 </div>

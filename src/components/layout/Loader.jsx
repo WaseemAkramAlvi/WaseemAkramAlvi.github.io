@@ -7,14 +7,14 @@ import QuantumAtom from './QuantumAtom';
  * Centerpiece: Interactive 3D Quantum Atom with Electrons Orbiting Nucleus
  * Surrounding: Quantum Telemetry HUD, Dirac Bra-Ket equations, and Coherence Sequencer
  */
-const Loader = ({ onEnter }) => {
+const Loader = ({ onEnter, viewMode = 'normal', onToggleViewMode }) => {
     const [progress, setProgress] = useState(0);
     const [statusMessage, setStatusMessage] = useState('Initializing quantum vacuum state...');
     const [isEntered, setIsEntered] = useState(false);
     const [telemetryFidelity, setTelemetryFidelity] = useState('99.92%');
     const enteredRef = useRef(false);
 
-    // Audio synthesizer for quantum interaction chime
+    // Audio synthesizer for interaction chime
     const playQuantumTone = (freq = 520, duration = 0.35) => {
         try {
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -48,44 +48,57 @@ const Loader = ({ onEnter }) => {
         onEnter();
     };
 
-    // Coherence loading sequencer
+    // Loading sequencer
     useEffect(() => {
         const interval = setInterval(() => {
             setProgress((prev) => {
                 if (prev >= 100) {
                     clearInterval(interval);
-                    setStatusMessage('Quantum Coherence 100% // Ready for Exploration');
+                    setStatusMessage('System Ready // Welcome to Portfolio');
                     setTelemetryFidelity('99.99%');
                     return 100;
                 }
-                const increment = Math.floor(Math.random() * 4) + 2;
+                const increment = viewMode === 'normal' 
+                    ? Math.floor(Math.random() * 8) + 6 
+                    : Math.floor(Math.random() * 4) + 2;
                 const nextVal = Math.min(prev + increment, 100);
 
-                if (nextVal < 25) {
-                    setStatusMessage('Calibrating superconducting transmon qubits...');
-                    setTelemetryFidelity('99.82%');
-                } else if (nextVal < 50) {
-                    setStatusMessage('Constructing QAOA parameterized circuit ansatz...');
-                    setTelemetryFidelity('99.91%');
-                } else if (nextVal < 75) {
-                    setStatusMessage('Applying Hadamard superposition & entangling CNOT gates...');
-                    setTelemetryFidelity('99.95%');
-                } else if (nextVal < 99) {
-                    setStatusMessage('Optimizing hybrid Hamiltonian convergence [COBYLA]...');
-                    setTelemetryFidelity('99.98%');
+                if (viewMode === 'quantum') {
+                    if (nextVal < 25) {
+                        setStatusMessage('Calibrating superconducting transmon qubits...');
+                        setTelemetryFidelity('99.82%');
+                    } else if (nextVal < 50) {
+                        setStatusMessage('Constructing QAOA parameterized circuit ansatz...');
+                        setTelemetryFidelity('99.91%');
+                    } else if (nextVal < 75) {
+                        setStatusMessage('Applying Hadamard superposition & entangling CNOT gates...');
+                        setTelemetryFidelity('99.95%');
+                    } else if (nextVal < 99) {
+                        setStatusMessage('Optimizing hybrid Hamiltonian convergence [COBYLA]...');
+                        setTelemetryFidelity('99.98%');
+                    } else {
+                        setStatusMessage('Quantum Coherence 100% // Ready for Exploration');
+                        setTelemetryFidelity('99.99%');
+                    }
                 } else {
-                    setStatusMessage('Quantum Coherence 100% // Ready for Exploration');
-                    setTelemetryFidelity('99.99%');
+                    if (nextVal < 35) {
+                        setStatusMessage('Loading developer assets & UI styles...');
+                    } else if (nextVal < 70) {
+                        setStatusMessage('Compiling projects & skill frameworks...');
+                    } else {
+                        setStatusMessage('Portfolio Loaded Successfully');
+                    }
                 }
 
                 return nextVal;
             });
-        }, 80);
+        }, viewMode === 'normal' ? 60 : 80);
 
-        // Auto transition after 12 seconds so users have ample time to watch orbits
+        // Auto transition timer (faster for normal mode: 4.5s; 12s for quantum intro)
+        const autoTimeoutDuration = viewMode === 'normal' ? 4500 : 12000;
         const autoTimer = setTimeout(() => {
             triggerEnter();
-        }, 12000);
+        }, autoTimeoutDuration);
 
         // Keydown listener to enter with Space or Enter key
         const handleKeyDown = (e) => {
@@ -100,7 +113,7 @@ const Loader = ({ onEnter }) => {
             clearTimeout(autoTimer);
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [viewMode]);
 
     const handleEnterClick = (e) => {
         e?.stopPropagation();
@@ -111,6 +124,63 @@ const Loader = ({ onEnter }) => {
         playQuantumTone(880, 0.25);
     };
 
+    // NORMAL VIEW LOADER
+    if (viewMode === 'normal') {
+        return (
+            <div className="loader-wrapper normal-portfolio-loader" id="loaderWrapper">
+                <QuantumParticles />
+
+                {/* Floating Developer Skill Badges */}
+                <div className="floating-elements" aria-hidden="true">
+                    <div className="float-skill skill-1"><i className="fab fa-html5" /> HTML5</div>
+                    <div className="float-skill skill-2"><i className="fab fa-css3-alt" /> CSS3</div>
+                    <div className="float-skill skill-3"><i className="fab fa-js" /> JavaScript</div>
+                    <div className="float-skill skill-4"><i className="fab fa-react" /> React</div>
+                    <div className="float-skill skill-5"><i className="fab fa-php" /> PHP</div>
+                    <div className="float-skill skill-6"><i className="fas fa-database" /> MySQL</div>
+                    <div className="float-skill skill-7"><i className="fab fa-figma" /> Figma</div>
+                    <div className="float-skill skill-8"><i className="fab fa-python" /> Python</div>
+                    <div className="float-skill skill-9"><i className="fab fa-bootstrap" /> Bootstrap</div>
+                    <div className="float-skill skill-10"><i className="fab fa-git-alt" /> Git &amp; GitHub</div>
+                    <div className="float-skill skill-11"><i className="fas fa-brain" /> AI &amp; Tech</div>
+                    <div className="float-skill skill-12"><i className="fas fa-chalkboard-teacher" /> CBT&amp;A Training</div>
+                </div>
+
+                <div className="loader-content text-center">
+                    <div className="loader-logo mb-3">
+                        <i className="fas fa-code" style={{ fontSize: '3.5rem', color: '#06b6d4', filter: 'drop-shadow(0 0 16px rgba(6,182,212,0.6))' }} />
+                    </div>
+                    <h1 className="loader-title text-white fw-bold mb-1" style={{ fontSize: '2.2rem' }}>
+                        Waseem Akram Alvi
+                    </h1>
+                    <p className="loader-subtitle text-cyan mb-3 fs-6">
+                        Full-Stack Web Developer &amp; Graphic Designer | CBT&amp;A Instructor
+                    </p>
+                    <div className="loader-progress mb-4">
+                        <div className="loader-progress-bar" style={{ width: `${progress}%` }} />
+                    </div>
+                    <div className="d-flex flex-column align-items-center gap-2">
+                        <button className="btn-enter" id="enterBtn" onClick={handleEnterClick}>
+                            {isEntered ? 'Entering Portfolio...' : 'Enter Portfolio'}
+                        </button>
+                        {onToggleViewMode && (
+                            <button 
+                                type="button" 
+                                onClick={(e) => { e.stopPropagation(); onToggleViewMode('quantum'); }}
+                                className="btn btn-sm text-cyan text-decoration-none mt-2 opacity-75 hover-opacity-100 font-mono"
+                                style={{ background: 'none', border: 'none', fontSize: '0.82rem' }}
+                                title="Switch to special quantum research mode"
+                            >
+                                <i className="fas fa-atom me-1" /> Looking for Special Quantum Edition? Click here
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // QUANTUM RESEARCH INTRO (SPECIAL MODE)
     return (
         <div className="quantum-intro-wrapper" id="loaderWrapper">
             {/* Background Entanglement Particles */}

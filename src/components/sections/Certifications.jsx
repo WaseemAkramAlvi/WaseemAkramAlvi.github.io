@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faAward, faCheckCircle, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 import ibmLogo from '/assets/ibm.svg';
 
 const Certifications = () => {
-    const { certifications, certDetails } = portfolioData;
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const certifications = portfolio.certifications || [];
+    const certDetails = portfolio.certDetails || {};
 
     const [selectedBrand, setSelectedBrand] = useState(null);
 

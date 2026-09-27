@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAtom, faFilePdf, faMoon, faSun, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faCode, faFilePdf, faMoon, faSun, faBars, faTimes, faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 
-const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
-    const { personalInfo } = portfolioData;
+const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'normal', onToggleViewMode }) => {
+    let portfolio = portfolioData;
+    let setIsAdminOpen = null;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+        if (context?.setIsAdminOpen) setIsAdminOpen = context.setIsAdminOpen;
+    } catch (e) {}
+    const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -15,7 +23,7 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navLinks = [
+    const navLinks = viewMode === 'quantum' ? [
         { name: 'Home', href: '#home' },
         { name: 'About', href: '#about' },
         { name: 'Thesis', href: '#thesis' },
@@ -26,6 +34,15 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
         { name: 'Experience', href: '#experience' },
         { name: 'Certifications', href: '#certifications' },
         { name: 'Contact', href: '#contact' }
+    ] : [
+        { name: 'Home', href: '#home' },
+        { name: 'About', href: '#about' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Experience', href: '#experience' },
+        { name: 'Education', href: '#education' },
+        { name: 'Certifications', href: '#certifications' },
+        { name: 'Contact', href: '#contact' }
     ];
 
     const handleNavClick = () => {
@@ -34,7 +51,7 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
 
     return (
         <motion.nav
-            className={`navbar navbar-expand-xl fixed-top research-navbar ${isScrolled ? 'scrolled' : ''}`}
+            className={`navbar navbar-expand-xl fixed-top research-navbar ${isScrolled ? 'scrolled' : ''} ${viewMode === 'quantum' ? 'quantum-navbar-active' : 'normal-navbar-active'}`}
             initial={{ y: -80 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -50,16 +67,19 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
                             onReplayIntro();
                         }
                     }}
-                    title="Click to replay Quantum Intro"
+                    title={viewMode === 'quantum' ? "Click to replay Quantum Intro" : "Waseem Akram Alvi Portfolio"}
                 >
                     <span className="brand-logo-icon">
-                        <FontAwesomeIcon icon={faAtom} className="text-cyan" />
+                        <FontAwesomeIcon 
+                            icon={viewMode === 'quantum' ? faAtom : faCode} 
+                            className="text-cyan" 
+                        />
                     </span>
                     <span className="fw-bold tracking-tight text-light-emphasis">
-                        {personalInfo.name}
+                        {viewMode === 'quantum' ? personalInfo.shortName || personalInfo.name : personalInfo.name}
                     </span>
                     <span className="badge bg-secondary-subtle text-cyan d-none d-sm-inline-block font-mono small">
-                        Quantum &amp; ML
+                        {viewMode === 'quantum' ? 'Quantum & ML' : 'Web Dev & Design'}
                     </span>
                 </a>
 
@@ -88,6 +108,36 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
                             </li>
                         ))}
 
+                        {/* Special Quantum Mode Switch / Return Button */}
+                        <li className="nav-item ms-xl-2 my-2 my-xl-0">
+                            {viewMode === 'quantum' ? (
+                                <button
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        if (onToggleViewMode) onToggleViewMode('normal');
+                                    }}
+                                    className="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2 shadow-sm"
+                                    title="Return to Normal Web Developer & Graphic Designer Portfolio"
+                                >
+                                    <FontAwesomeIcon icon={faLaptopCode} />
+                                    <span className="fw-semibold">Normal View</span>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setIsMobileMenuOpen(false);
+                                        if (onToggleViewMode) onToggleViewMode('quantum');
+                                    }}
+                                    className="btn btn-sm btn-quantum-pill rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2 shadow-sm"
+                                    title="Explore Special Quantum Computing & QAOA Research Portfolio"
+                                >
+                                    <FontAwesomeIcon icon={faAtom} className="text-cyan quantum-spin-hover" />
+                                    <span className="fw-semibold text-white">Quantum Edition</span>
+                                    <span className="badge bg-cyan text-dark font-mono" style={{ fontSize: '0.65rem' }}>Special</span>
+                                </button>
+                            )}
+                        </li>
+
                         {/* CV Button */}
                         <li className="nav-item ms-xl-2 my-2 my-xl-0">
                             <button 
@@ -96,10 +146,10 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro }) => {
                                     if (onOpenCV) onOpenCV();
                                 }}
                                 className="btn btn-sm btn-outline-cyan rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2"
-                                title="Open Curriculum Vitae"
+                                title={viewMode === 'quantum' ? "Open Quantum Research CV" : "Open Full-Stack Developer CV"}
                             >
                                 <FontAwesomeIcon icon={faFilePdf} />
-                                <span>CV</span>
+                                <span>{viewMode === 'quantum' ? "Quantum CV" : "CV"}</span>
                             </button>
                         </li>
 

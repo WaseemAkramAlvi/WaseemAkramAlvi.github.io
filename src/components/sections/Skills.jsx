@@ -1,32 +1,56 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faAtom, faBrain, faCode, faProjectDiagram, faDatabase, faCogs, faCheck, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faAtom, faBrain, faCode, faProjectDiagram, faDatabase, faCogs, faCheck, faLayerGroup, faPaintBrush, faChalkboardTeacher, faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
+import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 
-const Skills = () => {
-    const { technicalSkills } = portfolioData;
-    const categoryKeys = Object.keys(technicalSkills);
-    const [activeKey, setActiveKey] = useState(categoryKeys[0]); // default 'quantum'
+const Skills = ({ viewMode = 'normal' }) => {
+    let portfolio = portfolioData;
+    try {
+        const context = usePortfolioData();
+        if (context?.data) portfolio = context.data;
+    } catch (e) {}
+    const { technicalSkills, normalTechnicalSkills } = portfolio;
+    const skillsSource = viewMode === 'quantum' 
+        ? (technicalSkills || {})
+        : (normalTechnicalSkills || technicalSkills || {});
+
+    const categoryKeys = Object.keys(skillsSource);
+    const [activeKey, setActiveKey] = useState(categoryKeys[0]);
     const [architectureModalOpen, setArchitectureModalOpen] = useState(false);
 
-    const activeCategory = technicalSkills[activeKey];
+    // Keep activeKey aligned if viewMode changes
+    React.useEffect(() => {
+        const keys = Object.keys(skillsSource);
+        if (!keys.includes(activeKey)) {
+            setActiveKey(keys[0]);
+        }
+    }, [viewMode, skillsSource]);
+
+    const activeCategory = skillsSource[activeKey] || skillsSource[categoryKeys[0]] || { title: 'Technical Skills', skills: [] };
 
     const categoryIcons = {
+        web: faCode,
+        design: faPaintBrush,
+        mentoring: faChalkboardTeacher,
         quantum: faAtom,
         aiml: faBrain,
-        programming: faCode,
+        programming: faLaptopCode,
         frameworks: faProjectDiagram,
         databases: faDatabase,
         tools: faCogs
     };
 
     const categoryColors = {
+        web: '#3b82f6',
+        design: '#ec4899',
+        mentoring: '#f59e0b',
         quantum: '#06b6d4',
         aiml: '#8b5cf6',
-        programming: '#3b82f6',
+        programming: '#10b981',
         frameworks: '#10b981',
         databases: '#f59e0b',
         tools: '#ec4899'
@@ -37,14 +61,16 @@ const Skills = () => {
             <div className="container">
                 <SectionHeader
                     title="Technical Expertise"
-                    subtitle="Organized competency matrix across quantum algorithms, machine learning, and software engineering"
+                    subtitle={viewMode === 'quantum' 
+                        ? "Organized competency matrix across quantum algorithms, machine learning, and software engineering"
+                        : "Core competencies across full-stack web engineering, UI/UX design, database architectures, and technical mentoring"}
                 />
 
                 {/* Category Navigation Tabs */}
                 <div className="skills-nav-container mb-5">
                     <div className="d-flex flex-wrap justify-content-center gap-2">
                         {categoryKeys.map((key) => {
-                            const cat = technicalSkills[key];
+                            const cat = skillsSource[key] || {};
                             const isActive = activeKey === key;
                             const color = categoryColors[key] || '#06b6d4';
                             return (
@@ -57,7 +83,7 @@ const Skills = () => {
                                     }}
                                 >
                                     <FontAwesomeIcon icon={categoryIcons[key] || faCode} className="me-2" />
-                                    <span>{cat.title}</span>
+                                    <span>{cat.title || key}</span>
                                 </button>
                             );
                         })}
