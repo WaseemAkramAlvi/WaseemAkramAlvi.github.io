@@ -142,7 +142,9 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'no
                             </button>
                         </li>
 
-                        {/* Theme Toggle Button */}
+                        {/* Theme Toggle Button — hidden in Quantum mode: the Special Research
+                            Edition is a dark-only immersive experience */}
+                        {viewMode !== 'quantum' && (
                         <li className="nav-item ms-xl-2 my-2 my-xl-0">
                             <button
                                 className="theme-toggle btn btn-sm rounded-circle"
@@ -153,6 +155,7 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'no
                                 <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
                             </button>
                         </li>
+                        )}
                     </ul>
                 </div>
             </div>
