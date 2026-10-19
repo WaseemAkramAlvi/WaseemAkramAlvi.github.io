@@ -94,8 +94,8 @@ const Loader = ({ onEnter, viewMode = 'normal', onToggleViewMode }) => {
             });
         }, viewMode === 'normal' ? 60 : 80);
 
-        // Auto transition timer (faster for normal mode: 4.5s; 12s for quantum intro)
-        const autoTimeoutDuration = viewMode === 'normal' ? 4500 : 12000;
+        // Auto transition timer (quick brand flash for normal mode: 1.2s; 12s for quantum intro)
+        const autoTimeoutDuration = viewMode === 'normal' ? 1200 : 12000;
         const autoTimer = setTimeout(() => {
             triggerEnter();
         }, autoTimeoutDuration);
