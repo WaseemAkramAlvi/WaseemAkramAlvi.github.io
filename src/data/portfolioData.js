@@ -119,6 +119,72 @@ export const portfolioData = {
         }
     ],
 
+    // Entry Profiles — shown on the profile selector when the site opens.
+    // Each profile maps to a site viewMode ('normal' | 'quantum') and presets
+    // the hero copy, default project filter and default skills tab.
+    profiles: [
+        {
+            id: "developer",
+            label: "Full Stack Web Developer",
+            icon: faLaptopCode,
+            color: "#3b82f6",
+            tagline: "Web Apps, APIs & Databases",
+            description: "Custom websites, database-driven platforms and client web engineering.",
+            viewMode: "normal",
+            heroBadge: "Full-Stack Web Development",
+            heroLine1: "Full-Stack Web Developer",
+            heroLine2: "Scalable Web Applications",
+            projectFilter: "All",
+            skillsTab: "web"
+        },
+        {
+            id: "designer",
+            label: "Graphics Designer",
+            icon: faPaintBrush,
+            color: "#ec4899",
+            tagline: "Brand Identity & UI/UX Design",
+            description: "Logos, brand kits, UI/UX prototypes and visual design systems.",
+            viewMode: "normal",
+            heroBadge: "Graphic Design & UI/UX",
+            heroLine1: "Graphics Designer",
+            heroLine2: "Brand & Visual Identity",
+            heroSubtitle: "Designing Memorable Brands & Intuitive Digital Experiences",
+            heroSummary: "Visual designer crafting brand identities, marketing creatives and UI/UX prototypes with Photoshop, Illustrator and Figma — from logo systems to production-ready design languages.",
+            projectFilter: "Design",
+            skillsTab: "design"
+        },
+        {
+            id: "instructor",
+            label: "CBT&A Instructor",
+            icon: faChalkboardTeacher,
+            color: "#f59e0b",
+            tagline: "Technical Training & Mentoring",
+            description: "Courses, curriculum and 500+ students trained in web technologies.",
+            viewMode: "normal",
+            heroBadge: "CBT&A Technical Instructor",
+            heroLine1: "CBT&A Instructor",
+            heroLine2: "Mentoring Tech Talent",
+            heroSubtitle: "Training the Next Generation of Developers",
+            heroSummary: "Instructor for Competency-Based Training & Assessment at Govt. Technical Training Institute, mentoring 500+ students through project-based learning in HTML, CSS, JavaScript, PHP, MySQL and freelancing readiness.",
+            projectFilter: "All",
+            skillsTab: "mentoring"
+        },
+        {
+            id: "quantum",
+            label: "Quantum Software Engineer",
+            icon: faAtom,
+            color: "#06b6d4",
+            tagline: "Quantum Computing & QAOA Research",
+            description: "Quantum-classical hybrid systems, optimization and ML research.",
+            viewMode: "quantum",
+            heroBadge: "Quantum Computing × AI/ML × Optimization",
+            heroLine1: "Quantum Software Engineer",
+            heroLine2: "Machine Learning Specialist",
+            projectFilter: "All",
+            skillsTab: "quantum"
+        }
+    ],
+
     // Current Research / Thesis Details
     currentResearch: {
         title: "A Hybrid Decomposition-Based Warm-Started QAOA Framework for Qubit-Efficient Capacitated Vehicle Routing",
