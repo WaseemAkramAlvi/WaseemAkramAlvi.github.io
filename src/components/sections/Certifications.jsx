@@ -97,7 +97,7 @@ const Certifications = () => {
                                 </div>
                                 <h3 className="fw-bold mb-1">{activeBrandData.title}</h3>
                                 <p className="text-muted small">
-                                    {activeBrandData.certs.length} verified certification records
+                                    {activeBrandData.certs.length}{' '}verified certification records
                                 </p>
                             </div>
 
