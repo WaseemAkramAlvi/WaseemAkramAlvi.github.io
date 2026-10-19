@@ -68,6 +68,7 @@ function AppContent() {
       } else {
         url.searchParams.delete('profile');
       }
+      url.hash = ''; // don't carry a stale section hash across profiles
       window.history.pushState({}, '', url.toString());
     } catch (e) {}
     window.scrollTo({ top: 0 });
@@ -121,7 +122,13 @@ function AppContent() {
     selectProfile(null);
   };
 
-  const activeProfileData = (portfolioData.profiles || []).find(p => p.id === profile);
+  // Keep the browser tab title in sync with the active profile
+  useEffect(() => {
+    const label = (portfolioData.profiles || []).find(p => p.id === profile)?.label;
+    document.title = label
+      ? `Waseem Akram | ${label}`
+      : 'Waseem Akram | Full-Stack Web Developer & Graphic Designer';
+  }, [profile]);
 
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'} mode-${viewMode}`}>
@@ -150,24 +157,6 @@ function AppContent() {
           className="main-content zoom-in"
           id="mainContent"
         >
-          {/* Top banner showing the active profile + switch button */}
-          <div className="quantum-mode-banner py-1 px-3 bg-dark-subtle border-bottom border-cyan-subtle">
-            <div className="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <span className="small text-cyan font-mono d-inline-flex align-items-center gap-2">
-                <i className="fas fa-user-check" />
-                <span>Viewing: {activeProfileData ? activeProfileData.label : 'Portfolio'} Profile</span>
-              </span>
-              <button 
-                onClick={() => selectProfile(null)}
-                className="btn btn-sm btn-outline-success rounded-pill py-0 px-3 font-mono"
-                style={{ fontSize: '0.78rem' }}
-                title="Switch to a different profile"
-              >
-                ⇄ Switch Profile
-              </button>
-            </div>
-          </div>
-
           <Navbar 
             darkMode={darkMode} 
             setDarkMode={setDarkMode} 
