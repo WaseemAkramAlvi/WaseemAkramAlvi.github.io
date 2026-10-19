@@ -4,15 +4,12 @@ import { faAtom, faCode, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = ({ viewMode = 'normal', onToggleViewMode }) => {
     let portfolio = portfolioData;
-    let setIsAdminOpen = null;
     try {
         const context = usePortfolioData();
         if (context?.data) portfolio = context.data;
-        if (context?.setIsAdminOpen) setIsAdminOpen = context.setIsAdminOpen;
     } catch (e) {}
     const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
 
@@ -100,19 +97,6 @@ const Footer = ({ viewMode = 'normal', onToggleViewMode }) => {
                     <div>
                         &copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Professional portfolio.
                     </div>
-                    {setIsAdminOpen && (
-                        <div>
-                            <button 
-                                onClick={() => setIsAdminOpen(true)}
-                                className="btn btn-sm btn-link text-muted p-0 text-decoration-none d-inline-flex align-items-center gap-1 font-mono"
-                                style={{ fontSize: '0.78rem' }}
-                                title="Open Content Admin Dashboard (Ctrl+Shift+A)"
-                            >
-                                <FontAwesomeIcon icon={faLock} className="text-secondary" />
-                                <span>Admin Portal</span>
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
         </footer>
