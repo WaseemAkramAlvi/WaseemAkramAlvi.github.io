@@ -244,7 +244,7 @@ const CVModal = ({ isOpen, onClose, viewMode = 'normal', onToggleViewMode }) => 
                                             <span className="fw-bold">Assistant Manager</span>
                                             <span className="text-muted">2015 – 2017</span>
                                         </div>
-                                        <div className="text-primary">Al-Hassan Lajpal Traler Service</div>
+                                        <div className="text-primary">Al-Hassan Lajpal Trailer Service</div>
                                         <p className="text-secondary mb-0">Coordinated daily freight logistics, fleet management schedules, and operational reporting, building practical insight into real-world transport and routing challenges.</p>
                                     </div>
                                 </>
@@ -279,7 +279,7 @@ const CVModal = ({ isOpen, onClose, viewMode = 'normal', onToggleViewMode }) => 
                                             <span className="fw-bold">Assistant Manager</span>
                                             <span className="text-muted">2015 – 2017</span>
                                         </div>
-                                        <div className="text-primary">Al-Hassan Lajpal Traler Service</div>
+                                        <div className="text-primary">Al-Hassan Lajpal Trailer Service</div>
                                         <p className="text-secondary mb-0">Managed daily freight scheduling, fleet operations, consignment records, and customer communications.</p>
                                     </div>
                                 </>
