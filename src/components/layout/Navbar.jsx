@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAtom, faCode, faFilePdf, faMoon, faSun, faBars, faTimes, faLaptopCode } from '@fortawesome/free-solid-svg-icons';
+import { faAtom, faCode, faFilePdf, faMoon, faSun, faBars, faTimes, faLaptopCode, faRepeat } from '@fortawesome/free-solid-svg-icons';
 import { portfolioData } from '../../data/portfolioData';
 import { usePortfolioData } from '../../context/PortfolioDataContext';
 
-const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'normal', onToggleViewMode }) => {
+const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'normal', onToggleViewMode, profile = null, onSelectProfile = null }) => {
     let portfolio = portfolioData;
     let setIsAdminOpen = null;
     try {
@@ -14,6 +14,7 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'no
         if (context?.setIsAdminOpen) setIsAdminOpen = context.setIsAdminOpen;
     } catch (e) {}
     const personalInfo = portfolio.personalInfo || portfolioData.personalInfo;
+    const activeProfileData = (portfolio.profiles || portfolioData.profiles || []).find(p => p.id === profile);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -108,34 +109,22 @@ const Navbar = ({ darkMode, setDarkMode, onOpenCV, onReplayIntro, viewMode = 'no
                             </li>
                         ))}
 
-                        {/* Special Quantum Mode Switch / Return Button */}
+                        {/* Profile Switcher — jump back to the profile selector */}
                         <li className="nav-item ms-xl-2 my-2 my-xl-0">
-                            {viewMode === 'quantum' ? (
-                                <button
-                                    onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        if (onToggleViewMode) onToggleViewMode('normal');
-                                    }}
-                                    className="btn btn-sm btn-outline-success rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2 shadow-sm"
-                                    title="Return to Normal Web Developer & Graphic Designer Portfolio"
-                                >
-                                    <FontAwesomeIcon icon={faLaptopCode} />
-                                    <span className="fw-semibold">Normal View</span>
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={() => {
-                                        setIsMobileMenuOpen(false);
-                                        if (onToggleViewMode) onToggleViewMode('quantum');
-                                    }}
-                                    className="btn btn-sm btn-quantum-pill rounded-pill px-3 py-1.5 d-inline-flex align-items-center gap-2 shadow-sm"
-                                    title="Explore Special Quantum Computing & QAOA Research Portfolio"
-                                >
-                                    <FontAwesomeIcon icon={faAtom} className="text-cyan quantum-spin-hover" />
-                                    <span className="fw-semibold text-white">Quantum Edition</span>
-                                    <span className="badge bg-cyan text-dark font-mono" style={{ fontSize: '0.65rem' }}>Special</span>
-                                </button>
-                            )}
+                            <button
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    if (onSelectProfile) onSelectProfile(null);
+                                }}
+                                className="profile-switcher-btn"
+                                title="Switch to a different profile"
+                            >
+                                {activeProfileData && (
+                                    <FontAwesomeIcon icon={activeProfileData.icon} style={{ color: activeProfileData.color }} />
+                                )}
+                                <span className="fw-semibold">{activeProfileData ? activeProfileData.label : 'Profile'}</span>
+                                <FontAwesomeIcon icon={faRepeat} className="small opacity-75" />
+                            </button>
                         </li>
 
                         {/* CV Button */}
