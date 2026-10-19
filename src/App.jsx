@@ -150,7 +150,7 @@ function AppContent() {
           className="main-content zoom-in"
           id="mainContent"
         >
-          {/* Top banner showing the active profile */}
+          {/* Top banner showing the active profile + switch button */}
           <div className="quantum-mode-banner py-1 px-3 bg-dark-subtle border-bottom border-cyan-subtle">
             <div className="container d-flex justify-content-between align-items-center flex-wrap gap-2">
               <span className="small text-cyan font-mono d-inline-flex align-items-center gap-2">
@@ -167,26 +167,6 @@ function AppContent() {
               </button>
             </div>
           </div>
-
-          {/* Top banner if in Special Quantum Mode */}
-          {viewMode === 'quantum' && (
-            <div className="quantum-mode-banner py-1 px-3 bg-dark-subtle border-bottom border-cyan-subtle">
-              <div className="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <span className="small text-cyan font-mono d-inline-flex align-items-center gap-2">
-                  <i className="fas fa-atom" />
-                  <span>Viewing: Special Quantum Research Edition</span>
-                </span>
-                <button 
-                  onClick={() => handleToggleViewMode('normal')}
-                  className="btn btn-sm btn-outline-success rounded-pill py-0 px-3 font-mono"
-                  style={{ fontSize: '0.78rem' }}
-                  title="Switch to Normal Web Developer Portfolio"
-                >
-                  ← Return to Normal Portfolio
-                </button>
-              </div>
-            </div>
-          )}
 
           <Navbar 
             darkMode={darkMode} 
