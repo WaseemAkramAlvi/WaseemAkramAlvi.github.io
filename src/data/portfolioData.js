@@ -327,7 +327,7 @@ export const portfolioData = {
             technology: ["Python", "Qiskit", "QAOA", "Combinatorial Optimization", "CVRP", "Quantum Simulation"],
             description: "A research-oriented hybrid quantum-classical framework exploring decomposition and warm-start strategies for solving capacitated vehicle routing problems while reducing quantum resource requirements.",
             keyContribution: "Formulated a problem-decomposition and warm-started initialization pipeline that significantly scales down required qubit registers, enabling simulation-based evaluation of routing instances.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: "#research-thesis"
         },
@@ -341,7 +341,7 @@ export const portfolioData = {
             technology: ["Python", "TensorFlow", "OpenCV", "Flask", "Scikit-learn"],
             description: "AI-powered diagnostic system that utilizes convolutional neural network models to identify leaf plant diseases from visual imagery and suggest preventive remedies.",
             keyContribution: "Trained and evaluated deep neural classifiers on plant disease datasets, integrating preprocessing pipelines and an accessible diagnostic interface.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: null
         },
@@ -355,7 +355,7 @@ export const portfolioData = {
             technology: ["React", "PHP", "MySQL", "Bootstrap", "REST APIs"],
             description: "A comprehensive digital administration platform supporting multi-role access (administrators, instructors, students) with attendance, examination tracking, and reporting.",
             keyContribution: "Designed modular relational database architecture, role-based authentication, and responsive administrative dashboards.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: null
         },
@@ -369,7 +369,7 @@ export const portfolioData = {
             technology: ["React", "PHP", "MySQL", "JavaScript"],
             description: "A centralized logistics tracking application for vehicle allocation, consignment logging, route coordination, and operational fleet analytics.",
             keyContribution: "Implemented fleet scheduling logic, shipment status lifecycle management, and relational tracking tables.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: null
         },
@@ -383,7 +383,7 @@ export const portfolioData = {
             technology: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3", "Bootstrap"],
             description: "Developed custom dynamic websites and content platforms at CZone Software House tailored to client requirements with clean backend scripting and secure data handling.",
             keyContribution: "Engineered performant, responsive web interfaces and server-side CRUD modules adhering to web standards.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: null
         },
@@ -397,7 +397,7 @@ export const portfolioData = {
             technology: ["Figma", "Adobe Photoshop", "Illustrator", "Design Systems"],
             description: "End-to-end design systems, high-fidelity prototypes, and brand collateral for software applications and organizations (including iAXON branding).",
             keyContribution: "Established comprehensive component libraries, user journey wireframes, and production-ready visual brand guidelines.",
-            github: "https://github.com/WaseemAkramAlvi",
+            github: null, // TODO: add the real repository URL here when published
             demo: null,
             documentation: null
         }
@@ -442,7 +442,7 @@ export const portfolioData = {
         {
             date: "2015 - 2017",
             role: "Assistant Manager",
-            company: "Al-Hassan Lajpal Traler Service",
+            company: "Al-Hassan Lajpal Trailer Service",
             location: "Rahim Yar Khan, Pakistan",
             desc: "Coordinated daily freight logistics, fleet management schedules, and operational reporting, building practical insight into real-world transport and routing challenges."
         }
