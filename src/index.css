@@ -6503,6 +6503,22 @@ body.dark-mode .cert-modal .lightning-card::after {
     color: #64748b;
 }
 
+/* The selector is intentionally always dark — shield it from the global
+   light-mode heading/paragraph color overrides */
+.light-mode .profile-selector-title {
+    color: #f8fafc !important;
+}
+
+.light-mode .profile-selector-subtitle,
+.light-mode .profile-selector-note {
+    color: #94a3b8 !important;
+}
+
+.light-mode .profile-selector-eyebrow {
+    color: #67e8f9 !important;
+    border-color: rgba(103, 232, 249, 0.35);
+}
+
 /* Navbar profile switcher pill */
 .profile-switcher-btn {
     display: inline-flex;
