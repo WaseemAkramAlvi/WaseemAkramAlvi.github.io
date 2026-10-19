@@ -56,7 +56,7 @@ const Contact = () => {
             <div className="container">
                 <SectionHeader
                     title="Get In Touch"
-                    subtitle="Open to academic research collaborations, MS/PhD opportunities, and technical consulting"
+                    subtitle="Available for freelance projects, full-time roles, and technical consulting"
                 />
 
                 <div className="row justify-content-center">
@@ -68,7 +68,7 @@ const Contact = () => {
                                     <div>
                                         <h4 className="fw-bold mb-3 text-light-emphasis">Contact Information</h4>
                                         <p className="text-secondary-emphasis small mb-4">
-                                            Feel free to reach out regarding quantum computing research, variational optimization, machine learning projects, or technical opportunities.
+                                            Feel free to reach out regarding web development projects, UI/UX design work, or technical collaboration.
                                         </p>
 
                                         <div className="contact-details-list d-flex flex-column gap-3 mb-4">
@@ -112,7 +112,7 @@ const Contact = () => {
 
                                     {/* Social Connect */}
                                     <div className="pt-3 border-top border-secondary-subtle">
-                                        <div className="small text-muted mb-2 text-uppercase font-mono">Academic &amp; Professional Profiles</div>
+                                        <div className="small text-muted mb-2 text-uppercase font-mono">Professional Profiles</div>
                                         <div className="d-flex gap-2">
                                             <a
                                                 href="https://www.linkedin.com/in/waseemakramalvi/"
@@ -169,7 +169,7 @@ const Contact = () => {
                                                     value={formState.name}
                                                     onChange={handleInputChange}
                                                     className="form-control form-input-research"
-                                                    placeholder="e.g. Dr. John Doe"
+                                                    placeholder="e.g. Ahmed Khan"
                                                     required
                                                 />
                                             </div>
@@ -181,7 +181,7 @@ const Contact = () => {
                                                     value={formState.email}
                                                     onChange={handleInputChange}
                                                     className="form-control form-input-research"
-                                                    placeholder="e.g. jdoe@institution.edu"
+                                                    placeholder="e.g. ahmed@company.com"
                                                     required
                                                 />
                                             </div>
@@ -193,7 +193,7 @@ const Contact = () => {
                                                     value={formState.subject}
                                                     onChange={handleInputChange}
                                                     className="form-control form-input-research"
-                                                    placeholder="Research Inquiry / Collaboration / Opportunity"
+                                                    placeholder="Website Project / Redesign / Hire"
                                                     required
                                                 />
                                             </div>
