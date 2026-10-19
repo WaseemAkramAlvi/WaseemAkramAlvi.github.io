@@ -4,7 +4,7 @@ import CustomCursor from './components/layout/CustomCursor';
 import ScrollProgress from './components/layout/ScrollProgress';
 
 // Layout Components
-import Loader from './components/layout/Loader';
+import ProfileSelector from './components/layout/ProfileSelector';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
@@ -27,61 +27,69 @@ import FloatingActions from './components/ui/FloatingActions';
 import CVModal from './components/ui/CVModal';
 import AdminDashboard from './components/admin/AdminDashboard';
 import { PortfolioDataProvider } from './context/PortfolioDataContext';
+import { portfolioData } from './data/portfolioData';
 
 import './index.css';
 import './App.css';
 
-function AppContent() {
-  // Determine initial view mode: 'quantum' if ?mode=quantum or #quantum, else default to 'normal'
-  const [viewMode, setViewMode] = useState(() => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const modeParam = params.get('mode') || params.get('view');
-      if (modeParam === 'quantum' || window.location.hash === '#quantum') {
-        return 'quantum';
-      }
-    } catch (e) {}
-    return 'normal'; // Default to Normal Portfolio view!
-  });
+const PROFILE_IDS = ['developer', 'designer', 'instructor', 'quantum'];
 
-  const [isLoaded, setIsLoaded] = useState(false);
+function readInitialProfile() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('profile');
+    if (PROFILE_IDS.includes(p)) return p;
+    // Legacy support: ?mode=quantum / #quantum deep links
+    const modeParam = params.get('mode') || params.get('view');
+    if (modeParam === 'quantum' || window.location.hash === '#quantum') {
+      return 'quantum';
+    }
+  } catch (e) {}
+  return null; // null => show the profile selector entry gate
+}
+
+function AppContent() {
+  // Active profile: 'developer' | 'designer' | 'instructor' | 'quantum' | null (selector)
+  const [profile, setProfile] = useState(readInitialProfile);
+  // viewMode is derived from the profile: only 'quantum' uses the research edition
+  const viewMode = profile === 'quantum' ? 'quantum' : 'normal';
+
   // Default to Dark Mode as primary theme
   const [darkMode, setDarkMode] = useState(true);
-  const [showMainContent, setShowMainContent] = useState(false);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
-  // Sync mode changes with URL without full page reload
-  const handleToggleViewMode = (targetMode) => {
-    const nextMode = targetMode || (viewMode === 'normal' ? 'quantum' : 'normal');
-    setViewMode(nextMode);
+  // Select a profile (or null to go back to the selector)
+  const selectProfile = (id) => {
+    setProfile(id);
     try {
       const url = new URL(window.location.href);
-      if (nextMode === 'quantum') {
-        url.searchParams.set('mode', 'quantum');
-        window.history.pushState({ mode: 'quantum' }, '', url.toString());
+      if (id) {
+        url.searchParams.set('profile', id);
       } else {
-        url.searchParams.delete('mode');
-        url.searchParams.delete('view');
-        if (url.hash === '#quantum') {
-          url.hash = '';
-        }
-        window.history.pushState({ mode: 'normal' }, '', url.pathname + (url.search ? url.search : '') + url.hash);
+        url.searchParams.delete('profile');
       }
+      window.history.pushState({}, '', url.toString());
     } catch (e) {}
+    window.scrollTo({ top: 0 });
+  };
+
+  // Sync mode changes with URL without full page reload (kept for legacy toggle buttons)
+  const handleToggleViewMode = (targetMode) => {
+    const nextMode = targetMode || (viewMode === 'normal' ? 'quantum' : 'normal');
+    if (nextMode === 'quantum') {
+      selectProfile('quantum');
+    } else {
+      selectProfile(profile === 'quantum' ? 'developer' : (profile || 'developer'));
+    }
   };
 
   // Listen for browser popstate or hashchange
   useEffect(() => {
     const handleUrlChange = () => {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const modeParam = params.get('mode') || params.get('view');
-        if (modeParam === 'quantum' || window.location.hash === '#quantum') {
-          setViewMode('quantum');
-        } else {
-          setViewMode('normal');
-        }
-      } catch (e) {}
+      const next = readInitialProfile();
+      // Only react when the URL actually names a profile; back-button to the
+      // bare URL keeps the current profile instead of bouncing to the selector.
+      if (next) setProfile(next);
     };
 
     window.addEventListener('popstate', handleUrlChange);
@@ -108,17 +116,12 @@ function AppContent() {
     }
   }, [darkMode]);
 
-  const handleEnter = () => {
-    setIsLoaded(true);
-    document.body.style.overflow = 'auto';
-    setShowMainContent(true);
+  // "Replay intro" now returns to the profile selector (acts as profile switcher)
+  const handleReplayIntro = () => {
+    selectProfile(null);
   };
 
-  const handleReplayIntro = () => {
-    setIsLoaded(false);
-    setShowMainContent(false);
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  };
+  const activeProfileData = (portfolioData.profiles || []).find(p => p.id === profile);
 
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'} mode-${viewMode}`}>
@@ -127,30 +130,44 @@ function AppContent() {
       <ParticlesBackground />
       
       <AnimatePresence mode="wait">
-        {!isLoaded && (
+        {!profile ? (
           <motion.div
-            key={`loader-${viewMode}`}
-            initial={{ opacity: 1 }}
+            key="profile-selector"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <Loader 
-              onEnter={handleEnter} 
-              viewMode={viewMode} 
-              onToggleViewMode={handleToggleViewMode} 
-            />
+            <ProfileSelector onSelect={selectProfile} />
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      {isLoaded && (
+        ) : (
         <motion.div
+          key={`main-${profile}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className={`main-content ${showMainContent ? 'zoom-in' : ''}`}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="main-content zoom-in"
           id="mainContent"
         >
+          {/* Top banner showing the active profile */}
+          <div className="quantum-mode-banner py-1 px-3 bg-dark-subtle border-bottom border-cyan-subtle">
+            <div className="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <span className="small text-cyan font-mono d-inline-flex align-items-center gap-2">
+                <i className="fas fa-user-check" />
+                <span>Viewing: {activeProfileData ? activeProfileData.label : 'Portfolio'} Profile</span>
+              </span>
+              <button 
+                onClick={() => selectProfile(null)}
+                className="btn btn-sm btn-outline-success rounded-pill py-0 px-3 font-mono"
+                style={{ fontSize: '0.78rem' }}
+                title="Switch to a different profile"
+              >
+                ⇄ Switch Profile
+              </button>
+            </div>
+          </div>
+
           {/* Top banner if in Special Quantum Mode */}
           {viewMode === 'quantum' && (
             <div className="quantum-mode-banner py-1 px-3 bg-dark-subtle border-bottom border-cyan-subtle">
@@ -178,6 +195,8 @@ function AppContent() {
             onReplayIntro={handleReplayIntro}
             viewMode={viewMode}
             onToggleViewMode={handleToggleViewMode}
+            profile={profile}
+            onSelectProfile={selectProfile}
           />
 
           <main id="main-portfolio-flow">
@@ -185,6 +204,7 @@ function AppContent() {
               onOpenCV={() => setIsCVOpen(true)} 
               viewMode={viewMode}
               onToggleViewMode={handleToggleViewMode}
+              profile={profile}
             />
 
             <About 
@@ -237,11 +257,13 @@ function AppContent() {
             <Projects 
               viewMode={viewMode}
               onToggleViewMode={handleToggleViewMode}
+              profile={profile}
             />
 
             <Skills 
               viewMode={viewMode}
               onToggleViewMode={handleToggleViewMode}
+              profile={profile}
             />
 
             <Experience />
@@ -268,7 +290,8 @@ function AppContent() {
             onToggleViewMode={handleToggleViewMode}
           />
         </motion.div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Floating Action Buttons */}
       <FloatingActions 
