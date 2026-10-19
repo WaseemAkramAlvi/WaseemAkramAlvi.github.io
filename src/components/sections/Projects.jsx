@@ -19,14 +19,17 @@ import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 import ProjectDetailsModal from '../ui/ProjectDetailsModal';
 
-const Projects = ({ viewMode = 'normal', onToggleViewMode }) => {
+const Projects = ({ viewMode = 'normal', onToggleViewMode, profile = null }) => {
     let portfolio = portfolioData;
     try {
         const context = usePortfolioData();
         if (context?.data) portfolio = context.data;
     } catch (e) {}
     const projects = portfolio.projects || [];
-    const [activeFilter, setActiveFilter] = useState('All');
+    const profileList = portfolio.profiles || portfolioData.profiles || [];
+    const activeProfileData = profileList.find(p => p.id === profile) || null;
+    // Default project filter follows the active profile (e.g. Designer → Design tab)
+    const [activeFilter, setActiveFilter] = useState(activeProfileData?.projectFilter || 'All');
     const [selectedProject, setSelectedProject] = useState(null);
 
     const normalCategories = ['All', 'Web', 'Software', 'AI/ML', 'Design', 'Quantum'];
