@@ -20,7 +20,7 @@ import TechTicker from './TechTicker';
 import HeroImage from '/assets/WASEEM_PIC.png';
 import QuantumAtom from '../layout/QuantumAtom';
 
-const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
+const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode, profile = null }) => {
     let portfolio = portfolioData;
     try {
         const context = usePortfolioData();
@@ -30,6 +30,14 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
     const normalStats = portfolio.normalStats || portfolioData.normalStats;
     const quantumStats = portfolio.quantumStats || portfolioData.quantumStats;
     const stats = viewMode === 'quantum' ? quantumStats : normalStats;
+    // Active profile config (drives hero copy per profile)
+    const profileList = portfolio.profiles || portfolioData.profiles || [];
+    const activeProfileData = profileList.find(p => p.id === profile) || null;
+    const heroBadge = activeProfileData?.heroBadge;
+    const heroLine1 = activeProfileData?.heroLine1;
+    const heroLine2 = activeProfileData?.heroLine2;
+    const heroSubtitle = activeProfileData?.heroSubtitle;
+    const heroSummary = activeProfileData?.heroSummary;
     const [visualMode, setVisualMode] = useState(viewMode === 'quantum' ? 'circuit' : 'photo'); // 'circuit', 'atom', or 'photo'
 
     const containerVariants = {
@@ -62,9 +70,16 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
                             initial="hidden"
                             animate="visible"
                         >
-                            {/* Role / Focus Badge */}
+                            {/* Role / Focus Badge — driven by the active profile */}
                             <motion.div variants={itemVariants} className="d-inline-flex align-items-center gap-2 mb-3">
-                                {viewMode === 'quantum' ? (
+                                {heroBadge ? (
+                                    <span className="hero-research-pill normal-hero-pill">
+                                        {activeProfileData.icon && (
+                                            <FontAwesomeIcon icon={activeProfileData.icon} className="text-cyan me-1" />
+                                        )}
+                                        {heroBadge}
+                                    </span>
+                                ) : viewMode === 'quantum' ? (
                                     <span className="hero-research-pill">
                                         <FontAwesomeIcon icon={faAtom} className="text-cyan me-1" />
                                         Quantum Computing × AI/ML × Optimization
@@ -77,9 +92,13 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
                                 )}
                             </motion.div>
 
-                            {/* Main Heading */}
+                            {/* Main Heading — driven by the active profile */}
                             <motion.h1 variants={itemVariants} className="hero-research-title mb-3 fw-bold">
-                                {viewMode === 'quantum' ? (
+                                {heroLine1 ? (
+                                    <>
+                                        {heroLine1} <span className="text-gradient-cyan">&amp;</span> {heroLine2}
+                                    </>
+                                ) : viewMode === 'quantum' ? (
                                     <>
                                         Quantum Software Engineer <span className="text-gradient-cyan">&amp;</span> Machine Learning Specialist
                                     </>
@@ -92,14 +111,14 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode }) => {
 
                             {/* Supporting Headline */}
                             <motion.p variants={itemVariants} className="hero-supporting-headline mb-3 fw-medium">
-                                {viewMode === 'quantum' 
+                                {heroSubtitle || (viewMode === 'quantum' 
                                     ? personalInfo.quantumSubtitle || personalInfo.secondaryPositioning
-                                    : personalInfo.normalSubtitle || personalInfo.secondaryPositioning}
+                                    : personalInfo.normalSubtitle || personalInfo.secondaryPositioning)}
                             </motion.p>
 
                             {/* Factual Short Introduction */}
                             <motion.p variants={itemVariants} className="hero-intro-text lead mb-4 fs-6 text-secondary-emphasis">
-                                {viewMode === 'quantum' ? personalInfo.quantumSummary : personalInfo.normalSummary}
+                                {heroSummary || (viewMode === 'quantum' ? personalInfo.quantumSummary : personalInfo.normalSummary)}
                             </motion.p>
 
                             {/* Call to Actions */}
