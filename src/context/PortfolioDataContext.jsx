@@ -170,7 +170,7 @@ export const PortfolioDataProvider = ({ children }) => {
       } catch (e) {}
       return { success: true };
     }
-    return { success: false, error: 'Incorrect PIN. Default PIN is 1234.' };
+    return { success: false, error: 'Incorrect PIN. Please try again.' };
   };
 
   const logout = () => {
