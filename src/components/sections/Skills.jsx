@@ -7,7 +7,7 @@ import { usePortfolioData } from '../../context/PortfolioDataContext';
 import SectionHeader from '../ui/SectionHeader';
 import GlassCard from '../ui/GlassCard';
 
-const Skills = ({ viewMode = 'normal' }) => {
+const Skills = ({ viewMode = 'normal', profile = null }) => {
     let portfolio = portfolioData;
     try {
         const context = usePortfolioData();
@@ -18,8 +18,15 @@ const Skills = ({ viewMode = 'normal' }) => {
         ? (technicalSkills || {})
         : (normalTechnicalSkills || technicalSkills || {});
 
+    const profileList = portfolio.profiles || portfolioData.profiles || [];
+    const activeProfileData = profileList.find(p => p.id === profile) || null;
+
     const categoryKeys = Object.keys(skillsSource);
-    const [activeKey, setActiveKey] = useState(categoryKeys[0]);
+    // Default skills tab follows the active profile (e.g. Designer → Graphic Design & UI/UX)
+    const defaultKey = (activeProfileData?.skillsTab && categoryKeys.includes(activeProfileData.skillsTab))
+        ? activeProfileData.skillsTab
+        : categoryKeys[0];
+    const [activeKey, setActiveKey] = useState(defaultKey);
     const [architectureModalOpen, setArchitectureModalOpen] = useState(false);
 
     // Keep activeKey aligned if viewMode changes
