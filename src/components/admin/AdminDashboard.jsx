@@ -318,7 +318,7 @@ const AdminDashboard = () => {
                   <input
                     type={showPin ? "text" : "password"}
                     className="admin-form-input text-center font-mono fs-5"
-                    placeholder="Enter PIN (Default: 1234)"
+                    placeholder="Enter PIN"
                     value={pinInput}
                     onChange={(e) => setPinInput(e.target.value)}
                     autoFocus
@@ -331,9 +331,6 @@ const AdminDashboard = () => {
                   >
                     <FontAwesomeIcon icon={showPin ? faEyeSlash : faEye} />
                   </button>
-                </div>
-                <div className="small text-muted mt-2 text-center">
-                  Default PIN: <strong className="text-cyan">1234</strong>
                 </div>
               </div>
 
