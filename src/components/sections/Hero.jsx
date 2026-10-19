@@ -164,7 +164,7 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode, profile = null 
                                         title="Explore Special Quantum Computing & QAOA Research Portfolio"
                                     >
                                         <FontAwesomeIcon icon={faAtom} className="text-cyan quantum-spin-hover" />
-                                        <span className="fw-semibold text-white">Quantum Edition →</span>
+                                        <span className="fw-semibold">Quantum Edition →</span>
                                     </button>
                                 ) : (
                                     <button
@@ -173,7 +173,7 @@ const Hero = ({ onOpenCV, viewMode = 'normal', onToggleViewMode, profile = null 
                                         title="Return to Normal Portfolio"
                                     >
                                         <FontAwesomeIcon icon={faCode} className="text-success" />
-                                        <span className="fw-semibold text-white">Normal Portfolio →</span>
+                                        <span className="fw-semibold">Normal Portfolio →</span>
                                     </button>
                                 )}
                             </motion.div>
